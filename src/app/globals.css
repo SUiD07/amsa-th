@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    scroll-behavior: smooth;
+    scroll-padding: 60px;
+  };

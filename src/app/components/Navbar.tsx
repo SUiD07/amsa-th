@@ -19,7 +19,7 @@ const Navbar: React.FC = () => {
         <div className="m-2 p-2 text-white text-sm rounded-full max-sm:hidden">
           {NavList.map((item,itemIndex) => (
             
-            <a key={itemIndex} className="m-2 hover:font-bold">{item.name}</a>
+            <a href={item.ref}key={itemIndex} className="m-2 hover:font-bold">{item.name}</a>
           ))}
         </div>
         {/* mobile */}
@@ -57,7 +57,7 @@ const Navbar: React.FC = () => {
         {isOpen && (
           <div className="transition ease-in-out dealay-150 left-0 right-0 rounded-lg flex flex-col items-center shadow-md bg-white fixed md:hidden my-12 mx-5">
             {NavList.map((item) => (
-              <a className="m-2 hover:font-bold">{item.name}</a>
+              <a href={item.ref} className="m-2 hover:font-bold">{item.name}</a>
             ))}
           </div>
         )}

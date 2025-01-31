@@ -35,7 +35,15 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Welcome />
+      <section id="welcome">
+        <Welcome />
+      </section>
+      <section id="resources">
+        {/* ใส่ resources ครงนี้ */}
+      </section>
+      <section id="teams">
+        {/* ใส่ teams ครงนี้ */}
+      </section>
       {/* <Footer /> */}
     </>
   );

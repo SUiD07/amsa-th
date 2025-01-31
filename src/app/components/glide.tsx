@@ -4,7 +4,7 @@ import Glide from "@glidejs/glide";
 
 const SliderControlsInside: React.FC = () => {
   const list = [
-    { src: "https://Tailwindmix.b-cdn.net/image-01.jpg",link:"https://www.instagram.com/amsa_thailand/" },
+    { src: "https://Tailwindmix.b-cdn.net/image-01.jpg",link:"" },
     { src: "https://Tailwindmix.b-cdn.net/image-02.jpg",link:"https://www.instagram.com/amsa_thailand/"},
     { src: "https://Tailwindmix.b-cdn.net/image-03.jpg",link:"https://www.instagram.com/amsa_thailand/"},
     { src: "https://Tailwindmix.b-cdn.net/image-04.jpg",link:"https://www.instagram.com/amsa_thailand/" },
@@ -46,14 +46,15 @@ const SliderControlsInside: React.FC = () => {
           {/* for desktop */}
           
           {list.map((item, index) => (
-              <li key={index}>
-                <a href={item.link}>
+              <li key={index}>                
+              <a href={item.link}>
                 <img
                   src={item.src}
                   className="w-full max-w-full max-h-full m-auto"
                   alt={`Slide ${index + 1}`}
                 />
-                </a>
+              </a>
+            
               </li>
             ))}
           </ul>

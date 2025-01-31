@@ -1,7 +1,15 @@
-import React from 'react'
+import React from "react";
+import WelcomeCard from "./WelcomeCard";
+import { welcomeList } from "../constants/welcomeList";
 
 export default function Welcome() {
   return (
-    <div>Welcome</div>
-  )
+    <>
+      {welcomeList.map((item) => (
+        <>
+          <WelcomeCard head={item.head} word={item.word} />
+        </>
+      ))}
+    </>
+  );
 }

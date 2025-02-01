@@ -28,7 +28,7 @@ const TeamsFlex: React.FC = () => {
 return (
     <> 
   
-    <div className="ml-8 mb-8 pt-5 pb-5 w-80 bg-[#720606] items-center shadow-lg rounded-md ">
+    <div className="ml-8 mr-8 mb-8 pt-5 pb-5  bg-[#720606] items-center shadow-lg rounded-md ">
     <h2 className="text-lg font-bold text-white ml-8 mt-5">TEAM</h2>    
     {TeamsFlexList.map((actitem, actindex) => (            
         <div className="space-y-2 px-4 py-2" key={actindex}>   

@@ -4,7 +4,7 @@ import EventCard from "./eventcard";
 export default function Event() {
   return (
     <>
-      <div className="font-bold text-2xl bg-white pb-8">
+      <div className="font-bold text-2xl bg-white pb-8 ml-5">
         New Event 
       </div>
       

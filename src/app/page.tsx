@@ -5,6 +5,9 @@ import Welcome from "./components/Welcome";
 import bgsmcu from "/public/bg.jpg";
 import transparent from "/public/1.png";
 import Glide from "./components/glide";
+import Event from "./components/event";
+import Newevent from "./components/Newevent";
+import Team from "./components/Team";
 
 export default function Home() {
   return (
@@ -22,7 +25,7 @@ export default function Home() {
         <div style={{ backgroundColor: "white", width: "100vw" }}>
           <div
             id="home"
-            className=" bg-white dark:text-white dark:bg-gray-500 pb-16 text-center pt-14  "
+            className=" bg-white  pb-16 text-center pt-14  "
           >
             <div className="text-4xl lg:text-6xl font-bold pt-5 max-md:text-3xl">
               AMSA
@@ -39,10 +42,10 @@ export default function Home() {
         <Welcome />
       </section>
       <section id="resources">
-        {/* ใส่ resources ครงนี้ */}
+        <Newevent /> 
       </section>
-      <section id="teams">
-        {/* ใส่ teams ครงนี้ */}
+      <section id="teams" >
+        <Team />
       </section>
       {/* <Footer /> */}
     </>

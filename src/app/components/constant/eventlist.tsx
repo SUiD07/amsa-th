@@ -7,7 +7,7 @@ export const event2025 = {
     //   ig: "",
     //   image: "",
     // },
-    year:"2024 - 2025",
+    year:"2025 - 2026",
     sections :[
       {
         status: "new",

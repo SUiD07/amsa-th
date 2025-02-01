@@ -18,7 +18,7 @@ export default function Home() {
           width: "100vw",
         }}
       >
-        {/* <Glide /> */}
+        <Glide />
         <div style={{ backgroundColor: "white", width: "100vw" }}>
           <div
             id="home"

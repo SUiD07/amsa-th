@@ -11,7 +11,7 @@ import Team from "./components/Team";
 
 export default function Home() {
   return (
-    <>
+    <main className="font-ibm">
       <Navbar />
       <div
         style={{
@@ -23,10 +23,7 @@ export default function Home() {
       >
         <Glide />
         <div style={{ backgroundColor: "white", width: "100vw" }}>
-          <div
-            id="home"
-            className=" bg-white  pb-16 text-center pt-14  "
-          >
+          <div id="home" className=" bg-white  pb-16 text-center pt-14  ">
             <div className="text-4xl lg:text-6xl font-bold pt-5 max-md:text-3xl">
               AMSA
             </div>
@@ -42,12 +39,12 @@ export default function Home() {
         <Welcome />
       </section>
       <section id="resources">
-        <Newevent /> 
+        <Newevent />
       </section>
-      <section id="teams" >
+      <section id="teams">
         <Team />
       </section>
       {/* <Footer /> */}
-    </>
+    </main>
   );
 }

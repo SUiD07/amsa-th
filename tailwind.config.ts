@@ -9,6 +9,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        bai: ['var(--font-bai-jamjuree)', 'bai-jamjuree'],
+        ibm: ['var(--font-ibm-plex-sans-thai)', 'ibm-plex-sans-thai']
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

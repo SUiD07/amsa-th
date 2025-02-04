@@ -45,6 +45,6 @@ export default function Home() {
         <Team />
       </section>
       {/* <Footer /> */}
-    </main>
+    </main>  
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import WelcomeCard from "./WelcomeCard";
 import { welcomeList } from "../constants/welcomeList";
-import logo from "/public/black.png";
+import logo from "/public/Black.png";
 import Image from "next/image";
 
 export default function Welcome() {

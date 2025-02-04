@@ -26,12 +26,14 @@ const SliderControlsInside: React.FC = () => {
         },
       },
       
-    }).mount()
+    });
+    
+    slider.mount();
     
 
     return () => {
-      slider.destroy()
-    }
+      slider.destroy();
+    };
   }, [])
 
 

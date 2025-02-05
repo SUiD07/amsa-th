@@ -29,7 +29,7 @@ export default function Home() {
             </div>
             <div className="text-4xl lg:text-6xl font-bold max-md:text-3xl">
               ASIAN MEDICAL STUDENTS' <br className="md:hidden" />
-              ASSOCIATION INTERNATIONAL
+              ASSOCIATION OF THAILAND
             </div>
             <br />
           </div>

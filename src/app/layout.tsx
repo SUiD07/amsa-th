@@ -29,7 +29,10 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
 });
 export const metadata: Metadata = {
   title: "AMSA-Thailand",
-  description: "The Asian Medical Students’ Association",
+  description: "The Asian Medical Students’ Association of Thailand",
+  icons:{
+    icon:"/Black.png",
+  }
 };
 
 export default function RootLayout({

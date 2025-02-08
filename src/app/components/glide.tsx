@@ -1,16 +1,23 @@
 "use client";
 import React, { useEffect } from "react";
 import Glide from '@glidejs/glide';
+import Image from "next/image";
+import banner1 from "/public/banner1.svg"
+import banner2 from "/public/banner2.svg"
+import banner3 from "/public/banner3.svg"
+import banner4 from "/public/banner4.svg"
+
 
 const SliderControlsInside: React.FC = () => {
   const list = [
-    { src: "https://Tailwindmix.b-cdn.net/image-01.jpg",link:"" },
-    { src: "https://Tailwindmix.b-cdn.net/image-02.jpg",link:"https://www.instagram.com/amsa_thailand/"},
-    { src: "https://Tailwindmix.b-cdn.net/image-03.jpg",link:"https://www.instagram.com/amsa_thailand/"},
-    { src: "https://Tailwindmix.b-cdn.net/image-04.jpg",link:"https://www.instagram.com/amsa_thailand/" },
-    { src: "https://Tailwindmix.b-cdn.net/image-05.jpg",link:"https://www.instagram.com/amsa_thailand/" },
+    { src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",link:"" },
+    { src: "https://drive.google.com/uc?id=1nj7i18wnR95zKyxeYWYxue5vHWCJ_yCS",link:"https://www.instagram.com/amsa_thailand/"},
+    { src: "https://drive.google.com/uc?id=1eTdNUbdUpm2kYxXpPSI-RiYLvaCyMLju",link:"https://www.facebook.com/amsathailand/?locale=th_TH"},
+    { src: "https://drive.google.com/uc?id=13BrAYmmiB3T2AxpPQDQtrEre8Pn4aQ7r",link:"https://www.instagram.com/amsa_thailand/" },
+    { src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",link:"https://www.instagram.com/amsa_thailand/" },
   ];
-  
+  //https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc
+  //https://Tailwindmix.b-cdn.net/image-02.jpg
   //export default function SliderControlsInside() {
   useEffect(() => {
     const slider = new Glide(".glide-01", {
@@ -50,11 +57,19 @@ const SliderControlsInside: React.FC = () => {
           {list.map((item, index) => (
               <li key={index}>                
               <a href={item.link}>
-                <img
+              {/*<img
                   src={item.src}
                   className="w-full max-w-full max-h-full m-auto"
                   alt={`Slide ${index + 1}`}
+                />*/}
+              <Image
+                  className="w-full max-w-full max-h-full m-auto"
+                  src={item.src}
+                  alt={`Slide ${index + 1}`}
+                  width={500}
+                  height={500}
                 />
+                
               </a>
             
               </li>

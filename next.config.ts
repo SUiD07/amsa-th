@@ -5,3 +5,19 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+module.exports = {
+  images: {
+    domains: ['drive.google.com'],
+  },
+};
+//module.exports = {
+  //images: {
+    //remotePatterns: [
+      //{
+        //protocol: 'https',
+        //hostname: 'drive.google.com',
+      //},
+    //],
+  //},
+//};

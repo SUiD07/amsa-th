@@ -11,7 +11,7 @@ export default function Event() {
       <div className="font-bold text-xl bg-white py-2">
       {event2025.year} Event
       </div>
-      <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-3 grid-cols-2 gap-4">
+      <div className="bg-white px-10 pb-20 flex flex-col grid max-sm:grid-cols-1 md:grid-cols-3 grid-cols-2 gap-4">
       {event2025.sections.map((item, index) => (
           <>
             {!item.status && (

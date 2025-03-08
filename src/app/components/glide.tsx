@@ -10,15 +10,17 @@ import banner4 from "/public/banner4.svg"
 
 const SliderControlsInside: React.FC = () => {
   const list = [
-    { src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",link:"" },
-    { src: "https://drive.google.com/uc?id=1nj7i18wnR95zKyxeYWYxue5vHWCJ_yCS",link:"https://www.instagram.com/amsa_thailand/"},
-    { src: "https://drive.google.com/uc?id=1eTdNUbdUpm2kYxXpPSI-RiYLvaCyMLju",link:"https://www.facebook.com/amsathailand/?locale=th_TH"},
-    { src: "https://drive.google.com/uc?id=13BrAYmmiB3T2AxpPQDQtrEre8Pn4aQ7r",link:"https://www.instagram.com/amsa_thailand/" },
+    { src: "https://drive.google.com/uc?id=1J7f187mXHToF2C0uuLR37ZFDAdOtpNSP",link:"" },
+    { src: "https://drive.google.com/uc?id=1eGqaaHSbs4izUfNdNDtFegPmrvLDxOZY",link:"https://www.instagram.com/amsa_thailand/"},
+    { src: "https://drive.google.com/uc?id=1_hy-WY3JXXlLm9WWjjL4gNBHpeYD9HEb",link:"https://www.facebook.com/amsathailand/?locale=th_TH"},
+    { src: "https://drive.google.com/uc?id=1x7O6HMEG4xLuD11foPMMdfruMUVWrY0o",link:"https://www.instagram.com/amsa_thailand/" },
     { src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",link:"https://www.instagram.com/amsa_thailand/" },
   ];
+  
   //https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc
   //https://Tailwindmix.b-cdn.net/image-02.jpg
   //export default function SliderControlsInside() {
+  //https://drive.google.com/uc?id=1nj7i18wnR95zKyxeYWYxue5vHWCJ_yCS
   useEffect(() => {
     const slider = new Glide(".glide-01", {
       type: "slider",
@@ -62,14 +64,13 @@ const SliderControlsInside: React.FC = () => {
                   className="w-full max-w-full max-h-full m-auto"
                   alt={`Slide ${index + 1}`}
                 />*/}
-              <Image
+               <Image
                   className="w-full max-w-full max-h-full m-auto"
                   src={item.src}
                   alt={`Slide ${index + 1}`}
-                  width={500}
-                  height={500}
+                  width={1000}
+                  height={1000}
                 />
-                
               </a>
             
               </li>

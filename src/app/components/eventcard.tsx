@@ -24,7 +24,7 @@ export default function MemberCard({
       </div> */ }
       
        <div className="border-2 pb-5 rounded-l-lg rounded-r-lg ">
-        {status && <div className="text-xl mt-5 ml-2">{status}</div>}
+        {status && <div className="text-xl mt-5 ml-2">{}</div>}
           
           <div className="card ">
             <figure className="mx-3">
@@ -34,10 +34,10 @@ export default function MemberCard({
                     alt={name} />
             </figure>
             <div className="card-body ">
-            <h3 className="text-lg ml-8 font-semibold " >{name}&ensp;
+            <h3 className="text-lg font-semibold " >{name}&ensp;
                 <span className="bg-[#720606] text-white text-xs px-2 py-1 rounded-full border-2">NEW</span>
             </h3>
-                <p className="">{text}</p>
+                <p className="text-sm">{text}</p>
             <div className="card-actions justify-end">
             <a href={link} target="_blank">
                 <button className="bg-[#720606] text-white text-xs  py-2 rounded-full btn btn-primary">Click For More</button>

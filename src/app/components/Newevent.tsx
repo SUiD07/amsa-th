@@ -8,7 +8,7 @@ export default function Event() {
         New Event 
       </div>
       
-      <div className="bg-white grid max-sm:grid-cols-1 md:grid-cols-3 grid-cols-2 gap-4 p-5">
+      <div className="bg-white grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
         {event2025.sections.map((item, index) => (
           <>
             {item.status && (

@@ -68,8 +68,8 @@ const SliderControlsInside: React.FC = () => {
                   className="w-full max-w-full max-h-full m-auto"
                   src={item.src}
                   alt={`Slide ${index + 1}`}
-                  width={1000}
-                  height={1000}
+                  width={1500}
+                  height={1500}
                 />
               </a>
             

@@ -1,0 +1,17 @@
+{
+    "NarbarLink":
+    {
+    "Home": "Home",
+    "Resources": "Resources",
+    "Event": "Event",
+    "Team": "Team",
+    "Article":"Article"
+    },
+    "HomePage":
+   {
+    "title":"What is amsa",
+    "what": "AMSA stands for the American Medical Student Association, which is the largest independent association of medical students in the United States. Founded in 1950, AMSA focuses on advocacy, education, and community service among future physicians.",
+    "knowledge": "Knowledge is power.",
+    "action":"Actions for the benefit of society"
+    }
+}

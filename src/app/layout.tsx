@@ -5,6 +5,8 @@ import { IBM_Plex_Sans_Thai } from "next/font/google";
 import "./globals.css";
 // import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  
 }: Readonly<{
   children: React.ReactNode;
 }>) {

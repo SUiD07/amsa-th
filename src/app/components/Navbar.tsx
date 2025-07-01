@@ -40,9 +40,9 @@ export default function Navbar() {
               <li>
                 <Link className="hover:font-bold" href='/#welcome'>Home</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className="hover:font-bold" href='./resources'>Resources</Link>
-              </li>
+              </li> */}
               <li>
                 <Link className="hover:font-bold" href='./event'>Event</Link>
               </li>
@@ -67,9 +67,9 @@ export default function Navbar() {
           <li>
                 <Link href='/#welcome'>Home</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href='./resources'>Resources</Link>
-              </li>
+              </li> */}
               <li>
                 <Link href='./event'>Event</Link>
               </li>

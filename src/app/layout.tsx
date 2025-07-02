@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Bai_Jamjuree } from "next/font/google";
 import { IBM_Plex_Sans_Thai } from "next/font/google";
 import "./globals.css";
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";       // นำเข้า Navbar
 import Footer from "./components/Footer";
+import { LanguageProvider } from "./components/LanguageContext" // นำเข้า LanguageProvider
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
   weight: ['400', '700'],
   display: 'swap'
 });
+
 export const metadata: Metadata = {
   title: "AMSA-Thailand",
   description: "The Asian Medical Students’ Association of Thailand",
@@ -35,6 +37,7 @@ export const metadata: Metadata = {
   }
 };
 
+// **RootLayout ต้องเป็น Server Component (ห้ามมี 'use client')**
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,13 +48,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${baiJamjuree.variable} ${ibmPlexSansThai.variable} antialiased`}
       >
-        {/* <header>
-          <Navbar />
-        </header> */}
-        {children}
-        <footer>
-          <Footer />
-        </footer>
+        {/* ครอบด้วย LanguageProvider เพื่อให้ทุกคอมโพเนนต์ในแอปใช้ภาษาได้ */}
+        <LanguageProvider>
+
+          <main>{children}</main>
+
+          <footer>
+            <Footer />
+          </footer>
+        </LanguageProvider>
       </body>
     </html>
   );

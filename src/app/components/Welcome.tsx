@@ -9,19 +9,19 @@ import { useLanguage } from "./LanguageContext"; // สมมติคุณม�
 
 const translations = {
   en: {
-  intro: "Whether you are a medical student seeking international experience or have heard of AMSA Thailand before, today we will take you to get to know this organization more deeply. Discover why AMSA is more than just a community of medical students—it's also an opportunity to learn, grow, and build an international network! 🩺🌏🧑‍⚕️",
+  intro: "Whether you’re a medical student seeking international clinical experience or have heard of AMSA Thailand before, today we’re taking you on a deeper dive into this organization. AMSA is more than just a community of medical students—it’s a gateway to learning, development, and global networking! 🩺🌏🧑‍⚕️",
   title: "What is AMSA?",
-  description1: "AMSA (The Asian Medical Students’ Association) is an international network formed through the collaboration of medical students from over 30 countries around the world. It originated from the Asian Medical Students’ Conference (AMSC), which began as a gathering of medical students to discuss medical issues during the Indochina War in the 1980s. Later, members officially established AMSA at the AMSC in 1985, with Thailand being one of the founding countries for both the AMSC and the official AMSA organization.",
-  description2: "Today, AMSA focuses on the exchange of medical knowledge, promoting public health development in society, and building friendships among medical students worldwide. It operates under a non-profit philosophy, emphasizing growth and professional development together across countries.",
+  description1: "History - AMSA (The Asian Medical Students' Association) is an international network of medical students from over 27 countries worldwide. Founded in 1985 in Manila, Philippines, it originated from the gathering of medical students discussing healthcare issues during the Indochina War.",
+  description2: " Today, AMSA focuses on exchanging medical knowledge, promoting public health, and fostering global friendships among medical students. As a non-profit organization, it emphasizes professional growth and international collaboration.",
   visionTitle: "Vision",
-  visionDesc1: "AMSA is committed to working through three key pillars:",
+  visionDesc1: "AMSA operates through three core pillars:",
   knowledge: "Knowledge",
-  knowledgeDesc: "Promoting learning both in theory and practice to develop professional doctors who are ready to face future challenges.",
+  knowledgeDesc: " Encouraging both theoretical and practical learning to cultivate competent medical professionals ready for future challenges.",
   action: "Action",
-  actionDesc: "Emphasizing community involvement through activities that benefit society and support public health development.",
+  actionDesc: "Emphasizing community engagement through activities that benefit society and improve public health.",
   friendship: "Friendship",
-  friendshipDesc: "Building and strengthening networks and friendships among medical students worldwide to share experiences and grow together.",
-  visionDesc2: "With these principles, AMSA serves as a platform for members to learn, take action, and build sustainable international connections."
+  friendshipDesc: "Building connections among medical students worldwide to exchange experiences and grow together.",
+  visionDesc2: "With these principles, AMSA provides a platform for members to learn, take action, and form lasting international relationships."
 },
   th: {
     intro:'ไม่ว่าคุณจะเป็นนักศึกษาแพทย์ที่กำลังมองหาประสบการณ์ทำงานร่วมกับแพทย์นานาชาติ หรือเคยได้ยินชื่อ AMSA Thailand มาก่อนแล้ว วันนี้เราจะพาคุณมาทำความรู้จักกับองค์กรนี้ให้ลึกซึ้งยิ่งขึ้น ว่าทำไม AMSA ถึงเป็นมากกว่าชุมชนของนักศึกษาแพทย์ แต่ยังเป็นโอกาสในการเรียนรู้ พัฒนา และสร้างเครือข่ายระดับนานาชาติ! 🩺🌏🧑‍⚕️',

@@ -49,40 +49,58 @@ MedCase Competition – Medical business planning competition with the Faculty o
   ],
   th: [
   {
+    text: "Core EB (Core Executive Committee) ",
+    image:"/image/co.jpg",
+    link:"https://www.instagram.com/co_amsathailand",
+    desc:"กำหนดทิศทางและขับเคลื่อนการเติบโตขององค์กร เพื่อให้บรรลุเป้าหมายและวิสัยทัศน์ของ AMSA"
+  },
+  {
     text: "AMSEP (The Asian Medical Students' Exchange Programme)",
     image:"/image/co.jpg",
     link:"https://www.instagram.com/co_amsathailand",
-    desc:"เปิดโอกาสให้นักศึกษาแพทย์ได้แลกเปลี่ยนประสบการณ์ระดับนานาชาติ โดยในปี 2024 มีโครงการแลกเปลี่ยนที่ สหราชอาณาจักร, เนปาล และฮังการี ส่วนในปี 2023 ได้จัดโครงการแลกเปลี่ยนที่ ออสเตรเลีย, ไต้หวัน และอินโดนีเซีย"
+    desc:"ดูแลและจัดการโครงการแลกเปลี่ยนนักศึกษาแพทย์ทั้งระดับพรีคลินิกและคลินิก เพื่อเปิดโอกาสให้สมาชิกได้เรียนรู้และแลกเปลี่ยนวัฒนธรรมกับเครือข่ายนานาชาติ  "
   },
   {
     text: "AMSC (Academic Activities & Conferences) ",
     image:"/image/mds.jpg",
     link:"https://www.instagram.com/mds_amsathailand",
-    desc:"อยู่ระหว่างการอัปเดตข้อมูลกิจกรรม"
+    desc:"ส่งเสริมการเรียนรู้และพัฒนาองค์ความรู้ผ่านการประชุม กิจกรรมเชิงวิชาการ และการแข่งขันด้านการแพทย์ "
   },
   {
     text: "AMnD (Membership and Development)",
     image:"/image/logo.png",
     link:"https://www.instagram.com/amsa_thailand/following",
-    desc:"จัดกิจกรรมเพื่อกระชับความสัมพันธ์ระหว่างสมาชิก โดยมีกิจกรรมในวันหยุดสำคัญ เช่น งานสงกรานต์และคริสต์มาส ที่เปิดโอกาสให้นักศึกษาแพทย์จากหลากหลายมหาวิทยาลัยมาร่วมฉลองและสร้างความสัมพันธ์ที่แน่นแฟ้น"
+    desc:" สร้างสภาพแวดล้อมที่ดีและเป็นมิตรภายในองค์กร พร้อมจัดกิจกรรมเสริมสร้างความสัมพันธ์ระหว่างสมาชิก "
   },
   { 
     text: "AMCo (Community Outreach",
     image:"/image/logo.png",
     link:"https://www.instagram.com/amsep_thailand",
-    desc:"ประชุมระดับนานาชาติ: จัดและเข้าร่วม AMSC (Asian Medical Students’ Conference) และ EAMSC (East Asian Medical Students’ Conference) \n ให้ความรู้ด้านสาธารณสุข: จัด Global Health Training & Global Health Masterclass (2023) เพื่อเสริมสร้างความเข้าใจเกี่ยวกับสุขภาพระดับโลก \n กิจกรรมสร้างความตระหนักรู้: AMSAxSCOME: Paint Your Pride (2022) นิทรรศการศิลปะที่สะท้อนประเด็น ความหลากหลายทางเพศ และบทบาทของแพทย์ในการสนับสนุน, “รุ่นเก่าเล่าใหม่” – กิจกรรมที่สร้างความเข้าใจเกี่ยวกับ ชีวิตและความต้องการของผู้สูงอายุ พร้อมให้ความรู้เกี่ยวกับการดูแลผู้สูงวัย"
+    desc:"ส่งเสริมการบริการสังคมและสร้างความตระหนักรู้ด้านสุขภาวะทั้งในระดับท้องถิ่นและระดับโลก  "
   },
   { 
     text: "AMDS (Multidisciplinary Studies Team)",
     image:"/image/logo.png",
     link:"https://www.instagram.com/amsa_thailand/following",
-    desc:"Podcast “มนุดโรงบาล” – ความร่วมมือกับ คณะศิลปศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย ถ่ายทอดเรื่องราวทางการแพทย์ผ่านมุมมองเชิงศิลป์ เช่น ปรัชญาและการละคร \n งานโต้วาที MediLegis – การโต้วาทีเชิงวิชาการร่วมกับ ALSA (Asian Law Students’ Association) เพื่อแลกเปลี่ยนมุมมองด้านการแพทย์และกฎหมาย \n การแข่งขัน MedCase Competition – การแข่งขันวางแผนธุรกิจทางการแพทย์ร่วมกับคณะบริหารธุรกิจ เพื่อพัฒนาทักษะด้านการจัดการและการคิดเชิงกลยุทธ์ในวงการแพทย์ "
+    desc:"สนับสนุนการทำงานร่วมกันระหว่างศาสตร์อื่น ๆ เพื่อบูรณาการความรู้และขยายขอบเขตการเรียนรู้ของนักศึกษาแพทย์ "
   },
   { 
     text: "AMR (Research Society)",
     image:"/image/co.jpg",
     link:"https://www.instagram.com/co_amsathailand",
-    desc:"JAMSA (Journal of Asian Medical Students’ Association) แพลตฟอร์ม peer review ช่วยตรวจสอบคุณภาพงานวิจัยของนักศึกษาแพทย์ เพื่อสนับสนุนการพัฒนาองค์ความรู้และมาตรฐานงานวิจัยทางการแพทย์"
+    desc:"ส่งเสริมและพัฒนางานวิจัยด้านการศึกษาแพทย์ เปิดโอกาสให้นักศึกษาแพทย์ได้มีส่วนร่วมในการศึกษาค้นคว้า พัฒนาองค์ความรู้ใหม่ และแลกเปลี่ยนแนวคิดเพื่อยกระดับการเรียนการสอนทางการแพทย์ "
+  },
+  { 
+    text: "AMB (Branding)",
+    image:"/image/co.jpg",
+    link:"https://www.instagram.com/co_amsathailand",
+    desc:"ดูแลภาพลักษณ์และอัตลักษณ์ของ AMSA-Thailand สร้างความเป็นที่รู้จักและสื่อสารจุดยืนขององค์กรผ่านช่องทางต่าง ๆ เพื่อให้ AMSA เป็นที่ยอมรับในระดับประเทศและนานาชาติ"
+  },
+  { 
+    text: "AMC (Corporate Identity & Communications)",
+    image:"/image/co.jpg",
+    link:"https://www.instagram.com/co_amsathailand",
+    desc:"กำกับดูแลการสื่อสารภายในและภายนอกองค์กร สร้างมาตรฐานในการนำเสนอข้อมูลข่าวสาร เพื่อให้การสื่อสารของ AMSA มีเอกลักษณ์ที่ชัดเจนและเข้าถึงกลุ่มเป้าหมายอย่างมีประสิทธิภาพ"
   },
   ],
 };

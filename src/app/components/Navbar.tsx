@@ -125,6 +125,29 @@ export default function Navbar() {
           <li>
             <Link href="./article">Article</Link>
           </li>
+          <li>
+                {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
+          <div className="flex items-center mr-auto pl-2">
+            <button
+              onClick={() => setLang('en')}
+              disabled={lang === 'en'}
+              className={`px-3 py-1 rounded ${
+                lang === 'en' ? 'bg-white text-[#720606]' : 'bg-transparent'
+              }`}
+            >
+              English
+            </button>
+            <button
+              onClick={() => setLang('th')}
+              disabled={lang === 'th'}
+              className={`px-3 py-1 rounded ${
+                lang === 'th' ? 'bg-white text-[#720606]' : 'bg-transparent'
+              }`}
+            >
+              ไทย
+            </button>
+          </div>
+              </li>
         </ul>
       </div>
     </div>

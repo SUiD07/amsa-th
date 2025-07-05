@@ -5,8 +5,21 @@ import Image from "next/image";
 import logo from "/public/White.png";
 import facebook from "/public/svg/fb.svg";
 import instagram from "/public/svg/ig.svg";
+import { useLanguage } from "./LanguageContext";
 
 export default function Footer() {
+  const translations = {
+  en: {
+  intro: "If you’re interested in AMSA-Thailand’s latest news, activities, and exclusive opportunities, follow us at:",
+  outro: "Don’t forget to hit follow for the latest updates and become part of our global medical student network! 💌🕊️",
+},
+  th: {
+    intro: "หากคุณสนใจติดตามข่าวสาร กิจกรรม และโอกาสพิเศษจาก  AMSA-Thailand สามารถติดตามเราได้ที่  ",
+  outro: "อย่าลืมกดติดตามเพื่ออัปเดตข่าวสารล่าสุด และเป็นส่วนหนึ่งของเครือข่ายนักศึกษาแพทย์ระดับนานาชาติกับเรานะ! 💌🕊️",
+  }
+};
+const { lang } = useLanguage();
+  const t = translations[lang];
   return (
     <footer className="bg-[#720606] h-fit w-full flex max-sm:inline-block">
       <Image src={logo} alt="smcu" className="mr-2 h-28 w-fit my-2 px-4" />
@@ -21,8 +34,10 @@ export default function Footer() {
           the peak representative body for medical students in Thailand
         </div>
       </div>
-      <div className="py-4 w-60 px-4">
-        <div className="text-white font-bold">Our Social Media Platform</div>
+      
+        <div className="text-white font-bold py-4 w-60 px-4">Our Social Media Platform</div>
+        <div className="text-white px-4">{t.intro}</div>
+        <div className="py-4 w-60 px-4">
         <Link
           className="text-white hover:text-gray-500 flex mb-0"
           href="https://www.instagram.com/amsa_thailand/"
@@ -38,6 +53,8 @@ export default function Footer() {
           AMSA-Thailand
         </Link>
       </div>
+      <div className="text-white px-4">{t.outro}</div>
+      <br />
     </footer>
   );
 }

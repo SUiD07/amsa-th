@@ -43,7 +43,7 @@ export default function Article() {
       {articleList.map((item, itemIndex) => (
         <ArticleCard head={item.head} word={item.word} author={item.author} />
       ))} */}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

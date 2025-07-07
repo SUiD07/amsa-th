@@ -11,7 +11,7 @@ const translations = {
   en: {
   intro: "Whether you’re a medical student seeking international clinical experience or have heard of AMSA Thailand before, today we’re taking you on a deeper dive into this organization. AMSA is more than just a community of medical students—it’s a gateway to learning, development, and global networking! 🩺🌏🧑‍⚕️",
   title: "What is AMSA?",
-  description1: "History - AMSA (The Asian Medical Students' Association) is an international network of medical students from over 27 countries worldwide. Founded in 1985 in Manila, Philippines, it originated from the gathering of medical students discussing healthcare issues during the Indochina War.",
+  description1: "AMSA (The Asian Medical Students' Association) is an international network of medical students from over 27 countries worldwide. Founded in 1985 in Manila, Philippines, it originated from the gathering of medical students discussing healthcare issues during the Indochina War.",
   description2: " Today, AMSA focuses on exchanging medical knowledge, promoting public health, and fostering global friendships among medical students. As a non-profit organization, it emphasizes professional growth and international collaboration.",
   visionTitle: "Vision",
   visionDesc1: "AMSA operates through three core pillars:",

@@ -23,8 +23,8 @@ function Content() {
 
   return (
     <section className="text-center my-8">
-      <h1 className="text-4xl font-bold">{translations[lang].greeting}</h1>
-      <p className="text-lg">{translations[lang].description}</p>
+      {/* <h1 className="text-4xl font-bold">{translations[lang].greeting}</h1>
+      <p className="text-lg">{translations[lang].description}</p> */}
     </section>
   );
 }
@@ -71,6 +71,7 @@ export default function Home() {
         </section>
         {/* <Footer /> */}
       </main>
+      <Footer/>
     </LanguageProvider>
   );
 }

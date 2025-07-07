@@ -80,7 +80,7 @@ export default function Navbar() {
             <button
               onClick={() => setLang('en')}
               disabled={lang === 'en'}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 rounded ${
                 lang === 'en' ? 'bg-white text-[#720606]' : 'bg-transparent'
               }`}
             >
@@ -89,7 +89,7 @@ export default function Navbar() {
             <button
               onClick={() => setLang('th')}
               disabled={lang === 'th'}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 rounded ${
                 lang === 'th' ? 'bg-white text-[#720606]' : 'bg-transparent'
               }`}
             >

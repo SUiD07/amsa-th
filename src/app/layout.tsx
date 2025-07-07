@@ -53,9 +53,9 @@ export default function RootLayout({
 
           <main>{children}</main>
 
-          <footer>
+          {/* <footer>
             <Footer />
-          </footer>
+          </footer> */}
         </LanguageProvider>
       </body>
     </html>

@@ -85,7 +85,7 @@ const TeamsFlexList = {
       desc: " สร้างสภาพแวดล้อมที่ดีและเป็นมิตรภายในองค์กร พร้อมจัดกิจกรรมเสริมสร้างความสัมพันธ์ระหว่างสมาชิก ",
     },
     {
-      text: "AMCo (Community Outreach",
+      text: "AMCo (Community Outreach)",
       image: "/image/logo.png",
       link: "https://www.instagram.com/amsep_thailand",
       desc: "ส่งเสริมการบริการสังคมและสร้างความตระหนักรู้ด้านสุขภาวะทั้งในระดับท้องถิ่นและระดับโลก  ",
@@ -135,7 +135,7 @@ const TitleFlexList = {
   },
 };
 const MiniFlexList = {
-  en: [
+  th: [
     {
       text: "System Support",
       image: "/image/co.jpg",
@@ -149,7 +149,7 @@ const MiniFlexList = {
       desc: "ขยายเครือข่ายความร่วมมือกับองค์กรและสถาบันต่าง ๆ ทั้งในและต่างประเทศ เพื่อเสริมสร้างโอกาสในการเรียนรู้ แลกเปลี่ยน และพัฒนาโครงการร่วมกัน",
     },
   ],
-  th: [
+  en: [
     {
       text: "System Support",
       image: "/image/co.jpg",

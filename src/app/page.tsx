@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Navbar from "./components/Navbar";
@@ -6,16 +6,16 @@ import Footer from "./components/Footer";
 import Welcome from "./components/Welcome";
 import bgsmcu from "/public/bg.jpg";
 import transparent from "/public/1.png";
-import Glide from "./components/glide";
-import Event from "./components/event";
-import Newevent from "./components/Newevent";
+import Glide from "./components/Glide";
+import Event from "./components/Event";
+import Newevent from "./components/NewEvent";
 import Team from "./components/Team";
 
-import { LanguageProvider, useLanguage } from './components/LanguageContext';
+import { LanguageProvider, useLanguage } from "./components/LanguageContext";
 
 const translations = {
-  en: { greeting: 'Hello', description: 'Welcome to our website!' },
-  th: { greeting: 'สวัสดี', description: 'ยินดีต้อนรับสู่เว็บไซต์ของเรา!' },
+  en: { greeting: "Hello", description: "Welcome to our website!" },
+  th: { greeting: "สวัสดี", description: "ยินดีต้อนรับสู่เว็บไซต์ของเรา!" },
 };
 
 function Content() {
@@ -71,7 +71,7 @@ export default function Home() {
         </section>
         {/* <Footer /> */}
       </main>
-      <Footer/>
+      <Footer />
     </LanguageProvider>
   );
 }

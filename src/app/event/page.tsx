@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
-import Newevent from "../components/Newevent";
-import Event from "../components/event";
+import NewEvent from "../components/NewEvent";
+import Event from "../components/Event";
 export default function Home() {
   return (
     <main className="font-ibm">
@@ -15,7 +15,7 @@ export default function Home() {
             width="1000"
             height="1000"
         />
-        <Newevent />
+        <NewEvent />
         <Event />
     </main>
   )

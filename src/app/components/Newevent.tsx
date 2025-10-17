@@ -1,7 +1,7 @@
 import { event2025 } from "../constants/eventList";
 import EventCard from "./EventCard";
 
-export default function Event() {
+export default function NewEvent() {
   return (
     <>
       <div className="font-bold text-2xl bg-white pb-8 ml-5">

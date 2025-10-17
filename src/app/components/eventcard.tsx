@@ -10,7 +10,7 @@ interface EventCardProps {
   image: string;
 }
 
-export default function MemberCard({
+export default function EventCard({
   status,
   name,
   link,

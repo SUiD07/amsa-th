@@ -2,11 +2,11 @@ import { supabase } from "@/src/lib/supabase";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-interface Props {
+export default async function ArticleDetail({
+  params,
+}: {
   params: { id: string };
-}
-
-export default async function ArticleDetail({ params }: Props) {
+}) {
   const { id } = params;
 
   const { data, error } = await supabase

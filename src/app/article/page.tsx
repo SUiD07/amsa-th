@@ -1,20 +1,58 @@
 "use client";
-import React from "react";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ArticleCard from "../components/ArticleCard";
-import { articleList } from "../constants/articleList";
-import { Card } from "flowbite-react";
-import { Button } from "flowbite-react";
+import { Card, Button, Spinner } from "flowbite-react";
+import { supabase } from "@/src/lib/supabase";
 
 export default function Article() {
+  const router = useRouter();
+  const [loadingId, setLoadingId] = useState<number | null>(null);
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const { data, error } = await supabase
+        .from("contents")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error(error);
+      } else {
+        setArticles(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchArticles();
+  }, []);
+
+  const handleClick = (id: number) => {
+    setLoadingId(id);
+    router.push(`/article/${id}`);
+  };
+
+  if (loading) return <div>Loading articles...</div>;
+  if (!articles || articles.length === 0) return <div>No articles found</div>;
+
   return (
     <>
       <Navbar />
-      <div className="text-4xl p-5 font-bold">Article</div>
-      {articleList.map((item, itemIndex) => (
-          <Card key={itemIndex} className="w-96 inline-block m-2">
-            <img src={item.imgHead} alt="Head image" className="mx-auto flex w-96" />
+      <div className="text-4xl p-5 font-bold">Articles</div>
+      <div className="flex flex-wrap justify-start">
+        {articles.map((item) => (
+          <Card key={item.id} className="w-96 m-2">
+            {item.img_head && (
+              <img
+                src={item.img_head}
+                alt={item.head}
+                className="mx-auto flex w-96 h-48 object-cover"
+              />
+            )}
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {item.head}
             </h5>
@@ -22,27 +60,19 @@ export default function Article() {
             <p className="font-normal text-gray-700 dark:text-gray-400">
               {item.detail}
             </p>
-            <Button>
-              Coming Soon 
-              {/* <svg
-                className="-mr-1 ml-2 h-4 w-4"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg> */}
+            <Button className="mt-2 bg-[#720606]" onClick={() => handleClick(item.id)}>
+              {loadingId === item.id ? (
+                <>
+                  Loading...
+                  <Spinner size="sm" className="ml-2" />
+                </>
+              ) : (
+                "Read More"
+              )}
             </Button>
           </Card>
-      ))}
-      {/* 
-      {articleList.map((item, itemIndex) => (
-        <ArticleCard head={item.head} word={item.word} author={item.author} />
-      ))} */}
+        ))}
+      </div>
       <Footer />
     </>
   );

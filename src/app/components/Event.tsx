@@ -1,31 +1,28 @@
 import { event2025 } from "../constants/eventList";
 import EventCard from "./EventCard";
+import React from "react";
 
 export default function Event() {
   return (
     <>
-    
-      
       <div className="font-bold text-xl bg-white py-2 pb-8 ml-5">
-      {event2025.year} Event
+        {event2025.year} Event
       </div>
       <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-      {event2025.sections.map((item, index) => (
-          <>
+        {event2025.sections.map((item) => (
+          <React.Fragment key={item.name}>
             {!item.status && (
               <EventCard
                 status={item.status}
-                name={item.name}              
+                name={item.name}
                 link={item.link}
-                text={item.text}                
+                text={item.text}
                 image={item.image}
-                key={index}
               />
             )}
-          </>
+          </React.Fragment>
         ))}
       </div>
-      
     </>
   );
 }

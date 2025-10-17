@@ -1,22 +1,36 @@
 "use client";
 import React, { useEffect } from "react";
-import Glide from '@glidejs/glide';
+import Glide from "@glidejs/glide";
 import Image from "next/image";
-import banner1 from "/public/banner1.svg"
-import banner2 from "/public/banner2.svg"
-import banner3 from "/public/banner3.svg"
-import banner4 from "/public/banner4.svg"
-
+// import banner1 from "/public/banner1.svg"
+// import banner2 from "/public/banner2.svg"
+// import banner3 from "/public/banner3.svg"
+// import banner4 from "/public/banner4.svg"
 
 const SliderControlsInside: React.FC = () => {
   const list = [
-    { src: "https://drive.google.com/uc?id=1J7f187mXHToF2C0uuLR37ZFDAdOtpNSP",link:"" },
-    { src: "https://drive.google.com/uc?id=1eGqaaHSbs4izUfNdNDtFegPmrvLDxOZY",link:"https://www.instagram.com/amsa_thailand/"},
-    { src: "https://drive.google.com/uc?id=1_hy-WY3JXXlLm9WWjjL4gNBHpeYD9HEb",link:"https://www.facebook.com/amsathailand/?locale=th_TH"},
-    { src: "https://drive.google.com/uc?id=1x7O6HMEG4xLuD11foPMMdfruMUVWrY0o",link:"https://www.instagram.com/amsa_thailand/" },
-    { src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",link:"https://www.instagram.com/amsa_thailand/" },
+    {
+      src: "https://drive.google.com/uc?id=1J7f187mXHToF2C0uuLR37ZFDAdOtpNSP",
+      link: "",
+    },
+    {
+      src: "https://drive.google.com/uc?id=1eGqaaHSbs4izUfNdNDtFegPmrvLDxOZY",
+      link: "https://www.instagram.com/amsa_thailand/",
+    },
+    {
+      src: "https://drive.google.com/uc?id=1_hy-WY3JXXlLm9WWjjL4gNBHpeYD9HEb",
+      link: "https://www.facebook.com/amsathailand/?locale=th_TH",
+    },
+    {
+      src: "https://drive.google.com/uc?id=1x7O6HMEG4xLuD11foPMMdfruMUVWrY0o",
+      link: "https://www.instagram.com/amsa_thailand/",
+    },
+    {
+      src: "https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc",
+      link: "https://www.instagram.com/amsa_thailand/",
+    },
   ];
-  
+
   //https://drive.google.com/uc?id=10k-GbUvohVuXhTKHvfa6QW2vxPCsrTNc
   //https://Tailwindmix.b-cdn.net/image-02.jpg
   //export default function SliderControlsInside() {
@@ -34,18 +48,14 @@ const SliderControlsInside: React.FC = () => {
           active: "[&>*]:bg-wuiSlate-700",
         },
       },
-      
     });
-    
+
     slider.mount();
-    
 
     return () => {
       slider.destroy();
     };
-  }, [])
-
-
+  }, []);
 
   return (
     <>
@@ -54,25 +64,24 @@ const SliderControlsInside: React.FC = () => {
         {/*    <!-- Slides --> */}
         <div className="overflow-hidden" data-glide-el="track">
           <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full overflow-hidden p-0">
-          {/* for desktop */}
-          
-          {list.map((item, index) => (
-              <li key={index}>                
-              <a href={item.link}>
-              {/*<img
+            {/* for desktop */}
+
+            {list.map((item, index) => (
+              <li key={index}>
+                <a href={item.link}>
+                  {/*<img
                   src={item.src}
                   className="w-full max-w-full max-h-full m-auto"
                   alt={`Slide ${index + 1}`}
                 />*/}
-               <Image
-                  className="w-full max-w-full max-h-full m-auto"
-                  src={item.src}
-                  alt={`Slide ${index + 1}`}
-                  width={1500}
-                  height={1500}
-                />
-              </a>
-            
+                  <Image
+                    className="w-full max-w-full max-h-full m-auto"
+                    src={item.src}
+                    alt={`Slide ${index + 1}`}
+                    width={1500}
+                    height={1500}
+                  />
+                </a>
               </li>
             ))}
           </ul>
@@ -125,14 +134,11 @@ const SliderControlsInside: React.FC = () => {
               />
             </svg>
           </button>
-
         </div>
-
-
       </div>
       {/*<!-- End Slider with controls inside --> */}
     </>
-  )
+  );
 };
 
 export default SliderControlsInside;

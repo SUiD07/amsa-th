@@ -1,5 +1,5 @@
-import { event2025 } from "./constant/eventlist";
-import EventCard from "./eventcard";
+import { event2025 } from "../constants/eventList";
+import EventCard from "./EventCard";
 
 export default function Event() {
   return (

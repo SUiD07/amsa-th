@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -42,9 +42,9 @@ export default function Navbar() {
           <Image src={logo} alt="smcu" className="w-12 h-auto" />
 
           {/* ชื่อเว็บ ใช้ flex-grow เพื่อดันปุ่มภาษาไปขวา */}
-          <div className="mx-2 flex-1 px-2 font-bold text-lg">AMSA-Thailand</div>
-
-          
+          <div className="mx-2 flex-1 px-2 font-bold text-lg">
+            AMSA-Thailand
+          </div>
 
           {/* เมนูสำหรับ desktop */}
           <div className="hidden flex-none lg:block ml-6">
@@ -76,26 +76,30 @@ export default function Navbar() {
               </li>
               <li>
                 {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
-          <div className="flex items-center space-x-2 ml-auto">
-            <button
-              onClick={() => setLang('en')}
-              disabled={lang === 'en'}
-              className={`px-3 rounded ${
-                lang === 'en' ? 'bg-white text-[#720606]' : 'bg-transparent'
-              }`}
-            >
-              English
-            </button>
-            <button
-              onClick={() => setLang('th')}
-              disabled={lang === 'th'}
-              className={`px-3 rounded ${
-                lang === 'th' ? 'bg-white text-[#720606]' : 'bg-transparent'
-              }`}
-            >
-              ไทย
-            </button>
-          </div>
+                <div className="flex items-center space-x-2 ml-auto">
+                  <button
+                    onClick={() => setLang("en")}
+                    disabled={lang === "en"}
+                    className={`px-3 rounded ${
+                      lang === "en"
+                        ? "bg-white text-[#720606]"
+                        : "bg-transparent"
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    onClick={() => setLang("th")}
+                    disabled={lang === "th"}
+                    className={`px-3 rounded ${
+                      lang === "th"
+                        ? "bg-white text-[#720606]"
+                        : "bg-transparent"
+                    }`}
+                  >
+                    ไทย
+                  </button>
+                </div>
               </li>
             </ul>
           </div>
@@ -126,28 +130,28 @@ export default function Navbar() {
             <Link href="./article">Article</Link>
           </li>
           <li>
-                {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
-          <div className="flex items-center mr-auto pl-2">
-            <button
-              onClick={() => setLang('en')}
-              disabled={lang === 'en'}
-              className={`px-3 py-1 rounded ${
-                lang === 'en' ? 'bg-white text-[#720606]' : 'bg-transparent'
-              }`}
-            >
-              English
-            </button>
-            <button
-              onClick={() => setLang('th')}
-              disabled={lang === 'th'}
-              className={`px-3 py-1 rounded ${
-                lang === 'th' ? 'bg-white text-[#720606]' : 'bg-transparent'
-              }`}
-            >
-              ไทย
-            </button>
-          </div>
-              </li>
+            {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
+            <div className="flex items-center mr-auto pl-2">
+              <button
+                onClick={() => setLang("en")}
+                disabled={lang === "en"}
+                className={`px-3 py-1 rounded ${
+                  lang === "en" ? "bg-white text-[#720606]" : "bg-transparent"
+                }`}
+              >
+                English
+              </button>
+              <button
+                onClick={() => setLang("th")}
+                disabled={lang === "th"}
+                className={`px-3 py-1 rounded ${
+                  lang === "th" ? "bg-white text-[#720606]" : "bg-transparent"
+                }`}
+              >
+                ไทย
+              </button>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

@@ -39,11 +39,12 @@ export default function Footer() {
         </div>
       </div>
       {/* <div className="grid grid-cols-2"> */}
-        <div className="text-white py-4 w-60 px-4">
-          <span className="font-bold mt-2">Our Social Media Platform</span><br/>
-          {t.intro}
-        </div>
-        {/* <div></div> */}
+      <div className="text-white py-4 w-60 px-4">
+        <span className="font-bold mt-2">Our Social Media Platform</span>
+        <br />
+        {t.intro}
+      </div>
+      {/* <div></div> */}
       {/* </div> */}
       {/* <div className="text-white">{t.intro}</div> */}
       {/* <div className="text-white px-4">{t.intro}</div> */}

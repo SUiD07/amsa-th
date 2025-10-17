@@ -2,7 +2,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import ArticleCard from "../components/articleCard";
+import ArticleCard from "../components/ArticleCard";
 import { articleList } from "../constants/articleList";
 import { Card } from "flowbite-react";
 import { Button } from "flowbite-react";

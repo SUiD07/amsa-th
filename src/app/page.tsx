@@ -7,11 +7,10 @@ import Welcome from "./components/Welcome";
 import bgsmcu from "/public/bg.jpg";
 import transparent from "/public/1.png";
 import Glide from "./components/Glide";
-import Event from "./components/Event";
-import Newevent from "./components/NewEvent";
 import Team from "./components/Team";
-
 import { LanguageProvider, useLanguage } from "./components/LanguageContext";
+import NewEvent from "./components/NewEvent";
+import Event from "./components/Event";
 
 const translations = {
   en: { greeting: "Hello", description: "Welcome to our website!" },
@@ -64,7 +63,8 @@ export default function Home() {
           <Welcome />
         </section>
         <section id="resources">
-          <Newevent />
+          <NewEvent />
+          <Event />
         </section>
         <section id="teams">
           <Team />

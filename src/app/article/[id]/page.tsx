@@ -2,12 +2,13 @@ import { supabase } from "@/src/lib/supabase";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-export default async function ArticleDetail({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { id } = params;
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function ArticleDetail({ params }: PageProps) {
+  //ต้อง await params เพราะ Next.js 14+ ส่งมาเป็น Promise
+  const { id } = await params;
 
   const { data, error } = await supabase
     .from("contents")
@@ -15,8 +16,10 @@ export default async function ArticleDetail({
     .eq("id", id)
     .single();
 
-  if (error) return <div>Error: {error.message}</div>;
-  if (!data) return <div>Article not found</div>;
+  if (error)
+    return <div className="p-10 text-red-600">Error: {error.message}</div>;
+
+  if (!data) return <div className="p-10">Article not found</div>;
 
   return (
     <>
@@ -30,7 +33,7 @@ export default async function ArticleDetail({
             className="w-full mb-4 object-cover rounded"
           />
         )}
-        <h4 className="font-semibold mb-2">By {data.author}</h4>
+        <h4 className="font-semibold mb-2 text-gray-600">By {data.author}</h4>
         <p className="text-gray-700 whitespace-pre-line">{data.word}</p>
       </div>
       <Footer />

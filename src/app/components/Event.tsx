@@ -1,29 +1,89 @@
-import { event2025 } from "../constants/eventList";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
-import React from "react";
+import { useLanguage } from "./LanguageContext";
+import { supabase } from "@/src/lib/supabase";
+
+const translations = {
+  en: { eventTitle: "2025 Event" },
+  th: { eventTitle: "กิจกรรมปี 2025" },
+};
+
+interface EventItem {
+  id: number;
+  status: string;
+  name_th: string;
+  name_en: string;
+  text_th: string;
+  text_en: string;
+  link: string;
+  image: string;
+  year: string;
+}
 
 export default function Event() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("events")
+          .select("*")
+          .eq("year", "2025 - 2026");
+
+        const eventsData = data as EventItem[] | null;
+
+        if (error) {
+          console.error("Error fetching events:", error.message);
+        } else if (eventsData) {
+          setEvents(eventsData);
+        }
+      } catch (err) {
+        console.error("Unexpected error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (!events.length) return <div>No events found.</div>;
+
   return (
     <>
-      <div className="font-bold text-xl bg-white py-2 pb-8 ml-5">
-        {event2025.year} Event
+      <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">
+        {t.eventTitle}
       </div>
-      <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
-        {event2025.sections.map((item) => (
-          <React.Fragment key={item.name}>
-            {!item.status && (
-              <EventCard
-                status={item.status}
-                name={item.name}
-                link={item.link}
-                text={item.text}
-                image={item.image}
-              />
-            )}
-          </React.Fragment>
-        ))}
+      <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {events.map((item) => {
+          const name = lang === "th" ? item.name_th : item.name_en;
+          const text = lang === "th" ? item.text_th : item.text_en;
+
+          return (
+            <React.Fragment key={item.id}>
+              {
+              // !item.status &&
+               (
+                <EventCard
+                  status={item.status}
+                  name={name}
+                  link={item.link}
+                  text={text}
+                  image={item.image}
+                />
+              )}
+            </React.Fragment>
+          );
+        })}
       </div>
     </>
   );
 }
-//pl-10 mx-5 pt-5

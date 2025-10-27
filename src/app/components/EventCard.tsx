@@ -36,9 +36,11 @@ export default function EventCard({
           <div className="card-body ">
             <h3 className="text-lg font-semibold ">
               {name}&ensp;
-              <span className="bg-[#720606] text-white text-xs px-2 py-1 rounded-full border-2">
-                NEW
-              </span>
+              {status && status.trim() !== "" && (
+                <span className="bg-[#720606] text-white text-xs px-2 py-1 rounded-full border-2">
+                  NEW
+                </span>
+              )}
             </h3>
             <p className="text-sm">{text}</p>
             <div className="card-actions justify-end">

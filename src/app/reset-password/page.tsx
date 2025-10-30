@@ -1,3 +1,6 @@
+export default function ResetPasswordPage() {
+  return null; // หรือ <div>Coming soon</div>
+}
 // "use client";
 
 // import { useState } from "react";

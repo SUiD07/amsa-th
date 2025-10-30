@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@glidejs/glide": "^3.7.1",
-    "@supabase/supabase-js": "^2.75.1",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/supabase-js": "^2.77.0",
     "flowbite-react": "^0.10.2",
     "googleapis": "^146.0.0",
     "next": "^15.2.4",

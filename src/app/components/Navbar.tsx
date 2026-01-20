@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "/public/White.png";
+// import logo from "/public/White.png";
 import { useLanguage } from "./LanguageContext"; // ปรับ path ตามโปรเจกต์คุณ
 
 export default function Navbar() {
@@ -39,7 +39,13 @@ export default function Navbar() {
           </div>
 
           {/* โลโก้ */}
-          <Image src={logo} alt="smcu" className="w-12 h-auto" />
+          <Image
+            src="/White.png"
+            alt="whitelogo"
+            width={48} // w-12
+            height={48} // ใส่เพื่อให้ผ่าน validation
+            className="w-12 h-auto"
+          />
 
           {/* ชื่อเว็บ ใช้ flex-grow เพื่อดันปุ่มภาษาไปขวา */}
           <div className="mx-2 flex-1 px-2 font-bold text-lg">

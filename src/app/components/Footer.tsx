@@ -2,9 +2,9 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "/public/White.png";
-import facebook from "/public/svg/fb.svg";
-import instagram from "/public/svg/ig.svg";
+// import logo from "/public/White.png";
+// import facebook from "/public/svg/fb.svg";
+// import instagram from "/public/svg/ig.svg";
 import { useLanguage } from "./LanguageContext";
 
 export default function Footer() {
@@ -26,7 +26,14 @@ export default function Footer() {
   const t = translations[lang];
   return (
     <footer className="bg-[#720606] h-fit w-full flex max-sm:inline-block">
-      <Image src={logo} alt="smcu" className="mr-2 h-28 w-fit my-2 px-4" />
+      <Image
+        src="/White.png"
+        alt="whitelogo"
+        height={112} // h-28 = 28 × 4 = 112px
+        width={400} // ใส่ค่าอะไรก็ได้ที่เป็นสัดส่วนคร่าว ๆ
+        className="h-28 w-auto mr-2 my-2 px-4"
+      />
+
       <div>
         <div className="text-4xl font-bold text-white px-4 pt-4">
           AMSA-Thailand
@@ -54,7 +61,7 @@ export default function Footer() {
           href="https://www.instagram.com/amsa_thailand/"
         >
           <Image
-            src={instagram}
+            src="/svg/ig.svg"
             alt="instagram"
             width={25}
             height={25}
@@ -67,7 +74,7 @@ export default function Footer() {
           href="https://www.facebook.com/amsathailand/"
         >
           <Image
-            src={facebook}
+            src="/svg/fb.svg"
             alt="facebook"
             width={23}
             height={23}

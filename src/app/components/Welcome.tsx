@@ -3,7 +3,7 @@
 import React from "react";
 import WelcomeCard from "./WelcomeCard";
 import { welcomeList } from "../constants/welcomeList";
-import logo from "/public/Black.png";
+// import logo from "/public/Black.png";
 import Image from "next/image";
 import { useLanguage } from "./LanguageContext"; // สมมติคุณมี Context นี้แล้ว
 
@@ -71,7 +71,14 @@ export default function Welcome() {
       </div>
       <div className="hero rounded-3xl bg-white w-full max-w-[1000px] flex mx-auto">
         <div className="hero-content flex-col lg:flex-row">
-          <Image src={logo} alt="Logo" className="max-w-sm rounded-lg w-80" />
+          <Image
+            src="/Black.png"
+            alt="Logo"
+            width={320} // w-80
+            height={200} // ใส่คร่าว ๆ ให้ผ่าน (ไม่ต้องเป๊ะ)
+            className="w-80 h-auto max-w-sm rounded-lg"
+          />
+
           <div>
             <h1 className="text-5xl font-bold">{t.title}</h1>
             <p className="py-6 px-[24px] whitespace-pre-line">

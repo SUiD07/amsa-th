@@ -26,10 +26,10 @@ const TeamsFlexList = {
       desc: `Creates a supportive and friendly environment within AMSA and strengthens member relationships.`,
     },
     {
-      text: "AMCo (Community Outreach)",
+      text: "PGH (Public and Global Health Team of AMSA-Thailand)",
       image: "/image/logo.png",
       link: "https://www.instagram.com/amsep_thailand",
-      desc: `Advocates for public service and raises awareness on health issues locally and globally.`,
+      desc: "Advancing community service and enhancing public health consciousness on a local and international scale.",
     },
     {
       text: "AMDS (Multidisciplinary Studies Team)",
@@ -58,6 +58,12 @@ const TeamsFlexList = {
       desc: `Oversees internal and external communication, maintaining clear and effective messaging.
 `,
     },
+    {
+      text: "AML (AMSA Local Chapter)",
+      image: "/image/co.jpg",
+      link: "https://www.instagram.com/co_amsathailand",
+      desc: "To organize health promotions, academic activities, and community services, while offering members access to AMSA conferences and international exchanges.",
+    }
   ],
   th: [
     {
@@ -85,7 +91,7 @@ const TeamsFlexList = {
       desc: " สร้างสภาพแวดล้อมที่ดีและเป็นมิตรภายในองค์กร พร้อมจัดกิจกรรมเสริมสร้างความสัมพันธ์ระหว่างสมาชิก ",
     },
     {
-      text: "AMCo (Community Outreach)",
+      text: "PGH (Public and Global Health Team of AMSA-Thailand)",
       image: "/image/logo.png",
       link: "https://www.instagram.com/amsep_thailand",
       desc: "ส่งเสริมการบริการสังคมและสร้างความตระหนักรู้ด้านสุขภาวะทั้งในระดับท้องถิ่นและระดับโลก  ",
@@ -114,6 +120,12 @@ const TeamsFlexList = {
       link: "https://www.instagram.com/co_amsathailand",
       desc: "กำกับดูแลการสื่อสารภายในและภายนอกองค์กร สร้างมาตรฐานในการนำเสนอข้อมูลข่าวสาร เพื่อให้การสื่อสารของ AMSA มีเอกลักษณ์ที่ชัดเจนและเข้าถึงกลุ่มเป้าหมายอย่างมีประสิทธิภาพ",
     },
+    {
+      text: "AML (AMSA Local Chapter)",
+      image: "/image/co.jpg",
+      link: "https://www.instagram.com/co_amsathailand",
+      desc: "จัดกิจกรรมส่งเสริมสุขภาพ ดำเนินกิจกรรมทางวิชาการและบริการชุมชน เปิดโอกาสให้สมาชิกเข้าร่วมการประชุมและโครงการแลกเปลี่ยนของ AMSA ",
+    }
   ],
 };
 const TitleFlexList = {

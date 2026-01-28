@@ -31,8 +31,8 @@ export default function LoginPage() {
         appearance={{ theme: ThemeSupa }}
         redirectTo={process.env.NEXT_PUBLIC_REDIRECT_URL}
         providers={[]}
-        view="sign_in" 
-        showLinks={false}
+        // view="sign_in" 
+        // showLinks={false}
       />
     </div>
   );

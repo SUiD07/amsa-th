@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Target, Eye, History, Globe } from "lucide-react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function About() {
   return (
@@ -141,6 +142,7 @@ export default function About() {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }

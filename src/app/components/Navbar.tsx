@@ -81,6 +81,11 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
+                <Link className="hover:font-bold" href="./contact">
+                  Contact
+                </Link>
+              </li>
+              <li>
                 {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
                 <div className="flex items-center space-x-2 ml-auto">
                   <button
@@ -134,6 +139,9 @@ export default function Navbar() {
           </li>
           <li>
             <Link href="./article">Article</Link>
+          </li>
+          <li>
+            <Link href="./contact">Contact</Link>
           </li>
           <li>
             {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}

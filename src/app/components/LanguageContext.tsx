@@ -16,7 +16,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [lang, setLang] = useState<Lang>("th"); // ตั้งค่า default เป็น 'th'
+  const [lang, setLang] = useState<Lang>("en"); // ตั้งค่า default เป็น 'en'
 
   // โหลดค่าภาษาเดิมจาก localStorage (ถ้ามี)
   useEffect(() => {

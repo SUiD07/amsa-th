@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Bai_Jamjuree } from "next/font/google";
 import { IBM_Plex_Sans_Thai } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";       // นำเข้า Navbar
 import Footer from "./components/Footer";
@@ -28,6 +29,12 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
   weight: ['400', '700'],
   display: 'swap'
 });
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap'
+});
 
 export const metadata: Metadata = {
   title: "AMSA-Thailand",
@@ -46,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${baiJamjuree.variable} ${ibmPlexSansThai.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${baiJamjuree.variable} ${ibmPlexSansThai.variable} ${inter.variable} antialiased`}
       >
         {/* ครอบด้วย LanguageProvider เพื่อให้ทุกคอมโพเนนต์ในแอปใช้ภาษาได้ */}
         <LanguageProvider>

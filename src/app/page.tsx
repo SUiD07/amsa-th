@@ -42,7 +42,7 @@ export default function Home() {
           }}
         >
           <Glide />
-          <div style={{ backgroundColor: "white", width: "100vw" }}>
+          {/* <div style={{ backgroundColor: "white", width: "100vw" }}>
             <div id="home" className="bg-white pb-16 text-center pt-14">
               <div className="text-4xl lg:text-6xl font-bold pt-5 max-md:text-3xl">
                 AMSA
@@ -53,7 +53,7 @@ export default function Home() {
               </div>
               <br />
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* แสดงข้อความตามภาษาที่เลือก */}

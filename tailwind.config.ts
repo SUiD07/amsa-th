@@ -13,11 +13,15 @@ export default {
     extend: {
       fontFamily: {
         bai: ['var(--font-bai-jamjuree)', 'bai-jamjuree'],
-        ibm: ['var(--font-ibm-plex-sans-thai)', 'ibm-plex-sans-thai']
+        ibm: ['var(--font-ibm-plex-sans-thai)', 'ibm-plex-sans-thai'],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "amsa-blue": "#720606",
+        "amsa-light": "#fef2f2",
       },
     },
   },

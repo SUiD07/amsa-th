@@ -1,23 +1,25 @@
-'use client';
-import React, { useEffect } from "react";
-import Image from "next/image";
+"use client";
+
 import Navbar from "../components/Navbar";
 import NewEvent from "../components/NewEvent";
 import Event from "../components/Event";
 export default function Home() {
   return (
     <main className="font-ibm">
-        <Navbar />
-        
-        <Image
-            className="w-full max-w-full max-h-full m-auto"
-            src="https://drive.google.com/uc?id=1J7f187mXHToF2C0uuLR37ZFDAdOtpNSP"
-            alt="Slide1"
-            width="1000"
-            height="1000"
-        />
-        <NewEvent />
-        <Event />
+      <Navbar />
+      {/* Header */}
+      <section className="bg-amsa-blue py-20 text-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Events & Activities
+          </h1>
+          <p className="text-xl text-red-100">
+            Discover what's happening in AMSA-Thailand.
+          </p>
+        </div>
+      </section>
+      <NewEvent />
+      <Event />
     </main>
-  )
+  );
 }

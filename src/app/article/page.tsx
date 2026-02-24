@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Card, Button, Spinner } from "flowbite-react";
 import { supabase } from "@/src/lib/supabase";
+import { motion } from "motion/react";
 
 export default function Article() {
   const router = useRouter();
@@ -42,6 +43,30 @@ export default function Article() {
   return (
     <>
       <Navbar />
+      {/* Header */}
+      <section className="bg-slate-900 py-24 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <img
+            src="https://picsum.photos/seed/articles-bg/1920/1080"
+            alt="Background"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl font-bold mb-6"
+          >
+            AMSA-Thailand Articles
+          </motion.h1>
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+            Insights, stories, and academic perspectives from the medical
+            student community.
+          </p>
+        </div>
+      </section>
       <div className="text-4xl p-5 font-bold">Articles</div>
       <div className="flex flex-wrap justify-start">
         {articles.map((item) => (
@@ -60,7 +85,10 @@ export default function Article() {
             <p className="font-normal text-gray-700 dark:text-gray-400">
               {item.detail}
             </p>
-            <Button className="mt-2 bg-[#720606]" onClick={() => handleClick(item.id)}>
+            <Button
+              className="mt-2 bg-[#720606]"
+              onClick={() => handleClick(item.id)}
+            >
               {loadingId === item.id ? (
                 <>
                   Loading...

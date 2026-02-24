@@ -25,7 +25,8 @@ export default function Footer() {
   const { lang } = useLanguage();
   const t = translations[lang];
   return (
-    <footer className="bg-[#720606] h-fit w-full flex max-sm:inline-block">
+    <footer className="bg-[#720606] h-fit w-full ">
+      <div className="flex max-sm:inline-block">
       <Image
         src="/White.png"
         alt="whitelogo"
@@ -85,6 +86,10 @@ export default function Footer() {
       </div>
       {/* <div className="text-white px-4">{t.outro}</div> */}
       <br />
+      </div>
+      <div className="p-8 border-t border-white/10 text-center text-xs text-white/40">
+        <p>© {new Date().getFullYear()} AMSA-Thailand. All rights reserved.</p>
+      </div>
     </footer>
   );
 }

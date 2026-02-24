@@ -39,13 +39,13 @@ export default function Navbar() {
           </div>
 
           {/* โลโก้ */}
-<Image
-  src="/White.png"
-  alt="whitelogo"
-  width={48} // w-12
-  height={48} // ใส่เพื่อให้ผ่าน validation
-  className="w-12 h-auto"
-/>
+          <Image
+            src="/White.png"
+            alt="whitelogo"
+            width={48} // w-12
+            height={48} // ใส่เพื่อให้ผ่าน validation
+            className="w-12 h-auto"
+          />
 
           {/* ชื่อเว็บ ใช้ flex-grow เพื่อดันปุ่มภาษาไปขวา */}
           <div className="mx-2 flex-1 px-2 font-bold text-lg">
@@ -60,11 +60,11 @@ export default function Navbar() {
                   Home
                 </Link>
               </li>
-              {/* <li>
-                <Link className="hover:font-bold" href="./resources">
-                  Resources
+              <li>
+                <Link className="hover:font-bold" href="./about">
+                  About
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link className="hover:font-bold" href="./event">
                   Event
@@ -123,9 +123,9 @@ export default function Navbar() {
           <li>
             <Link href="/#welcome">Home</Link>
           </li>
-          {/* <li>
-            <Link href="./resources">Resources</Link>
-          </li> */}
+          <li>
+            <Link href="./about">About</Link>
+          </li>
           <li>
             <Link href="./event">Event</Link>
           </li>
@@ -136,27 +136,27 @@ export default function Navbar() {
             <Link href="./article">Article</Link>
           </li>
           <li>
-{/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
-<div className="flex items-center mr-auto pl-2">
-  <button
-    onClick={() => setLang("en")}
-    disabled={lang === "en"}
-    className={`px-3 py-1 rounded ${
-      lang === "en" ? "bg-white text-[#720606]" : "bg-transparent"
-    }`}
-  >
-    English
-  </button>
-  <button
-    onClick={() => setLang("th")}
-    disabled={lang === "th"}
-    className={`px-3 py-1 rounded ${
-      lang === "th" ? "bg-white text-[#720606]" : "bg-transparent"
-    }`}
-  >
-    ไทย
-  </button>
-</div>
+            {/* ปุ่มเปลี่ยนภาษา ชิดขวา */}
+            <div className="flex items-center mr-auto pl-2">
+              <button
+                onClick={() => setLang("en")}
+                disabled={lang === "en"}
+                className={`px-3 py-1 rounded ${
+                  lang === "en" ? "bg-white text-[#720606]" : "bg-transparent"
+                }`}
+              >
+                English
+              </button>
+              <button
+                onClick={() => setLang("th")}
+                disabled={lang === "th"}
+                className={`px-3 py-1 rounded ${
+                  lang === "th" ? "bg-white text-[#720606]" : "bg-transparent"
+                }`}
+              >
+                ไทย
+              </button>
+            </div>
           </li>
         </ul>
       </div>
@@ -221,8 +221,8 @@ export default function Navbar() {
 //             <div
 //               className={cn(
 //                 "font-serif font-bold text-xl tracking-tight transition-colors",
-//                 // scrolled ? 
-//                 // "text-amsa-blue" 
+//                 // scrolled ?
+//                 // "text-amsa-blue"
 //                 // :
 //                  "text-white",
 //               )}
@@ -271,8 +271,8 @@ export default function Navbar() {
 //             </div>
 //             {/* <Link href="/contact" className={cn(
 //               "px-5 py-2 rounded-full text-sm font-semibold transition-all",
-//               scrolled 
-//                 ? "bg-amsa-blue text-white hover:bg-red-900" 
+//               scrolled
+//                 ? "bg-amsa-blue text-white hover:bg-red-900"
 //                 : "bg-white text-amsa-blue hover:bg-slate-100"
 //             )}>
 //               Join Us

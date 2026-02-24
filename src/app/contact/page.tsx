@@ -9,6 +9,9 @@ import {
   Facebook,
   Instagram,
   MessageSquare,
+  ShieldCheck,
+  Landmark,
+  Users2,
 } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -17,185 +20,286 @@ export default function Contact() {
   return (
     <>
       <Navbar />
-      {/* Header */}
-      <section className="bg-amsa-blue py-32 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <img
-            src="https://picsum.photos/seed/contact-bg/1920/1080"
-            alt="Background"
-            className="w-full h-full object-cover"
-            referrerPolicy="no-referrer"
-          />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold mb-8"
-          >
-            Get in Touch
-          </motion.h1>
-          <p className="text-xl md:text-2xl text-red-100 max-w-3xl mx-auto leading-relaxed">
-            Whether you're a student, a potential partner, or just curious about
-            our work, we'd love to hear from you.
-          </p>
-        </div>
-      </section>
-      <div className="pb-20">
-        <section className="py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-              {/* Contact Details Card */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-slate-50 p-12 md:p-16 rounded-[3rem] border border-slate-100 shadow-sm"
-              >
-                <h2 className="text-4xl font-bold mb-12 text-slate-900">
-                  Contact Information
-                </h2>
+      <div className="pb-20 bg-white">
+        {/* Formal Header */}
+        <section className="relative py-32 bg-slate-900 border-b border-white/10 overflow-hidden">
+          <div className="absolute inset-0 z-0 opacity-20">
+            <img
+              src="https://picsum.photos/seed/medical-professional/1920/1080?grayscale"
+              alt="Background"
+              className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          <div className="max-w-7xl mx-auto px-4 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-3xl"
+            >
+              <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
+                Official Communication
+              </div>
+              <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
+                Contact the{" "}
+                <span className="italic text-amsa-blue">National Board</span>
+              </h1>
+              <p className="text-xl text-slate-300 leading-relaxed font-light">
+                Asian Medical Students' Association of Thailand maintains
+                official channels for academic collaboration, institutional
+                partnerships, and student support.
+              </p>
+            </motion.div>
+          </div>
+        </section>
 
-                <div className="space-y-10">
-                  <div className="flex gap-8 group">
-                    <div className="w-16 h-16 bg-white text-amsa-blue rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
-                      <Mail size={32} />
+        {/* Main Contact Grid */}
+        <section className="py-24">
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+              {/* Left Column: Official Channels */}
+              <div className="lg:col-span-7 space-y-16">
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-900 mb-12 flex items-center gap-4">
+                    <span className="w-8 h-1 bg-amsa-blue"></span>
+                    Official Channels
+                  </h2>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div className="flex gap-6 items-start">
+                      <Mail
+                        className="text-amsa-blue shrink-0 mt-1"
+                        size={24}
+                      />
+                      <div>
+                        <p className="font-bold text-slate-900 mb-1">
+                          Email Correspondence
+                        </p>
+                        <p className="text-slate-600 leading-relaxed">
+                          contact.amsathailand@gmail.com
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-2">Email Us</h3>
-                      <p className="text-slate-600 text-lg">
+                    {/* <div className="group">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-slate-50 text-amsa-blue rounded-xl flex items-center justify-center border border-slate-100 group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
+                          <Mail size={24} />
+                        </div>
+                        <h3 className="font-bold text-lg text-slate-900">
+                          Email Correspondence
+                        </h3>
+                      </div>
+                      <p className="text-slate-600 mb-2">
                         contact.amsathailand@gmail.com
                       </p>
-                      <p className="text-slate-500">
-                        General inquiries and partnerships
+                      <p className="text-sm text-slate-400">
+                        For general inquiries and official correspondence.
                       </p>
+                    </div> */}
+                    <div className="flex gap-6 items-start">
+                      <MapPin
+                        className="text-amsa-blue shrink-0 mt-1"
+                        size={24}
+                      />
+                      <div>
+                        <p className="font-bold text-slate-900 mb-1">
+                          National Headquarters
+                        </p>
+                        <p className="text-slate-600 leading-relaxed">
+                          Bangkok, Thailand
+                          <br />
+                          Supporting 20+ Medical School Chapters Nationwide
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* <div className="group">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-slate-50 text-amsa-blue rounded-xl flex items-center justify-center border border-slate-100 group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
+                          <Landmark size={24} />
+                        </div>
+                        <h3 className="font-bold text-lg text-slate-900">
+                          External Relations
+                        </h3>
+                      </div>
+                      <p className="text-slate-600 mb-2">
+                        external@amsa-thailand.org
+                      </p>
+                      <p className="text-sm text-slate-400">
+                        For institutional partnerships and sponsorships.
+                      </p>
+                    </div> */}
+
+                    {/* <div className="group">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-slate-50 text-amsa-blue rounded-xl flex items-center justify-center border border-slate-100 group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
+                          <Users2 size={24} />
+                        </div>
+                        <h3 className="font-bold text-lg text-slate-900">
+                          Chapter Support
+                        </h3>
+                      </div>
+                      <p className="text-slate-600 mb-2">
+                        chapters@amsa-thailand.org
+                      </p>
+                      <p className="text-sm text-slate-400">
+                        For university chapter coordination and support.
+                      </p>
+                    </div> */}
+
+                    {/* <div className="group">
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 bg-slate-50 text-amsa-blue rounded-xl flex items-center justify-center border border-slate-100 group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
+                          <ShieldCheck size={24} />
+                        </div>
+                        <h3 className="font-bold text-lg text-slate-900">
+                          Academic Affairs
+                        </h3>
+                      </div>
+                      <p className="text-slate-600 mb-2">
+                        academic@amsa-thailand.org
+                      </p>
+                      <p className="text-sm text-slate-400">
+                        For research and academic program inquiries.
+                      </p>
+                    </div> */}
+                  </div>
+                </div>
+
+                {/* Administrative Office */}
+                {/* <div className="bg-slate-50 p-12 rounded-3xl border border-slate-100">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-8">
+                    Administrative Office
+                  </h2> */}
+                  {/* <div className="space-y-6"> */}
+                  {/* <div className="flex gap-6 items-start">
+                      <MapPin
+                        className="text-amsa-blue shrink-0 mt-1"
+                        size={24}
+                      />
+                      <div>
+                        <p className="font-bold text-slate-900 mb-1">
+                          National Headquarters
+                        </p>
+                        <p className="text-slate-600 leading-relaxed">
+                          Bangkok, Thailand
+                          <br />
+                          Supporting 20+ Medical School Chapters Nationwide
+                        </p>
+                      </div>
+                    </div> */}
+                  {/* <div className="flex gap-6 items-center">
+                      <Phone className="text-amsa-blue shrink-0" size={24} />
+                      <div>
+                        <p className="font-bold text-slate-900 mb-1">
+                          Administrative Line
+                        </p>
+                        <p className="text-slate-600">
+                          +66 2 XXX XXXX (Mon-Fri, 09:00 - 17:00 ICT)
+                        </p>
+                      </div>
+                    </div> */}
+                  {/* </div> */}
+                {/* </div> */}
+              </div>
+
+              {/* Right Column: Digital Presence & Verification */}
+              <div className="lg:col-span-5">
+                <div className="sticky top-32 space-y-8">
+                  <div className="bg-white p-10 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 className="text-xl font-bold text-slate-900 mb-6">
+                      Digital Verification
+                    </h3>
+                    <p className="text-sm text-slate-500 mb-8 leading-relaxed">
+                      To ensure you are communicating with the official
+                      AMSA-Thailand National Board, please verify our digital
+                      presence through these verified channels.
+                    </p>
+
+                    <div className="space-y-4">
+                      <a
+                        href="https://facebook.com/AMSAThailand"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <Facebook
+                            size={20}
+                            className="text-slate-400 group-hover:text-[#1877F2]"
+                          />
+                          <span className="font-medium text-slate-700">
+                            Official Facebook Page
+                          </span>
+                        </div>
+                        <Globe size={16} className="text-slate-300" />
+                      </a>
+
+                      <a
+                        href="https://instagram.com/amsa_thailand"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <Instagram
+                            size={20}
+                            className="text-slate-400 group-hover:text-amsa-blue"
+                          />
+                          <span className="font-medium text-slate-700">
+                            Official Instagram
+                          </span>
+                        </div>
+                        <Globe size={16} className="text-slate-300" />
+                      </a>
+
+                      {/* <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
+                        <div className="flex items-center gap-4 opacity-50">
+                          <MessageSquare size={20} className="text-slate-400" />
+                          <span className="font-medium text-slate-700">
+                            Line Official Account
+                          </span>
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                          Pending
+                        </span>
+                      </div> */}
                     </div>
                   </div>
 
-                  {/* <div className="flex gap-8 group">
-                    <div className="w-16 h-16 bg-white text-amsa-blue rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
-                      <Phone size={32} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-2">Call Us</h3>
-                      <p className="text-slate-600 text-lg">+66 2 XXX XXXX</p>
-                      <p className="text-slate-500">
-                        Available Mon-Fri, 9:00 - 17:00
-                      </p>
-                    </div>
-                  </div> */}
-
-                  <div className="flex gap-8 group">
-                    <div className="w-16 h-16 bg-white text-amsa-blue rounded-2xl flex items-center justify-center shrink-0 shadow-md group-hover:bg-amsa-blue group-hover:text-white transition-all duration-300">
-                      <MapPin size={32} />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl mb-2">Our Location</h3>
-                      <p className="text-slate-600 text-lg">
-                        Bangkok, Thailand
-                      </p>
-                      <p className="text-slate-500">
-                        Supporting medical students nationwide
-                      </p>
-                    </div>
+                  <div className="bg-amsa-blue p-10 rounded-3xl text-white">
+                    <h3 className="text-xl font-bold mb-4">
+                      International Liaison
+                    </h3>
+                    <p className="text-white/80 text-sm leading-relaxed mb-6">
+                      AMSA-Thailand is a constituent member of AMSA
+                      International. For matters concerning the regional board
+                      or other national chapters:
+                    </p>
+                    <a
+                      href="https://amsa-international.org"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 text-sm font-bold border-b border-white/30 hover:border-white transition-all pb-1"
+                    >
+                      Visit AMSA International <Globe size={16} />
+                    </a>
                   </div>
                 </div>
-              </motion.div>
-
-              {/* Social Media & Community */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="space-y-12"
-              >
-                <div>
-                  <h2 className="text-4xl font-bold mb-6 text-slate-900">
-                    Join the Community
-                  </h2>
-                  <p className="text-xl text-slate-600 leading-relaxed mb-10">
-                    The best way to stay updated with our latest programs,
-                    events, and opportunities is through our social media
-                    channels.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <a
-                    href="https://facebook.com/AMSAThailand"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="bg-[#1877F2] text-white p-8 rounded-3xl flex flex-col items-center text-center gap-4 hover:shadow-xl transition-all active:scale-95 group"
-                  >
-                    <Facebook
-                      size={48}
-                      className="group-hover:scale-110 transition-transform"
-                    />
-                    <div>
-                      <div className="font-bold text-xl">Facebook</div>
-                      <div className="text-white/80 text-sm">AMSA-Thailand</div>
-                    </div>
-                  </a>
-
-                  <a
-                    href="https://instagram.com/amsa_thailand"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="bg-gradient-to-tr from-amber-500 via-red-500 to-purple-600 text-white p-8 rounded-3xl flex flex-col items-center text-center gap-4 hover:shadow-xl transition-all active:scale-95 group"
-                  >
-                    <Instagram
-                      size={48}
-                      className="group-hover:scale-110 transition-transform"
-                    />
-                    <div>
-                      <div className="font-bold text-xl">Instagram</div>
-                      <div className="text-white/80 text-sm">
-                        @amsa_thailand
-                      </div>
-                    </div>
-                  </a>
-
-                  {/* <div className="bg-amsa-light text-amsa-blue p-8 rounded-3xl flex flex-col items-center text-center gap-4 border border-amsa-blue/10">
-                    <MessageSquare size={48} />
-                    <div>
-                      <div className="font-bold text-xl">Line Official</div>
-                      <div className="text-amsa-blue/70 text-sm">
-                        Coming Soon
-                      </div>
-                    </div>
-                  </div> */}
-
-                  <div className="bg-slate-900 text-white p-8 rounded-3xl flex flex-col items-center text-center gap-4">
-                    <Globe size={48} />
-                    <div>
-                      <div className="font-bold text-xl">
-                        AMSA International
-                      </div>
-                      <div className="text-white/70 text-sm">
-                        amsa-international.org
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Map Placeholder or Visual Element */}
-        <section className="h-[400px] bg-slate-100 relative overflow-hidden">
-          <img
-            src="https://picsum.photos/seed/bangkok-map/1920/600?grayscale"
-            alt="Bangkok Map"
-            className="w-full h-full object-cover opacity-50"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-white/20 text-center max-w-md mx-4">
-              <MapPin size={48} className="text-amsa-blue mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-2">Based in Bangkok</h3>
-              <p className="text-slate-600">
-                Connecting medical students across all regions of Thailand.
+        {/* Visual Footer Element */}
+        <section className="py-24 bg-slate-50 border-t border-slate-100">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-serif font-bold text-slate-900 mb-4">
+                Knowledge | Action | Friendship
+              </h2>
+              <p className="text-slate-500 text-sm uppercase tracking-[0.2em]">
+                Asian Medical Students' Association of Thailand
               </p>
             </div>
           </div>

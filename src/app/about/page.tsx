@@ -10,20 +10,33 @@ export default function About() {
     <>
       <Navbar />
       {/* Hero Section */}
-      <section className="bg-amsa-blue py-24 text-white">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.h1
+      <section className="relative py-32 bg-slate-900 border-b border-white/10 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
+          <img
+            src="https://picsum.photos/seed/medical-about/1920/1080?grayscale"
+            alt="Background"
+            className="w-full h-full object-cover"
+            referrerPolicy="no-referrer"
+          />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-bold mb-6"
+            className="max-w-3xl"
           >
-            About AMSA-Thailand
-          </motion.h1>
-          <p className="text-xl text-red-100 max-w-3xl">
-            The Asian Medical Students' Association of Thailand is the
-            representative organization for medical students in Thailand,
-            fostering international collaboration and professional development.
-          </p>
+            <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
+              Corporate Identity
+            </div>
+            <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
+              About <span className="italic text-amsa-blue">AMSA-Thailand</span>
+            </h1>
+            <p className="text-xl text-slate-300 leading-relaxed font-light">
+              The peak representative organization for medical students in
+              Thailand, fostering international collaboration, academic
+              excellence, and social responsibility.
+            </p>
+          </motion.div>
         </div>
       </section>
       <div className="pt-20">

@@ -44,27 +44,32 @@ export default function Article() {
     <>
       <Navbar />
       {/* Header */}
-      <section className="bg-slate-900 py-24 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+      <section className="relative py-32 bg-slate-900 border-b border-white/10 overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-20">
           <img
-            src="https://picsum.photos/seed/articles-bg/1920/1080"
+            src="https://picsum.photos/seed/medical-journal/1920/1080?grayscale"
             alt="Background"
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <motion.h1
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-bold mb-6"
+            className="max-w-3xl"
           >
-            AMSA-Thailand Articles
-          </motion.h1>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            Insights, stories, and academic perspectives from the medical
-            student community.
-          </p>
+            <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
+              Academic Publications
+            </div>
+            <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
+              Medical <span className="italic text-amsa-blue">Journal</span>
+            </h1>
+            <p className="text-xl text-slate-300 leading-relaxed font-light">
+              Official publications, research papers, and academic insights from
+              the medical student community of Thailand.
+            </p>
+          </motion.div>
         </div>
       </section>
       <div className="text-4xl p-5 font-bold">Articles</div>

@@ -101,7 +101,7 @@ export default function Welcome() {
               <div className="inline-flex items-center gap-2 bg-amsa-light text-amsa-blue px-4 py-2 rounded-full font-bold text-xs mb-8 tracking-widest uppercase">
                 {t.welcome}
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
                 {t.deepDive}{" "}
                 <span className="text-amsa-blue">{t.ourOrganization}</span>
               </h2>
@@ -138,7 +138,7 @@ export default function Welcome() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-4xl font-bold mb-6 text-slate-900">
+              <h2 className="font-serif text-4xl font-bold mb-6 text-slate-900">
                 {t.title}
               </h2>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
@@ -153,7 +153,7 @@ export default function Welcome() {
                     <Globe size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl mb-1">Global Network</h3>
+                    <h3 className="font-serif font-bold text-xl mb-1">Global Network</h3>
                     <p className="text-slate-500">
                       Connecting students from 27+ countries for cross-border
                       collaboration.
@@ -165,7 +165,7 @@ export default function Welcome() {
                     <BookOpen size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl mb-1">
+                    <h3 className="font-serif font-bold text-xl mb-1">
                       Knowledge Exchange
                     </h3>
                     <p className="text-slate-500">
@@ -179,7 +179,7 @@ export default function Welcome() {
                     <Users size={24} />
                   </div>
                   <div>
-                    <h3 className="font-bold text-xl mb-1">Friendship</h3>
+                    <h3 className="font-serif font-bold text-xl mb-1">Friendship</h3>
                     <p className="text-slate-500">
                       Building lifelong bonds and professional networks across
                       the globe.
@@ -244,7 +244,7 @@ export default function Welcome() {
       {/* Vision Section */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-16">{t.visionTitle}</h2>
+          <h2 className="font-serif text-4xl font-bold mb-16">{t.visionTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
@@ -272,7 +272,7 @@ export default function Welcome() {
                 className="bg-white p-10 rounded-3xl shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="text-5xl mb-6">{pillar.icon}</div>
-                <h3 className="text-2xl font-bold mb-4">{pillar.title}</h3>
+                <h3 className="font-serif text-2xl font-bold mb-4">{pillar.title}</h3>
                 <p className="text-slate-500 leading-relaxed">{pillar.desc}</p>
               </motion.div>
             ))}

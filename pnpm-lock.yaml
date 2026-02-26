@@ -20,6 +20,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.77.0
         version: 2.77.0
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

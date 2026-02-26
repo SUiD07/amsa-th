@@ -30,6 +30,33 @@ type Event = {
   created_at: string;
 };
 
+/* ---------- IMAGE UPLOAD FIELDS ---------- */
+// ระบุว่า field ไหนเป็น image field
+const CONTENT_IMAGE_FIELDS = ["img_head"];
+const EVENT_IMAGE_FIELDS = ["image"];
+
+/* ---------- UPLOAD HELPER ---------- */
+
+async function uploadImageToSupabase(
+  file: File,
+  bucket: string,
+): Promise<string | null> {
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`;
+
+  const { error } = await supabase.storage
+    .from(bucket)
+    .upload(fileName, file, { upsert: false });
+
+  if (error) {
+    alert(`Upload failed: ${error.message}`);
+    return null;
+  }
+
+  const { data } = supabase.storage.from(bucket).getPublicUrl(fileName);
+  return data.publicUrl;
+}
+
 /* ---------- DASHBOARD ---------- */
 
 export default function Dashboard() {
@@ -128,8 +155,8 @@ export default function Dashboard() {
 
       setContents((prev) =>
         prev.map((i) =>
-          i.id === editingContent.id ? { ...i, ...contentForm } : i
-        )
+          i.id === editingContent.id ? { ...i, ...contentForm } : i,
+        ),
       );
     } else {
       const { data } = await supabase
@@ -180,7 +207,9 @@ export default function Dashboard() {
       await supabase.from("events").update(eventForm).eq("id", editingEvent.id);
 
       setEvents((prev) =>
-        prev.map((i) => (i.id === editingEvent.id ? { ...i, ...eventForm } : i))
+        prev.map((i) =>
+          i.id === editingEvent.id ? { ...i, ...eventForm } : i,
+        ),
       );
     } else {
       const { data } = await supabase
@@ -240,7 +269,16 @@ export default function Dashboard() {
               <tr key={row.id}>
                 {contentCols.map((c) => (
                   <td key={c} className="border p-2">
-                    {String((row as any)[c] ?? "")}
+                    {/* แสดงรูปภาพถ้าเป็น image field และมี URL */}
+                    {CONTENT_IMAGE_FIELDS.includes(c) && (row as any)[c] ? (
+                      <img
+                        src={(row as any)[c]}
+                        alt={c}
+                        className="h-12 w-auto object-cover rounded"
+                      />
+                    ) : (
+                      String((row as any)[c] ?? "")
+                    )}
                   </td>
                 ))}
                 <td className="border p-2 text-center space-x-2">
@@ -269,6 +307,8 @@ export default function Dashboard() {
           setForm={setContentForm}
           onSave={saveContent}
           onCancel={editingContent ? startAddContent : undefined}
+          imageFields={CONTENT_IMAGE_FIELDS}
+          imageBucket="contents-images" // ← ชื่อ bucket ใน Supabase Storage
         />
       </section>
 
@@ -292,7 +332,16 @@ export default function Dashboard() {
               <tr key={row.id}>
                 {eventCols.map((c) => (
                   <td key={c} className="border p-2">
-                    {String((row as any)[c] ?? "")}
+                    {/* แสดงรูปภาพถ้าเป็น image field และมี URL */}
+                    {EVENT_IMAGE_FIELDS.includes(c) && (row as any)[c] ? (
+                      <img
+                        src={(row as any)[c]}
+                        alt={c}
+                        className="h-12 w-auto object-cover rounded"
+                      />
+                    ) : (
+                      String((row as any)[c] ?? "")
+                    )}
                   </td>
                 ))}
                 <td className="border p-2 text-center space-x-2">
@@ -321,6 +370,8 @@ export default function Dashboard() {
           setForm={setEventForm}
           onSave={saveEvent}
           onCancel={editingEvent ? startAddEvent : undefined}
+          imageFields={EVENT_IMAGE_FIELDS}
+          imageBucket="events-images" // ← ชื่อ bucket ใน Supabase Storage
         />
       </section>
     </div>
@@ -335,20 +386,73 @@ function FormBlock({
   setForm,
   onSave,
   onCancel,
+  imageFields = [],
+  imageBucket = "images",
 }: {
   title: string;
   form: Record<string, any>;
   setForm: (f: any) => void;
   onSave: () => void;
   onCancel?: () => void;
+  imageFields?: string[];
+  imageBucket?: string;
 }) {
+  const [uploadingField, setUploadingField] = useState<string | null>(null);
+
+  async function handleImageUpload(key: string, file: File | undefined) {
+    if (!file) return;
+    setUploadingField(key);
+    const url = await uploadImageToSupabase(file, imageBucket);
+    if (url) {
+      setForm((f: any) => ({ ...f, [key]: url }));
+    }
+    setUploadingField(null);
+  }
+
   return (
     <div className="border p-4 rounded">
       <h3 className="font-bold mb-3">{title}</h3>
 
       {Object.keys(form).map((key) => (
         <div key={key} className="mb-2">
-          {key.startsWith("text") ? (
+          {/* Image upload field */}
+          {imageFields.includes(key) ? (
+            <div>
+              <label className="block text-sm text-gray-600 mb-1 capitalize">
+                {key}
+              </label>
+
+              {/* Preview รูปปัจจุบัน */}
+              {form[key] && (
+                <div className="mb-2 flex items-center gap-2">
+                  <img
+                    src={form[key]}
+                    alt="preview"
+                    className="h-20 w-auto object-cover rounded border"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setForm((f: any) => ({ ...f, [key]: "" }))}
+                    className="text-red-500 text-xs"
+                  >
+                    ลบรูป
+                  </button>
+                </div>
+              )}
+
+              {/* Input อัปโหลดไฟล์ */}
+              <input
+                type="file"
+                accept="image/*"
+                className="border p-2 w-full"
+                disabled={uploadingField === key}
+                onChange={(e) => handleImageUpload(key, e.target.files?.[0])}
+              />
+              {uploadingField === key && (
+                <p className="text-xs text-gray-500 mt-1">กำลังอัปโหลด...</p>
+              )}
+            </div>
+          ) : key.startsWith("text") ? (
             <textarea
               className="border p-2 w-full"
               placeholder={key}
@@ -373,7 +477,8 @@ function FormBlock({
       <div className="flex gap-2 mt-3">
         <button
           onClick={onSave}
-          className="bg-green-600 text-white px-4 py-2 rounded"
+          disabled={!!uploadingField}
+          className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
         >
           Save
         </button>

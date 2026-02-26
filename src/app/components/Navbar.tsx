@@ -196,9 +196,9 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Programs", path: "/programs" },
-    { name: "Events", path: "/events" },
-    { name: "Articles", path: "/articles" },
+    // { name: "Programs", path: "/programs" },
+    { name: "Events", path: "/event" },
+    { name: "Articles", path: "/article" },
     { name: "Contact", path: "/contact" },
   ];
   const { lang, setLang } = useLanguage();

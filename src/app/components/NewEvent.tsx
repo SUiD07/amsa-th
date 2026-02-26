@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import { useLanguage } from "./LanguageContext";
 import { supabase } from "@/src/lib/supabase";
+import Link from "next/dist/client/link";
+import { ArrowRight } from "lucide-react";
 
 // แปลภาษา UI
 const translations = {
@@ -63,30 +65,44 @@ export default function Event() {
 
   return (
     <>
-      <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">
-        New Event
-      </div>
-      <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {events.map((item) => {
-          const name = lang === "th" ? item.name_th : item.name_en;
-          const text = lang === "th" ? item.text_th : item.text_en;
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-5xl font-bold mb-4 font-serif">Latest Events</h2>
+            <p className="text-slate-500">
+              Stay updated with our upcoming activities and programs.
+            </p>
+          </div>
+          <Link
+            href="/event"
+            className="text-amsa-blue font-semibold flex items-center gap-2 hover:underline"
+          >
+            View All Events <ArrowRight size={18} />
+          </Link>
+        </div>
+        {/* <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">
+          New Event
+        </div> */}
+        <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {events.map((item) => {
+            const name = lang === "th" ? item.name_th : item.name_en;
+            const text = lang === "th" ? item.text_th : item.text_en;
 
-          return (
-            <React.Fragment key={item.id}>
-              {
-              item.status &&
-               (
-                <EventCard
-                  status={item.status}
-                  name={name}
-                  link={item.link}
-                  text={text}
-                  image={item.image}
-                />
-              )}
-            </React.Fragment>
-          );
-        })}
+            return (
+              <React.Fragment key={item.id}>
+                {item.status && (
+                  <EventCard
+                    status={item.status}
+                    name={name}
+                    link={item.link}
+                    text={text}
+                    image={item.image}
+                  />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
       </div>
     </>
   );

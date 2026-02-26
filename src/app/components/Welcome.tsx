@@ -138,7 +138,7 @@ export default function Welcome() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="font-serif text-4xl font-bold mb-6 text-slate-900">
+              <h2 className="font-serif text-5xl font-bold mb-6 text-slate-900">
                 {t.title}
               </h2>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
@@ -244,7 +244,7 @@ export default function Welcome() {
       {/* Vision Section */}
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="font-serif text-4xl font-bold mb-16">{t.visionTitle}</h2>
+          <h2 className="font-serif text-5xl font-bold mb-16">{t.visionTitle}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {

@@ -59,8 +59,8 @@ export default function Event() {
 
   return (
     <>
-      <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">
-        {t.eventTitle}
+      {/* <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">
+        {t.eventTitle} 
       </div>
       <div className="bg-white px-10 pb-20 grid max-sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {events.map((item) => {
@@ -83,7 +83,7 @@ export default function Event() {
             </React.Fragment>
           );
         })}
-      </div>
+      </div> */}
     </>
   );
 }

@@ -63,7 +63,7 @@ export default function Article() {
               Academic Publications
             </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
-              Medical <span className="italic text-amsa-blue">Journal</span>
+              Medical <span className="italic text-amsa-blue">Article</span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed font-light">
               Official publications, research papers, and academic insights from
@@ -86,23 +86,15 @@ export default function Article() {
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {item.head}
             </h5>
-            <h4 className="font-semibold">{item.author}</h4>
             <p className="font-normal text-gray-700 dark:text-gray-400">
               {item.detail}
             </p>
-            <Button
-              className="mt-2 bg-[#720606]"
-              onClick={() => handleClick(item.id)}
-            >
-              {loadingId === item.id ? (
-                <>
-                  Loading...
-                  <Spinner size="sm" className="ml-2" />
-                </>
-              ) : (
-                "Read More"
-              )}
-            </Button>
+            <h4 className="font-semibold">{item.author}</h4>
+            <a href={item.word} target="_blank">
+              <button className="bg-[#720606] text-white text-xs  py-2 rounded-full btn btn-primary">
+                Read More
+              </button>
+            </a>
           </Card>
         ))}
       </div>

@@ -11,7 +11,7 @@ import Team from "./components/Team";
 import { LanguageProvider, useLanguage } from "./components/LanguageContext";
 import NewEvent from "./components/NewEvent";
 import Event from "./components/Event";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Link from "next/link";
 import {
   ArrowRight,

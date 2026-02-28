@@ -72,7 +72,15 @@ export default function Article() {
           </motion.div>
         </div>
       </section>
-      <div className="text-4xl p-5 font-bold">Articles</div>
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex justify-between items-end mb-12">
+          <div>
+            <h2 className="text-5xl font-bold my-4 font-serif">
+              Latest Articles
+            </h2>
+          </div>
+        </div>
+      </div>
       <div className="flex flex-wrap justify-start">
         {articles.map((item) => (
           <Card key={item.id} className="w-96 m-2">
@@ -98,6 +106,7 @@ export default function Article() {
           </Card>
         ))}
       </div>
+
       <Footer />
     </>
   );

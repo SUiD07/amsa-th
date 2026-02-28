@@ -68,7 +68,7 @@ export default function Event() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <h2 className="text-5xl font-bold mb-4 font-serif">Latest Events</h2>
+            <h2 className="text-5xl font-bold my-4 font-serif">Latest Events</h2>
             <p className="text-slate-500">
               Stay updated with our upcoming activities and programs.
             </p>

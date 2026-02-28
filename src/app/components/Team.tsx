@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLanguage } from "./LanguageContext"; // ปรับ path ตามโปรเจกต์คุณ
 import { title } from "process";
+import { motion } from "motion/react";
+import { ChevronRight, Users, Shield, Globe, BookOpen, Heart, Zap, Award, Target, Layout } from "lucide-react";
 
 const TeamsFlexList = {
   en: [
@@ -193,89 +195,187 @@ const TeamsFlex: React.FC = () => {
   const title = TitleFlexList[lang];
   const teams = TeamsFlexList[lang];
   return (
-    <section className="py-32 bg-slate-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-amsa-light text-amsa-blue px-4 py-2 rounded-full font-bold text-xs mb-6 tracking-widest uppercase">
-              Organization
-            </div>
-            <h2 className="text-5xl font-bold text-slate-900 mb-6 font-serif">
-              AMSA-Thailand Structure
-            </h2>
-            <p className="text-slate-600 text-lg">
-              Our organization is powered by 9 specialized teams, each dedicated
-              to a unique aspect of medical student life and professional
-              growth.
-            </p>
-          </div>
-        </div>
-        <ul className="list bg-base-100 rounded-box shadow-md">
-          <div className="p-4 pb-2 text-xs tracking-wide">
-            <div className="ml-4 mr-4 mb-4 pt-5 pb-5 bg-[#720606] items-center shadow-lg rounded-md">
-              <h2 className="text-lg font-bold text-white ml-5 mt-5">
-                {title.title}
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      <section className="py-24 md:py-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          {/* Header Section */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-2xl"
+            >
+              <div className="inline-flex items-center gap-2 bg-amsa-light text-amsa-blue px-4 py-1.5 rounded-full font-bold text-[10px] mb-6 tracking-[0.2em] uppercase border border-amsa-blue/10">
+                <Award className="w-3 h-3" />
+                Organization
+              </div>
+              <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 font-serif tracking-tight leading-tight">
+                AMSA-Thailand <br />
+                <span className="text-amsa-red italic">Structure</span>
               </h2>
-              <p className=" text-white ml-5 mt-2">{title.desctitle}</p>
-              <ul>
-                {teams.map((actitem, actindex) => (
-                  <li className="list-row" key={actindex}>
-                    <div className="space-y-2 my-4 mx-4 px-2 py-2 bg-rose-50 rounded-md">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 relative rounded-full overflow-hidden">
-                          <Image
-                            src={actitem.image}
-                            alt={`Team ${actindex + 1}`}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            sizes="32px"
-                          />
-                        </div>
-                        <a
-                          href={actitem.link}
-                          className="text-sm font-semibold"
-                        >
-                          {actitem.text}
-                        </a>
-                      </div>
-                      <p className="text-xs px-11">{actitem.desc}</p>
-                    </div>
-                  </li>
+              <p className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-xl">
+                Our organization is powered by specialized teams, each dedicated
+                to a unique aspect of medical student life and professional
+                growth.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="hidden md:block"
+            >
+              <div className="flex -space-x-4">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="w-12 h-12 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                    <img
+                      src={`https://picsum.photos/seed/member${i}/100/100`}
+                      alt="Member"
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
                 ))}
-              </ul>
-              <p className=" text-white ml-5 mt-2">{title.minidesc1}</p>
-              <ul>
-                {MiniTitle.map((miniitem, miniindex) => (
-                  <li className="list-row" key={miniindex}>
-                    <div className="space-y-2 my-4 mx-4 px-2 py-2 bg-rose-50 rounded-md">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 relative rounded-full overflow-hidden">
-                          <Image
-                            src={miniitem.image}
-                            alt={`MiniTitle ${miniindex + 1}`}
-                            fill
-                            style={{ objectFit: "cover" }}
-                            sizes="32px"
-                          />
-                        </div>
-                        <a
-                          href={miniitem.link}
-                          className="text-sm font-semibold"
-                        >
-                          {miniitem.text}
-                        </a>
-                      </div>
-                      <p className="text-xs px-11">{miniitem.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <p className=" text-white ml-5 mt-2">{title.minidesc2}</p>
-            </div>
+                <div className="w-12 h-12 rounded-full border-2 border-white bg-amsa-red flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                  +50
+                </div>
+              </div>
+            </motion.div>
           </div>
-        </ul>
-      </div>
-    </section>
+
+
+          {/* Main Content Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Background Decorative Element */}
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-amsa-red/5 rounded-full blur-3xl -z-10" />
+            <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-amsa-blue/5 rounded-full blur-3xl -z-10" />
+
+
+            <div className="bg-amsa-blue/90 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden">
+              <div className="p-1 md:p-2">
+                <div className="bg-amsa-red rounded-[1.4rem] p-8 md:p-12 text-white relative overflow-hidden">
+                  {/* Subtle Grid Pattern */}
+                  <div className="absolute inset-0 opacity-10 pointer-events-none"
+                    style={{ backgroundImage: 'radial-gradient(circle, rose-50/70 1px, transparent 1px)', backgroundSize: '24px 24px' }}
+                  />
+
+
+                  <div className="relative z-10">
+                    <div className="mb-12">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif italic">
+                        {title.title}
+                      </h3>
+                      <p className="text-rose-100/80 text-lg max-w-2xl">
+                        {title.desctitle}
+                      </p>
+                    </div>
+
+
+                    {/* Teams Grid */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
+                      {teams.map((actitem, index) => (
+                        <motion.a
+                          key={index}
+                          href={actitem.link}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 }}
+                          viewport={{ once: true }}
+                          className="group block bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                        >
+                          <div className="flex items-start gap-5">
+
+                            <div className="relative w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden border border-white/20">
+                              <Image
+                                src={actitem.image}
+                                alt={actitem.text}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+
+                            <div className="flex-grow">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-bold text-lg leading-tight group-hover:text-rose-200 transition-colors">
+                                  {actitem.text}
+                                </h4>
+                              </div>
+                              <p className="text-sm text-rose-50/70 leading-relaxed">
+                                {actitem.desc}
+                              </p>
+                            </div>
+                          </div>
+                        </motion.a>
+                      ))}
+                    </div>
+
+
+                    {/* Supporting Committees Section */}
+                    <div className="pt-12 border-t border-white/10">
+                      <div className="flex items-center gap-4 mb-8">
+                        <div className="h-px flex-grow bg-white/10" />
+                        <span className="text-xs font-bold tracking-[0.3em] uppercase text-rose-200/60 whitespace-nowrap">
+                          {title.minidesc1}
+                        </span>
+                        <div className="h-px flex-grow bg-white/10" />
+                      </div>
+
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {MiniTitle.map((miniitem, index
+                          , miniindex) => (
+                          <motion.a
+                            key={index}
+                            href={miniitem.link}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.3 + index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="group bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-5 transition-all"
+                          >
+                            <div className="flex items-center gap-4 mb-3">
+                              <div className="relative w-10 h-10 rounded-lg bg-white/10 flex-shrink-0 overflow-hidden">
+                                <Image
+                                  src={miniitem.image}
+                                  alt={miniitem.text}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+
+                              <h5 className="font-bold text-sm group-hover:text-rose-200 transition-colors">
+                                {miniitem.text}
+                              </h5>
+                            </div>
+                            <p className="text-xs text-rose-100/50 leading-relaxed">
+                              {miniitem.desc}
+                            </p>
+                          </motion.a>
+                        ))}
+                      </div>
+
+
+                      <div className="mt-16 text-center">
+                        <p className="text-rose-200/60 text-sm italic font-serif">
+                          {title.minidesc2}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
   );
 };
 

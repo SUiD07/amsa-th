@@ -29,6 +29,9 @@ importers:
       flowbite-react:
         specifier: ^0.10.2
         version: 0.10.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(tailwindcss@3.4.17)
+      framer-motion:
+        specifier: ^12.34.3
+        version: 12.34.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       googleapis:
         specifier: ^146.0.0
         version: 146.0.0

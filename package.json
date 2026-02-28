@@ -16,6 +16,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
     "flowbite-react": "^0.10.2",
+    "framer-motion": "^12.34.3",
     "googleapis": "^146.0.0",
     "lucide-react": "^0.575.0",
     "motion": "^12.34.3",

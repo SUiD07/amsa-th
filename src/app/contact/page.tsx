@@ -27,33 +27,38 @@ const translations = {
     emailTitle: "Email",
     emailDesc: "For general inquiries and official correspondence.",
     locationTitle: "Location",
-    locationDesc: "Bangkok, Thailand - Supporting 20+ Medical School Chapters Nationwide",
+    locationDesc:
+      "Bangkok, Thailand - Supporting 20+ Medical School Chapters Nationwide",
     verificationTitle: "Digital Verification",
-    verificationDesc: "Please verify our digital presence through these verified channels.",
+    verificationDesc:
+      "Please verify our digital presence through these verified channels.",
     fbLabel: "Official Facebook Page",
     igLabel: "Official Instagram",
     internationalTitle: "International Liaison",
-    internationalDesc: "AMSA-Thailand is a constituent member of AMSA International. For matters concerning the regional board or other national chapters:",
-    visitInt: "Visit AMSA International"
+    internationalDesc:
+      "AMSA-Thailand is a constituent member of AMSA International. For matters concerning the regional board or other national chapters:",
+    visitInt: "Visit AMSA International",
   },
   th: {
     badge: "ช่องทางติดต่อทางการ",
     titlePrefix: "ติดต่อเรา",
     // titleItalic: "คณะกรรม",
-   heroDesc: "Asian Medical Students' Association of Thailand ",
+    heroDesc: "Asian Medical Students' Association of Thailand ",
     channelTitle: "ช่องทางการติดต่อหลัก",
     emailTitle: "อีเมล",
     emailDesc: "สำหรับการติดต่อทั่วไปและงานเอกสารทางการ",
     locationTitle: "สถานที่",
-    locationDesc: "กรุงเทพมหานคร - สนับสนุนเครือข่ายโรงเรียนแพทย์กว่า 20 สถาบันทั่วประเทศ",
+    locationDesc:
+      "กรุงเทพมหานคร - สนับสนุนเครือข่ายโรงเรียนแพทย์กว่า 20 สถาบันทั่วประเทศ",
     verificationTitle: "การยืนยันตัวตน",
     verificationDesc: "โปรดตรวจสอบตัวตนของเราผ่านช่องทางที่ได้รับการรับรอง",
     fbLabel: "Official Facebook Page",
     igLabel: "Official Instagram",
     internationalTitle: "ช่องทางติดต่อระดับสากล",
-    internationalDesc: "AMSA-Thailand เป็นสมาชิกสมทบของ AMSA International หากท่านมีประเด็นที่ต้องการประสานงานกับคณะกรรมการระดับภูมิภาคหรือประเทศสมาชิกอื่นๆ:",
-    visitInt: "เยี่ยมชมเว็บไซต์ AMSA International"
-  }
+    internationalDesc:
+      "AMSA-Thailand เป็นสมาชิกสมทบของ AMSA International หากท่านมีประเด็นที่ต้องการประสานงานกับคณะกรรมการระดับภูมิภาคหรือประเทศสมาชิกอื่นๆ:",
+    visitInt: "เยี่ยมชมเว็บไซต์ AMSA International",
+  },
 };
 
 export default function Contact() {
@@ -84,7 +89,7 @@ export default function Contact() {
                 {t.badge}
               </div>
               <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
-                {t.titlePrefix} 
+                {t.titlePrefix}
                 {/* <span className="italic text-amsa-blue">{t.titleItalic}</span> */}
               </h1>
               <p className="text-xl text-slate-300 leading-relaxed font-light">
@@ -108,11 +113,20 @@ export default function Contact() {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                     <div className="flex gap-6 items-start">
-                      <Mail className="text-amsa-blue shrink-0 mt-1" size={24} />
+                      <Mail
+                        className="text-amsa-blue shrink-0 mt-1"
+                        size={24}
+                      />
                       <div>
-                        <p className="font-bold text-slate-900 mb-1">{t.emailTitle}</p>
-                        <p className="text-slate-600 leading-relaxed font-medium">contact.amsathailand@gmail.com</p>
-                        <p className="text-xs text-slate-400 mt-1">{t.emailDesc}</p>
+                        <p className="font-bold text-slate-900 mb-1">
+                          {t.emailTitle}
+                        </p>
+                        <p className="text-slate-600 leading-relaxed font-medium">
+                          contact.amsathailand@gmail.com
+                        </p>
+                        <p className="text-xs text-slate-400 mt-1">
+                          {t.emailDesc}
+                        </p>
                       </div>
                     </div>
                     {/* <div className="group">
@@ -132,10 +146,17 @@ export default function Contact() {
                       </p>
                     </div> */}
                     <div className="flex gap-6 items-start">
-                      <MapPin className="text-amsa-blue shrink-0 mt-1" size={24} />
+                      <MapPin
+                        className="text-amsa-blue shrink-0 mt-1"
+                        size={24}
+                      />
                       <div>
-                        <p className="font-bold text-slate-900 mb-1">{t.locationTitle}</p>
-                        <p className="text-slate-600 leading-relaxed">{t.locationDesc}</p>
+                        <p className="font-bold text-slate-900 mb-1">
+                          {t.locationTitle}
+                        </p>
+                        <p className="text-slate-600 leading-relaxed">
+                          {t.locationDesc}
+                        </p>
                       </div>
                     </div>
 
@@ -230,35 +251,53 @@ export default function Contact() {
               </div>
 
               {/* Right Column: Digital Presence & Verification */}
-            </div>
-          </div>
 
-          {/* Right Column */}
-          <div className="lg:col-span-5">
-            <div className="sticky top-32 space-y-8">
-              <div className="bg-white p-10 rounded-3xl border border-slate-200 shadow-sm">
-                <h3 className="text-xl font-bold text-slate-900 mb-6">{t.verificationTitle}</h3>
-                <p className="text-sm text-slate-500 mb-8 leading-relaxed">
-                  {t.verificationDesc}
-                </p>
+              {/* Right Column */}
+              <div className="lg:col-span-5">
+                <div className="sticky top-32 space-y-8">
+                  <div className="bg-white p-10 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 className="text-xl font-bold text-slate-900 mb-6">
+                      {t.verificationTitle}
+                    </h3>
+                    <p className="text-sm text-slate-500 mb-8 leading-relaxed">
+                      {t.verificationDesc}
+                    </p>
 
-                <div className="space-y-4">
-                  <a href="https://facebook.com/AMSAThailand" target="_blank" className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group">
-                    <div className="flex items-center gap-4">
-                      <Facebook size={20} className="text-slate-400 group-hover:text-[#1877F2]" />
-                      <span className="font-medium text-slate-700">{t.fbLabel}</span>
-                    </div>
-                    <Globe size={16} className="text-slate-300" />
-                  </a>
-                  <a href="https://instagram.com/amsa_thailand" target="_blank" className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group">
-                    <div className="flex items-center gap-4">
-                      <Instagram size={20} className="text-slate-400 group-hover:text-pink-600" />
-                      <span className="font-medium text-slate-700">{t.igLabel}</span>
-                    </div>
-                    <Globe size={16} className="text-slate-300" />
-                  </a>
+                    <div className="space-y-4">
+                      <a
+                        href="https://facebook.com/AMSAThailand"
+                        target="_blank"
+                        className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <Facebook
+                            size={20}
+                            className="text-slate-400 group-hover:text-[#1877F2]"
+                          />
+                          <span className="font-medium text-slate-700">
+                            {t.fbLabel}
+                          </span>
+                        </div>
+                        <Globe size={16} className="text-slate-300" />
+                      </a>
+                      <a
+                        href="https://instagram.com/amsa_thailand"
+                        target="_blank"
+                        className="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-amsa-blue hover:bg-slate-50 transition-all group"
+                      >
+                        <div className="flex items-center gap-4">
+                          <Instagram
+                            size={20}
+                            className="text-slate-400 group-hover:text-pink-600"
+                          />
+                          <span className="font-medium text-slate-700">
+                            {t.igLabel}
+                          </span>
+                        </div>
+                        <Globe size={16} className="text-slate-300" />
+                      </a>
 
-                  {/* <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
+                      {/* <div className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50/50">
                         <div className="flex items-center gap-4 opacity-50">
                           <MessageSquare size={20} className="text-slate-400" />
                           <span className="font-medium text-slate-700">
@@ -269,13 +308,20 @@ export default function Contact() {
                           Pending
                         </span>
                       </div> */}
-
+                    </div>
+                  </div>
                   <div className="bg-amsa-blue p-10 rounded-3xl text-white">
-                    <h3 className="text-xl font-bold mb-4">{t.internationalTitle}</h3>
+                    <h3 className="text-xl font-bold mb-4">
+                      {t.internationalTitle}
+                    </h3>
                     <p className="text-white/80 text-sm leading-relaxed mb-6">
                       {t.internationalDesc}
                     </p>
-                    <a href="https://amsa-international.org" target="_blank" className="inline-flex items-center gap-2 text-sm font-bold border-b border-white/30 hover:border-white transition-all pb-1">
+                    <a
+                      href="https://amsa-international.org"
+                      target="_blank"
+                      className="inline-flex items-center gap-2 text-sm font-bold border-b border-white/30 hover:border-white transition-all pb-1"
+                    >
                       {t.visitInt} <Globe size={16} />
                     </a>
                   </div>

@@ -8,7 +8,7 @@ import bgsmcu from "/public/bg.jpg";
 import transparent from "/public/1.png";
 import Glide from "./components/Glide";
 import Team from "./components/Team";
-import { LanguageProvider, useLanguage } from "./components/LanguageContext";
+import { useLanguage } from "./components/LanguageContext";
 import NewEvent from "./components/NewEvent";
 import Event from "./components/Event";
 import { motion } from "motion/react";
@@ -27,24 +27,45 @@ import {
 } from "lucide-react";
 
 const translations = {
-  en: { greeting: "Hello", description: "Welcome to our website!" },
-  th: { greeting: "สวัสดี", description: "ยินดีต้อนรับสู่เว็บไซต์ของเรา!" },
+  en: {
+    established: "Established 1985",
+    heroTitle: "Empowering",
+    heroTitleItalic: "Future Leaders",
+    heroTitleEnd: "in Medicine.",
+    heroSub: "The peak representative organization for Thai medical students, fostering a global network of excellence, academic growth, and social responsibility.",
+    btnExplore: "Our Events",
+    btnHistory: "Our History",
+    scroll: "Scroll Down"
+  },
+  th: {
+    established: "ก่อตั้งในปี 1985",
+    heroTitle: "สร้างสรรค์",
+    heroTitleItalic: "ผู้นำ",
+    heroTitleEnd: "สู่อนาคตการแพทย์",
+    heroSub: "ตัวแทนองค์กรหลักของนักศึกษาแพทย์ไทย มุ่งเน้นการสร้างเครือข่ายระดับสากลเพื่อความเป็นเลิศทางวิชาการและสร้างประโยชน์เพื่อสังคม",
+    btnExplore: "กิจกรรม",
+    btnHistory: "ประวัติ",
+    scroll: "เลื่อนลง"
+  },
 };
+ 
+// function Content() {
+//   const { lang } = useLanguage();
 
-function Content() {
-  const { lang } = useLanguage();
-
-  return (
-    <section className="text-center my-8">
-      {/* <h1 className="text-4xl font-bold">{translations[lang].greeting}</h1>
-      <p className="text-lg">{translations[lang].description}</p> */}
-    </section>
-  );
-}
+//   return (
+//     <section className="text-center my-8">
+//       {/* <h1 className="text-4xl font-bold">{translations[lang].greeting}</h1>
+//       <p className="text-lg">{translations[lang].description}</p> */}
+//     </section>
+//   );
+// }
 
 export default function Home() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
   return (
-    <LanguageProvider>
+     <>
       <main className="font-ibm">
         <Navbar />
         <div
@@ -80,27 +101,25 @@ export default function Home() {
                     transition={{ duration: 0.8 }}
                   >
                     <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-5 py-2 rounded-full text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-lg shadow-amsa-blue/20">
-                      Established 1985
+                      {t.established}
                     </div>
                     <h1 className="text-6xl md:text-8xl font-serif font-bold text-white mb-8 leading-[0.95] tracking-tight">
-                      Empowering <br />
+                      {t.heroTitle} <br />
                       <span className="italic text-amsa-blue">
-                        Future Leaders
+                        {t.heroTitleItalic}
                       </span>{" "}
                       <br />
-                      in Medicine.
+                      {t.heroTitleEnd}
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-2xl font-light leading-relaxed">
-                      The peak representative organization for Thai medical
-                      students, fostering a global network of excellence,
-                      academic growth, and social responsibility.
+                      {t.heroSub}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-6">
                       <Link
                         href="/event"
                         className="group bg-amsa-blue hover:bg-red-900 text-white px-10 py-5 rounded-full font-bold text-lg transition-all shadow-xl shadow-amsa-blue/20 flex items-center justify-center gap-3"
                       >
-                        Explore Our Events
+                       {t.btnExplore}
                         <ArrowRight
                           size={20}
                           className="group-hover:translate-x-1 transition-transform"
@@ -110,7 +129,7 @@ export default function Home() {
                         href="/about"
                         className="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg transition-all flex items-center justify-center"
                       >
-                        Learn Our History
+                       {t.btnHistory}
                       </Link>
                     </div>
                   </motion.div>
@@ -154,7 +173,7 @@ export default function Home() {
               className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
             >
               <span className="text-[10px] text-white/40 uppercase tracking-[0.3em] font-bold">
-                Scroll to Discover
+                {t.scroll}
               </span>
               <div className="w-px h-12 bg-gradient-to-b from-amsa-blue to-transparent"></div>
             </motion.div>
@@ -175,7 +194,7 @@ export default function Home() {
         </div>
 
         {/* แสดงข้อความตามภาษาที่เลือก */}
-        <Content />
+        {/* <Content /> */}
 
         <section id="welcome">
           <Welcome />
@@ -190,6 +209,6 @@ export default function Home() {
         {/* <Footer /> */}
       </main>
       <Footer />
-    </LanguageProvider>
+      </>
   );
 }

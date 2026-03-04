@@ -6,9 +6,28 @@ import { useLanguage } from "./LanguageContext";
 import { supabase } from "@/src/lib/supabase";
 
 const translations = {
-  en: { eventTitle: "2025 Event" },
-  th: { eventTitle: "กิจกรรมปี 2025" },
-};
+  en: { 
+  eventTitle: 
+    "2025 Event",
+  loading: 
+    "Loading...",
+  error:
+    "No events found",
+  viewallevent:
+    "View All Events"
+   },
+  th: { 
+  eventTitle: 
+    "กิจกรรมปี 2025",
+  loading: 
+    "โปรดรอสักครู๋...",
+  error:
+    "ไม่มีกิจกรรม",
+  viewallevent:
+    "ดูกิจกรรมทั้งหมด"
+   },
+  };
+
 
 interface EventItem {
   id: number;
@@ -54,9 +73,9 @@ export default function Event() {
     fetchEvents();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (!events.length) return <div>No events found.</div>;
-
+  if (loading) return <div>{t.loading}</div>;
+  if (!events.length) return <div>{t.error}</div>;
+  
   return (
     <>
       {/* <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">

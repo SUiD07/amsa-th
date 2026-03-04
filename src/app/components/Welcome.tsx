@@ -25,7 +25,6 @@ import {
 const translations = {
   en: {
     welcome: "Welcome to AMSA-Thailand",
-    deepDive: "A Deeper Dive into",
     ourOrganization: "Our Organization",
     whether:
       "Whether you’re a medical student seeking international clinical experience or have heard of AMSA Thailand before, today we’re taking you on a deeper dive into this organization.",
@@ -51,15 +50,28 @@ const translations = {
       "Building connections among medical students worldwide to exchange experiences and grow together.",
     visionDesc2:
       "With these principles, AMSA provides a platform for members to learn, take action, and form lasting international relationships.",
+    globalNetwork: 
+      "Global Network",
+    globalNetworkDesc: 
+      "Connecting students from 27+ countries for cross-border collaboration.",
+    knowledgeExchange: 
+      "Knowledge Exchange",
+    knowledgeExchangeDesc: 
+      "Promoting academic excellence and research through international platforms.",
+    friendshipTitle: 
+      "Friendship",
+    friendshipDescShort: 
+      "Building lifelong bonds and professional networks across the globe.",
+    memberChapters: 
+      "Member Chapters"
   },
   th: {
     welcome: "ยินดีต้อนรับสู่ AMSA-Thailand",
-    deepDive: "เจาะลึก",
     ourOrganization: "องค์กรของเรา",
     whether:
-      "ไม่ว่าคุณจะเป็นนักศึกษาแพทย์ที่กำลังมองหาประสบการณ์ทำงานร่วมกับแพทย์นานาชาติ หรือเคยได้ยินชื่อ AMSA Thailand มาก่อนแล้ว วันนี้เราจะพาคุณมาทำความรู้จักกับองค์กรนี้ให้ลึกซึ้งยิ่งขึ้น",
+      "หากคุณเป็นนักศึกษาแพทย์ที่กำลังมองหาประสบการณ์ทำงานร่วมกับแพทย์นานาชาติหรือเคยได้ยินชื่อ AMSA มาก่อนอยู่แล้ว วันนี้เราจะพาทุกคนมาทำความรู้จักกับองค์กรนี้ให้ดียิ่งขึ้น",
     amsaMore:
-      "AMSA ไม่ใช่แค่ชุมชนนักศึกษาแพทย์ แต่เป็นประตูสู่การเรียนรู้ การพัฒนา และการสร้างเครือข่ายระดับโลก!",
+      "เพราะ AMSA ไม่ใช่แค่ที่รวมตัวของนักศึกษาแพทย์แต่เป็นประตูสู่การเรียนรู้ การพัฒนา และการสร้างเครือข่ายระดับโลก!",
     intro:
       "ไม่ว่าคุณจะเป็นนักศึกษาแพทย์ที่กำลังมองหาประสบการณ์ทำงานร่วมกับแพทย์นานาชาติ หรือเคยได้ยินชื่อ AMSA Thailand มาก่อนแล้ว วันนี้เราจะพาคุณมาทำความรู้จักกับองค์กรนี้ให้ลึกซึ้งยิ่งขึ้น ว่าทำไม AMSA ถึงเป็นมากกว่าชุมชนของนักศึกษาแพทย์ แต่ยังเป็นโอกาสในการเรียนรู้ พัฒนา และสร้างเครือข่ายระดับนานาชาติ! 🩺🌏🧑‍⚕️",
     title: "AMSA คืออะไร?",
@@ -68,10 +80,10 @@ const translations = {
     description2:
       "โดยปัจจุบัน AMSA มุ่งเน้นการแลกเปลี่ยนองค์ความรู้ทางการแพทย์ ส่งเสริมการพัฒนาสาธารณสุขในสังคม และสร้างเครือข่ายมิตรภาพระหว่างนักศึกษาแพทย์ทั่วโลก ภายใต้แนวคิดที่ไม่แสวงหาผลกำไร ให้ความสำคัญกับการเติบโตและพัฒนาวิชาชีพร่วมกันระหว่างประเทศ ",
     visionTitle: "วิสัยทัศน์",
-    visionDesc1: "AMSA มุ่งมั่นในการทำงานผ่าน 3 เสาหลักสำคัญ อันได้แก่",
+    visionDesc1: "AMSA มุ่งมั่นในการทำงานผ่าน 3 เสาหลักที่สำคัญ ได้แก่",
     knowledge: "ความรู้",
     knowledgeDesc:
-      "ส่งเสริมการเรียนรู้ทั้งภาคทฤษฎีและปฏิบัติ เพื่อพัฒนาแพทย์ที่มีความเป็นมืออาชีพและพร้อมรับมือกับความท้าทายในอนาคต",
+      "ส่งเสริมการเรียนรู้ทั้งภาคทฤษฎีและปฏิบัติ เพื่อบ่มเพาะบุคลากรทางการแพทย์ทให้มีความเชี่ยวชาญและพร้อมรับมือกับความท้าทายในอนาคต",
     action: "การกระทำ",
     actionDesc:
       "ให้ความสำคัญกับการมีส่วนร่วมในชุมชน ผ่านกิจกรรมที่สร้างประโยชน์แก่สังคมและสนับสนุนการพัฒนาสาธารณสุข",
@@ -79,8 +91,23 @@ const translations = {
     friendshipDesc:
       "สร้างเครือข่ายและเสริมสร้างมิตรภาพระหว่างนักศึกษาแพทย์จากทั่วโลก เพื่อแลกเปลี่ยนประสบการณ์และเติบโตร่วมกัน ",
     visionDesc2:
-      "ด้วยหลักการเหล่านี้ AMSA จึงเป็นเวทีให้สมาชิกได้เรียนรู้ ลงมือทำ และสร้างสายสัมพันธ์ระดับนานาชาติที่ยั่งยืน",
+      "3 เสาหลักเหล่านี้ AMSA จึงเป็นเวทีแห่งเรียนรู้ ลงมือทำ และสร้างสายสัมพันธ์ระดับนานาชาติที่ยั่งยืน",
+    globalNetwork: 
+      "เครือข่ายระดับโลก",
+    globalNetworkDesc:
+      "เชื่อมต่อนักศึกษาจากกว่า 27 ประเทศเพื่อความร่วมมือไร้พรมแดน",
+    knowledgeExchange: 
+      "การแลกเปลี่ยนความรู้",
+    knowledgeExchangeDesc: 
+      "ส่งเสริมความเป็นเลิศทางวิชาการและการวิจัยผ่านแพลตฟอร์มระดับนานาชาติ",
+    friendshipTitle: 
+     "มิตรภาพ",
+    friendshipDescShort:
+     "สร้างเครือข่ายความสัมพันธ์ที่ยั่งยืนไปทั่วทุกมุมโลก",
+    memberChapters:
+     "ประเทศสมาชิก"
   },
+
 };
 
 export default function Welcome() {
@@ -102,7 +129,7 @@ export default function Welcome() {
                 {t.welcome}
               </div>
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
-                {t.deepDive}{" "}
+      
                 <span className="text-amsa-blue">{t.ourOrganization}</span>
               </h2>
               <div className="space-y-6 text-xl text-slate-600 leading-relaxed italic font-serif">
@@ -142,10 +169,7 @@ export default function Welcome() {
                 {t.title}
               </h2>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                The Asian Medical Students' Association (AMSA) is a peak
-                representative organization for medical students from across
-                Asia, the Asia-Pacific and beyond. Founded in 1985, we have
-                grown into a network of over 27 chapters worldwide.
+                {t.description1}
               </p>
               <div className="space-y-6">
                 <div className="flex gap-4">
@@ -153,10 +177,9 @@ export default function Welcome() {
                     <Globe size={24} />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-xl mb-1">Global Network</h3>
+                    <h3 className="font-serif font-bold text-xl mb-1">{t.globalNetwork}</h3>
                     <p className="text-slate-500">
-                      Connecting students from 27+ countries for cross-border
-                      collaboration.
+                      {t.globalNetworkDesc}
                     </p>
                   </div>
                 </div>
@@ -166,11 +189,10 @@ export default function Welcome() {
                   </div>
                   <div>
                     <h3 className="font-serif font-bold text-xl mb-1">
-                      Knowledge Exchange
+                      {t.knowledgeExchange}
                     </h3>
                     <p className="text-slate-500">
-                      Promoting academic excellence and research through
-                      international platforms.
+                      {t.knowledgeExchangeDesc}
                     </p>
                   </div>
                 </div>
@@ -179,10 +201,9 @@ export default function Welcome() {
                     <Users size={24} />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-xl mb-1">Friendship</h3>
+                    <h3 className="font-serif font-bold text-xl mb-1">{t.friendshipTitle}</h3>
                     <p className="text-slate-500">
-                      Building lifelong bonds and professional networks across
-                      the globe.
+                      {t.friendshipDescShort}
                     </p>
                   </div>
                 </div>
@@ -203,7 +224,7 @@ export default function Welcome() {
               <div className="absolute -bottom-6 -right-6 bg-amsa-blue text-white p-8 rounded-2xl shadow-xl hidden md:block">
                 <div className="text-4xl font-bold mb-1">27+</div>
                 <div className="text-sm opacity-80 uppercase tracking-wider">
-                  Member Chapters
+                  {t.memberChapters}
                 </div>
               </div>
             </motion.div>

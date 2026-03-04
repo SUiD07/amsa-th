@@ -2,10 +2,52 @@
 
 import { motion } from "motion/react";
 import { Target, Eye, History, Globe } from "lucide-react";
+import { useLanguage } from "../components/LanguageContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+const translations = {
+  en: {
+    corporate: "Corporate Identity",
+    aboutTitle: "About",
+    heroSub: "The peak representative organization for medical students in Thailand, fostering international collaboration, academic excellence, and social responsibility.",
+    missionTitle: "Our Mission",
+    missionDesc: "To provide a platform for Thai medical students to engage in international exchange, academic development, and public health initiatives, while building a strong network of future healthcare leaders.",
+    visionTitle: "Our Vision",
+    visionDesc: "To be the leading organization that empowers Thai medical students to become globally competent healthcare professionals who are socially responsible and internationally connected.",
+    historyTitle: "Our Journey",
+    internationalTitle: "International Affiliation",
+    internationalDesc: "AMSA-Thailand is a proud member of the Asian Medical Students' Association International, connecting us with medical students from over 27 chapters across Asia, the Asia-Pacific, and beyond.",
+    timeline: [
+      { year: "1985", title: "AMSA Founded", desc: "AMSA was established in Manila, Philippines, with Thailand as one of the founding members." },
+      { year: "1990s", title: "Expansion", desc: "AMSA-Thailand grew its network to include more medical schools across the country." },
+      { year: "2000s", title: "Digital Era", desc: "Implementation of digital platforms to connect students and streamline exchange programs." },
+      { year: "Present", title: "Leading Network", desc: "AMSA-Thailand now represents thousands of medical students across 20+ medical schools." }
+    ]
+  },
+  th: {
+    corporate: "รู้จักเรา",
+    aboutTitle: "เกี่ยวกับ",
+    heroSub: "ตัวแทนองค์กรหลักของนักศึกษาแพทย์ไทย มุ่งเน้นการสร้างเครือข่ายระดับสากลเพื่อความเป็นเลิศทางวิชาการและสร้างประโยชน์เพื่อสังคม",
+    missionTitle: "พันธกิจของเรา",
+    missionDesc: "สร้างโอกาสให้นักศึกษาแพทย์ไทยได้แลกเปลี่ยนประสบการณ์ในระดับสากล พัฒนาศักยภาพทางวิชาการ และสร้างสรรค์กิจกรรมสาธารณสุข พร้อมสร้างเครือข่ายผู้นำทางการแพทย์ในอนาคต",
+    visionTitle: "วิสัยทัศน์ของเรา",
+    visionDesc: "มุ่งสู่การเป็นองค์กรชั้นนำที่เสริมสร้างศักยภาพให้นักศึกษาแพทย์ไทยก้าวสู่การเป็นบุคลากรทางการแพทย์ระดับสากล ผู้มีจิตสำนึกต่อสังคมและเชื่อมต่อกับเครือข่ายทั่วโลก",
+    historyTitle: "เส้นทางของเรา",
+    internationalTitle: "เครือข่ายระดับนานาชาติ",
+    internationalDesc: "AMSA-Thailand ภาคภูมิใจในฐานะสมาชิกของ Asian Medical Students' Association International ซึ่งเชื่อมโยงกับเครือข่ายนักศึกษาแพทย์จากกว่า 27 ประเทศทั่วภูมิภาคเอเชียและแปซิฟิก",
+    timeline: [
+      { year: "1985", title: "จุดเริ่มต้นของ AMSA", desc: "AMSA ก่อตั้งขึ้น ณ กรุงมะนิลา ประเทศฟิลิปปินส์ โดยมีประเทศไทยเป็นหนึ่งในสมาชิกผู้ร่วมก่อตั้ง" },
+      { year: "1990s", title: "การขยายตัว", desc: "AMSA-Thailand ขยายเครือข่ายความร่วมมือไปยังโรงเรียนแพทย์ต่างๆ ทั่วประเทศอย่างต่อเนื่อง" },
+      { year: "2000s", title: "ยุคดิจิทัล", desc: "นำระบบดิจิทัลมาใช้เพื่อเชื่อมต่อนักศึกษาและยกระดับประสิทธิภาพของโครงการแลกเปลี่ยนให้ดียิ่งขึ้น" },
+      { year: "ปัจจุบัน", title: "เครือข่ายชั้นนำ", desc: "ในปัจจุบัน AMSA-Thailand เป็นตัวแทนของนักศึกษาแพทย์หลายพันคน จากโรงเรียนแพทย์กว่า 20 แห่งทั่วประเทศ" }
+    ]
+  }
+};
+
 export default function About() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
   return (
     <>
       <Navbar />
@@ -26,19 +68,18 @@ export default function About() {
             className="max-w-3xl"
           >
             <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
-              Corporate Identity
+              {t.corporate}
             </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
-              About <span className="italic text-amsa-blue">AMSA-Thailand</span>
+              {t.aboutTitle} <span className="italic text-amsa-blue">AMSA-Thailand</span>
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed font-light">
-              The peak representative organization for medical students in
-              Thailand, fostering international collaboration, academic
-              excellence, and social responsibility.
+              {t.heroSub}
             </p>
           </motion.div>
         </div>
       </section>
+
       <div className="pt-20">
         {/* Mission & Vision */}
         <section className="py-24 bg-white">
@@ -53,12 +94,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-amsa-blue text-white rounded-2xl flex items-center justify-center mb-8">
                   <Target size={32} />
                 </div>
-                <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
+                <h2 className="text-3xl font-bold mb-6">{t.missionTitle}</h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  To provide a platform for Thai medical students to engage in
-                  international exchange, academic development, and public
-                  health initiatives, while building a strong network of future
-                  healthcare leaders.
+                  {t.missionDesc}
                 </p>
               </motion.div>
 
@@ -71,11 +109,9 @@ export default function About() {
                 <div className="w-16 h-16 bg-amsa-blue text-white rounded-2xl flex items-center justify-center mb-8">
                   <Eye size={32} />
                 </div>
-                <h2 className="text-3xl font-bold mb-6">Our Vision</h2>
+                <h2 className="text-3xl font-bold mb-6">{t.visionTitle}</h2>
                 <p className="text-lg text-slate-600 leading-relaxed">
-                  To be the leading organization that empowers Thai medical
-                  students to become globally competent healthcare professionals
-                  who are socially responsible and internationally connected.
+                  {t.visionDesc}
                 </p>
               </motion.div>
             </div>
@@ -86,34 +122,12 @@ export default function About() {
         <section className="py-24 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4">
             <h2 className="text-4xl font-bold mb-16 text-center">
-              Our History
+              {t.historyTitle}
             </h2>
             <div className="relative max-w-4xl mx-auto">
-              {/* Vertical Line */}
               <div className="absolute left-1/2 -translate-x-1/2 w-1 h-full bg-amsa-blue/20"></div>
 
-              {[
-                {
-                  year: "1985",
-                  title: "AMSA Founded",
-                  desc: "AMSA was established in Manila, Philippines, with Thailand as one of the founding members.",
-                },
-                {
-                  year: "1990s",
-                  title: "Expansion",
-                  desc: "AMSA-Thailand grew its network to include more medical schools across the country.",
-                },
-                {
-                  year: "2000s",
-                  title: "Digital Era",
-                  desc: "Implementation of digital platforms to connect students and streamline exchange programs.",
-                },
-                {
-                  year: "Present",
-                  title: "Leading Network",
-                  desc: "AMSA-Thailand now represents thousands of medical students across 20+ medical schools.",
-                },
-              ].map((item, idx) => (
+              {t.timeline.map((item, idx) => (
                 <motion.div
                   key={item.year}
                   initial={{ opacity: 0, y: 20 }}
@@ -145,12 +159,10 @@ export default function About() {
               <Globe size={40} />
             </div>
             <h2 className="text-4xl font-bold mb-8">
-              International Affiliation
+              {t.internationalTitle}
             </h2>
-            <p className="text-xl text-red-100 max-w-3xl mx-auto leading-relaxed">
-              AMSA-Thailand is a proud member of the Asian Medical Students'
-              Association International, connecting us with medical students
-              from over 27 chapters across Asia, the Asia-Pacific, and beyond.
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
+              {t.internationalDesc}
             </p>
           </div>
         </section>

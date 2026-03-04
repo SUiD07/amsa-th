@@ -7,9 +7,37 @@ import Footer from "../components/Footer";
 import { Card, Button, Spinner } from "flowbite-react";
 import { supabase } from "@/src/lib/supabase";
 import { motion } from "motion/react";
+import { useLanguage } from "../components/LanguageContext";
+
+// ระบบแปลภาษาสำหรับหน้าบทความ
+const translations = {
+  en: {
+    badge: "Academic Publications",
+    titlePrefix: "Medical Article",
+    // titleItalic: "Article",
+    description: "Official publications, research papers, and academic insights from the medical student community of Thailand.",
+    latestTitle: "Latest Articles",
+    readMore: "Read More",
+    loading: "Loading articles...",
+    noArticles: "No articles found"
+  },
+  th: {
+    badge: "บทความทางวิชาการ",
+    titlePrefix: "บทความทางการแพทย์",
+    // titleItalic: "ทางการแพทย์",
+    description: "วารสารวิชาการ ผลงานวิจัย และบทวิเคราะห์ที่น่าสนใจจากเครือข่ายนิสิตนักศึกษาแพทย์ไทย",
+    latestTitle: "บทความล่าสุด",
+    readMore: "อ่านเพิ่มเติม",
+    loading: "กำลังโหลดบทความ...",
+    noArticles: "ไม่พบบทความในขณะนี้"
+  }
+};
 
 export default function Article() {
   const router = useRouter();
+  const { lang } = useLanguage();
+  const t = translations[lang];
+  
   const [loadingId, setLoadingId] = useState<number | null>(null);
   const [articles, setArticles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -32,13 +60,12 @@ export default function Article() {
     fetchArticles();
   }, []);
 
-  const handleClick = (id: number) => {
-    setLoadingId(id);
-    router.push(`/article/${id}`);
-  };
-
-  if (loading) return <div>Loading articles...</div>;
-  if (!articles || articles.length === 0) return <div>No articles found</div>;
+  if (loading) return (
+    <div className="flex justify-center items-center min-h-screen">
+      <Spinner size="xl" />
+      <span className="ml-3">{t.loading}</span>
+    </div>
+  );
 
   return (
     <>
@@ -60,51 +87,61 @@ export default function Article() {
             className="max-w-3xl"
           >
             <div className="inline-flex items-center gap-2 bg-amsa-blue text-white px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-8">
-              Academic Publications
+              {t.badge}
             </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-8 leading-tight">
-              Medical <span className="italic text-amsa-blue">Article</span>
+              {t.titlePrefix} 
+              {/* <span className="italic text-amsa-blue">{t.titleItalic}</span> */}
             </h1>
             <p className="text-xl text-slate-300 leading-relaxed font-light">
-              Official publications, research papers, and academic insights from
-              the medical student community of Thailand.
+              {t.description}
             </p>
           </motion.div>
         </div>
       </section>
-      <div className="max-w-7xl mx-auto px-4">
+
+      <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-end mb-12">
-          <div>
-            <h2 className="text-5xl font-bold my-4 font-serif">
-              Latest Articles
-            </h2>
-          </div>
+          <h2 className="text-5xl font-bold font-serif">
+            {t.latestTitle}
+          </h2>
         </div>
-      </div>
-      <div className="flex flex-wrap justify-start">
-        {articles.map((item) => (
-          <Card key={item.id} className="w-96 m-2">
-            {item.img_head && (
-              <img
-                src={item.img_head}
-                alt={item.head}
-                className="mx-auto flex w-96 h-48 object-cover"
-              />
-            )}
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {item.head}
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              {item.detail}
-            </p>
-            <h4 className="font-semibold">{item.author}</h4>
-            <a href={item.word} target="_blank">
-              <button className="bg-[#720606] text-white text-xs  py-2 rounded-full btn btn-primary">
-                Read More
-              </button>
-            </a>
-          </Card>
-        ))}
+
+        {articles.length === 0 ? (
+          <div className="text-center py-20 text-slate-500">
+            {t.noArticles}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((item) => (
+              <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-shadow border-none bg-slate-50">
+                {item.img_head && (
+                  <img
+                    src={item.img_head}
+                    alt={item.head}
+                    className="w-full h-48 object-cover"
+                  />
+                )}
+                <div className="p-1">
+                  <h5 className="text-xl font-bold tracking-tight text-gray-900 mb-2 line-clamp-2">
+                    {item.head}
+                  </h5>
+                  <p className="font-normal text-gray-600 mb-4 line-clamp-3 text-sm">
+                    {item.detail}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-sm font-semibold text-amsa-blue">{item.author}</span>
+                    <a href={item.word} target="_blank" rel="noopener noreferrer">
+                      <button className="bg-amsa-blue hover:bg-slate-800 text-white text-[10px] uppercase tracking-widest font-bold py-2 px-6 rounded-full transition-colors">
+                        {t.readMore}
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
       </div>
 
       <Footer />

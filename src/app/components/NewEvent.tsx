@@ -9,9 +9,36 @@ import { ArrowRight } from "lucide-react";
 
 // แปลภาษา UI
 const translations = {
-  en: { eventTitle: "2025 Event" },
-  th: { eventTitle: "กิจกรรมปี 2025" },
-};
+  en: { 
+  eventTitle: 
+    "2025 Event",
+  latestevents:
+    "Latest Events",
+  latesteventsdesc:
+    "Stay updated with our upcoming activities and programs.",
+  loading: 
+    "Loading...",
+  error:
+    "No events found",
+  viewallevent:
+    "View All Events"
+   },
+  th: { 
+  eventTitle: 
+    "กิจกรรมปี 2025",
+  latestevents:
+    "กิจกรรมล่าสุด",
+  latesteventsdesc:
+    "ติดตามกิจกรรมที่จะเกิดขึ้นเร็วๆนี้",
+  loading: 
+    "โปรดรอสักครู๋...",
+  error:
+    "ไม่มีกิจกรรม",
+  viewallevent:
+    "ดูกิจกรรมทั้งหมด"
+   },
+  };
+
 
 // TypeScript interface ของ row events
 interface EventItem {
@@ -60,24 +87,24 @@ export default function Event() {
     fetchEvents();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (!events.length) return <div>No events found.</div>;
+if (loading) return <div>{t.loading}</div>;
+  if (!events.length) return <div>{t.error}</div>;
 
   return (
     <>
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <h2 className="text-5xl font-bold my-4 font-serif">Latest Events</h2>
+            <h2 className="text-5xl font-bold my-4 font-serif">{t.latestevents}</h2>
             <p className="text-slate-500">
-              Stay updated with our upcoming activities and programs.
+              {t.latesteventsdesc}
             </p>
           </div>
           <Link
             href="/event"
             className="text-amsa-blue font-semibold flex items-center gap-2 hover:underline"
           >
-            View All Events <ArrowRight size={18} />
+            {t.viewallevent}<ArrowRight size={18} />
           </Link>
         </div>
         {/* <div className="pl-10 mx-5 pt-5 font-bold text-xl bg-white py-2 pb-8">

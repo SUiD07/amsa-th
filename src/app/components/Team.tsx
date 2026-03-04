@@ -132,7 +132,8 @@ const TeamsFlexList = {
 };
 const TitleFlexList = {
   en: {
-    title: "AMSA-Thailand Structure",
+    minititle: "Structure",
+    title: "AMSA-Thailand",
     desctitle:
       "AMSA-Thailand operates through seven main departments, working together to enhance the organization and enrich member experiences:",
     minidesc1:
@@ -141,7 +142,8 @@ const TitleFlexList = {
       "Each unit plays a crucial role in AMSA-Thailand’s academic, administrative, and global networking success.",
   },
   th: {
-    title: "โครงสร้าง AMSA-Thailand",
+    minititle: "โครงสร้างองค์กร",
+    title: "AMSA-Thailand",
     desctitle:
       "AMSA-Thailand ดำเนินงานผ่าน 9 หน่วยงานหลัก ที่ทำงานร่วมกันเพื่อพัฒนาองค์กรและส่งเสริมประสบการณ์ของสมาชิก ได้แก่",
     minidesc1:
@@ -208,16 +210,14 @@ const TeamsFlex: React.FC = () => {
             >
               <div className="inline-flex items-center gap-2 bg-amsa-light text-amsa-blue px-4 py-1.5 rounded-full font-bold text-[10px] mb-6 tracking-[0.2em] uppercase border border-amsa-blue/10">
                 <Award className="w-3 h-3" />
-                Organization
+                {title.minititle}
               </div>
               <h2 className="text-4xl md:text-6xl font-bold text-slate-900 mb-8 font-serif tracking-tight leading-tight">
-                AMSA-Thailand <br />
-                <span className="text-amsa-red italic">Structure</span>
+                 {title.title}<br />
+                {/* <span className ="text-amsa-red italic"> {title.title2}</span> */}
               </h2>
               <p className="text-slate-600 text-lg md:text-xl leading-relaxed max-w-xl">
-                Our organization is powered by specialized teams, each dedicated
-                to a unique aspect of medical student life and professional
-                growth.
+               {title.desctitle}
               </p>
             </motion.div>
 
@@ -268,14 +268,14 @@ const TeamsFlex: React.FC = () => {
 
 
                   <div className="relative z-10">
-                    <div className="mb-12">
+                    {/* <div className="mb-12">
                       <h3 className="text-2xl md:text-3xl font-bold mb-4 font-serif italic">
                         {title.title}
                       </h3>
                       <p className="text-rose-100/80 text-lg max-w-2xl">
                         {title.desctitle}
                       </p>
-                    </div>
+                    </div> */}
 
 
                     {/* Teams Grid */}

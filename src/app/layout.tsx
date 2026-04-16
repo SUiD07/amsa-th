@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   title: "AMSA-Thailand",
   description: "The Asian Medical Students’ Association of Thailand",
   icons:{
-    icon:"/Black.png",
+    icon: "/icon.png",
   }
 };
 

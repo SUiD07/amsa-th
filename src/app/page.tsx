@@ -32,23 +32,25 @@ const translations = {
     heroTitle: "Empowering",
     heroTitleItalic: "Future Leaders",
     heroTitleEnd: "in Medicine.",
-    heroSub: "The peak representative organization for Thai medical students, fostering a global network of excellence, academic growth, and social responsibility.",
+    heroSub:
+      "The peak representative organization for Thai medical students, fostering a global network of excellence, academic growth, and social responsibility.",
     btnExplore: "Our Events",
     btnHistory: "Our History",
-    scroll: "Scroll Down"
+    scroll: "Scroll Down",
   },
   th: {
     established: "ก่อตั้งในปี 1985",
     heroTitle: "สร้างสรรค์",
     heroTitleItalic: "ผู้นำ",
     heroTitleEnd: "สู่อนาคตการแพทย์",
-    heroSub: "ตัวแทนองค์กรหลักของนักศึกษาแพทย์ไทย มุ่งเน้นการสร้างเครือข่ายระดับสากลเพื่อความเป็นเลิศทางวิชาการและสร้างประโยชน์เพื่อสังคม",
+    heroSub:
+      "ตัวแทนองค์กรหลักของนักศึกษาแพทย์ไทย มุ่งเน้นการสร้างเครือข่ายระดับสากลเพื่อความเป็นเลิศทางวิชาการและสร้างประโยชน์เพื่อสังคม",
     btnExplore: "กิจกรรม",
     btnHistory: "ประวัติ",
-    scroll: "เลื่อนลง"
+    scroll: "เลื่อนลง",
   },
 };
- 
+
 // function Content() {
 //   const { lang } = useLanguage();
 
@@ -65,7 +67,7 @@ export default function Home() {
   const t = translations[lang];
 
   return (
-     <>
+    <>
       <main className="font-ibm">
         <Navbar />
         <div
@@ -119,7 +121,7 @@ export default function Home() {
                         href="/event"
                         className="group bg-amsa-blue hover:bg-red-900 text-white px-10 py-5 rounded-full font-bold text-lg transition-all shadow-xl shadow-amsa-blue/20 flex items-center justify-center gap-3"
                       >
-                       {t.btnExplore}
+                        {t.btnExplore}
                         <ArrowRight
                           size={20}
                           className="group-hover:translate-x-1 transition-transform"
@@ -129,7 +131,7 @@ export default function Home() {
                         href="/about"
                         className="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-bold text-lg transition-all flex items-center justify-center"
                       >
-                       {t.btnHistory}
+                        {t.btnHistory}
                       </Link>
                     </div>
                   </motion.div>
@@ -142,16 +144,29 @@ export default function Home() {
                     transition={{ duration: 1, delay: 0.2 }}
                     className="relative"
                   >
-                    <div className="absolute  bg-amsa-blue/20 rounded-[4rem] blur-2xl"></div>
+                    <div className="relative">
+                      {/* Glow background */}
+                      <div className="absolute inset-0 rounded-[4rem] blur-2xl"></div>
+
+                      {/* Card */}
+                      <div className="relative overflow-hidden">
+                        <img
+                          src="/White.png"
+                          alt="Medical Student"
+                          className="rounded-[3rem] w-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                        />
+                      </div>
+                    </div>
+                    {/* <div className="absolute  bg-amsa-blue/20 rounded-[4rem] blur-2xl"></div> */}
                     {/* <div className="relative bg-slate-800/50 backdrop-blur-3xl border border-white/10 p-2 rounded-[3.5rem] shadow-2xl overflow-hidden"> */}
-                      <img
-                        // src="https://picsum.photos/seed/medical-student/600/800?grayscale"
-                        src="/white.png"
+                    {/* <img */}
+                    {/* // src="https://picsum.photos/seed/medical-student/600/800?grayscale" */}
+                    {/* src="/white.png"
                         alt="Medical Student"
                         className="rounded-[3rem] w-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
                         referrerPolicy="no-referrer"
-                      />
-                      {/* <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/10 backdrop-blur-md rounded-3xl border border-white/10">
+                      /> */}
+                    {/* <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/10 backdrop-blur-md rounded-3xl border border-white/10">
                         <div className="text-amsa-blue font-bold text-xs uppercase tracking-widest mb-2">
                           Member Spotlight
                         </div>
@@ -209,6 +224,6 @@ export default function Home() {
         {/* <Footer /> */}
       </main>
       <Footer />
-      </>
+    </>
   );
 }

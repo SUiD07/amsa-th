@@ -70,11 +70,11 @@ export default function Home() {
 
       {/* ส่วนเนื้อหากิจกรรม */}
       <div className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 text-center mb-12">
+        {/* <div className="max-w-7xl mx-auto px-4 text-center mb-12">
           <p className="text-slate-500 font-medium">
             {t.updateText}
           </p>
-        </div>
+        </div> */}
         <NewEvent />
         <Event />
       </div>

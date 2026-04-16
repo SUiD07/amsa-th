@@ -151,7 +151,7 @@ export default function Home() {
                       {/* Card */}
                       <div className="relative overflow-hidden">
                         <img
-                          src="/white.png"
+                          src="/White.png"
                           alt="Medical Student"
                           className="rounded-[3rem] w-full object-cover grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
                         />

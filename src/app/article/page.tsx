@@ -163,13 +163,20 @@ export default function Article() {
                             {item.detail}
                           </span>
                         </div> */}
-                        <button className="text-amsa-blue font-bold text-sm flex items-center gap-2 group/btn">
+                        {/* <button className="text-amsa-blue font-bold text-sm flex items-center gap-2 group/btn"> */}
+                        <a
+                          className="text-amsa-blue font-bold text-sm flex items-center gap-2 group/btn"
+                          href={item.word}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Read More{" "}
                           <ArrowRight
                             size={16}
                             className="group-hover/btn:translate-x-1 transition-transform"
                           />
-                        </button>
+                        </a>
+                        {/* </button> */}
                       </div>
                     </div>
                   </motion.article>

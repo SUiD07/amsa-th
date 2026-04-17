@@ -82,7 +82,7 @@ export default function About() {
 
       <div className="pt-20">
         {/* Mission & Vision */}
-        <section className="py-24 bg-white">
+        <section className="pb-24 bg-white">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
               <motion.div

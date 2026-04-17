@@ -46,6 +46,7 @@ type Team = {
 // ระบุว่า field ไหนเป็น image field
 const CONTENT_IMAGE_FIELDS = ["img_head"];
 const EVENT_IMAGE_FIELDS = ["image"];
+const PARTNER_IMAGE_FIELDS = ["logo_url"]; // กำหนดว่าฟิลด์ไหนคือรูปภาพ
 
 /* ---------- UPLOAD HELPER ---------- */
 
@@ -79,10 +80,12 @@ export default function Dashboard() {
   const [contents, setContents] = useState<Content[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
+  const [partners, setPartners] = useState<any[]>([]);
 
   const [editingContent, setEditingContent] = useState<Content | null>(null);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [editingTeam, setEditingTeam] = useState<Team | null>(null);
+  const [editingPartner, setEditingPartner] = useState<any>(null);
 
   const [contentForm, setContentForm] = useState<
     Omit<Content, "id" | "created_at">
@@ -113,6 +116,10 @@ export default function Dashboard() {
     link: "",
     category: "main",
     order_num: 1,
+  });
+  const [partnerForm, setPartnerForm] = useState({
+    name: "",
+    logo_url: "",
   });
 
   /* ---------- AUTH ---------- */
@@ -155,6 +162,15 @@ export default function Dashboard() {
       .then(({ data }) => {
         if (data) setTeams(data);
       });
+
+    supabase
+      .from("partners") // ชื่อ table ในฐานข้อมูล
+      .select("*")
+      .order("id", { ascending: true })
+      .then(({ data }) => {
+        if (data) setPartners(data); // เก็บใส่ state partners
+      });
+
 
   }, [user]);
 
@@ -321,6 +337,43 @@ export default function Dashboard() {
   }
 
   if (!user || loading) return <div>Loading...</div>;
+
+  /* ---------- PARTNER HANDLERS ---------- */
+  function startAddPartner() {
+    setEditingPartner(null);
+    setPartnerForm({ name: "", logo_url: "" });
+  }
+  function startEditPartner(item: any) {
+    setEditingPartner(item);
+    const { id, created_at, ...rest } = item;
+    setPartnerForm(rest);
+  }
+
+  async function savePartner() {
+    if (!partnerForm.name || !partnerForm.logo_url)
+      return alert("กรุณาใส่ชื่อและอัปโหลดโลโก้");
+
+    if (editingPartner) {
+      await supabase.from("partners").update(partnerForm).eq("id", editingPartner.id);
+      setPartners((prev) =>
+        prev.map((p) => (p.id === editingPartner.id ? { ...p, ...partnerForm } : p))
+      );
+    } else {
+      const { data } = await supabase
+        .from("partners")
+        .insert(partnerForm)
+        .select()
+        .single();
+      if (data) setPartners((prev) => [...prev, data]);
+    }
+    startAddPartner();
+  }
+
+  async function deletePartner(id: number) {
+    if (!confirm("ลบ Partner นี้?")) return;
+    await supabase.from("partners").delete().eq("id", id);
+    setPartners((prev) => prev.filter((p) => p.id !== id));
+  }
   /* ---------- COLUMNS (DYNAMIC) ---------- */
 
   const contentCols = contents.length
@@ -521,7 +574,46 @@ export default function Dashboard() {
           setForm={setTeamForm}
           onSave={saveTeam}
           onCancel={editingTeam ? startAddTeam : undefined}
-          imageFields={[]} 
+          imageFields={[]}
+        />
+      </section>
+      <section className="mt-10 border-t pt-10">
+        <h2 className="text-xl font-bold mb-3 italic text-blue-600">🤝 Partnerships & MOU</h2>
+
+        {/* ตารางโชว์รายชื่อ Partner ที่มีอยู่ */}
+        <table className="w-full border text-sm mb-4">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border p-2">Logo</th>
+              <th className="border p-2">Name</th>
+              <th className="border p-2 w-32">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {partners.map((p) => (
+              <tr key={p.id} className="hover:bg-gray-50 text-center">
+                <td className="border p-2">
+                  <img src={p.logo_url} alt={p.name} className="h-10 mx-auto object-contain " />
+                </td>
+                <td className="border p-2 font-medium">{p.name}</td>
+                <td className="border p-2 space-x-2">
+                  <button onClick={() => startEditPartner(p)} className="text-blue-600">Edit</button>
+                  <button onClick={() => deletePartner(p.id)} className="text-red-600">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* ส่วนฟอร์มสำหรับเพิ่ม/แก้ไข (จะดึงปุ่มอัปโหลดมาให้อัตโนมัติ) */}
+        <FormBlock
+          title={editingPartner ? "Edit Partner" : "Add Partner"}
+          form={partnerForm}
+          setForm={setPartnerForm}
+          onSave={savePartner}
+          onCancel={editingPartner ? startAddPartner : undefined}
+          imageFields={PARTNER_IMAGE_FIELDS} // ส่งชื่อฟิลด์ ["logo_url"] ไป
+          imageBucket="partner-logos"      // ← ชื่อ bucket ที่เราสร้างไว้ใน Supabase
         />
       </section>
     </div>
@@ -578,7 +670,7 @@ function FormBlock({
                   <img
                     src={form[key]}
                     alt="preview"
-                    className="h-20 w-auto object-cover rounded border"
+                    className="h-20 w-auto object-cover rounded border "
                   />
                   <button
                     type="button"

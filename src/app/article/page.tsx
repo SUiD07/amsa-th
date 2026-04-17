@@ -14,10 +14,10 @@ import { ArrowRight, Calendar, User } from "lucide-react";
 const translations = {
   en: {
     badge: "Academic Publications",
-    titlePrefix: "Medical Article",
+    titlePrefix: "Medical Article & Updates",
     // titleItalic: "Article",
     description:
-      "Official publications, research papers, and academic insights from the medical student community of Thailand.",
+      "A collection of publications, research, medical articles, health awareness content, and important updates from Thailand's medical student community.",
     latestTitle: "Latest Articles",
     readMore: "Read More",
     loading: "Loading articles...",
@@ -28,7 +28,7 @@ const translations = {
     titlePrefix: "บทความทางการแพทย์",
     // titleItalic: "ทางการแพทย์",
     description:
-      "วารสารวิชาการ ผลงานวิจัย และบทวิเคราะห์ที่น่าสนใจจากเครือข่ายนิสิตนักศึกษาแพทย์ไทย",
+      "แหล่งรวมผลงานตีพิมพ์ งานวิจัย บทความทางการแพทย์ เนื้อหาสร้างความตระหนักด้านสุขภาพ และข่าวสารอัปเดตสำคัญจากชุมชนนักศึกษาแพทย์ในประเทศไทย",
     latestTitle: "บทความล่าสุด",
     readMore: "อ่านเพิ่มเติม",
     loading: "กำลังโหลดบทความ...",

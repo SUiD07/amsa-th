@@ -30,6 +30,18 @@ type Event = {
   created_at: string;
 };
 
+type Team = {
+  id: number;
+  name_en: string;
+  name_th: string;
+  desc_en: string;
+  desc_th: string;
+  link: string;
+  category: "main" | "sub";
+  order_num: number;
+  created_at: string;
+};
+
 /* ---------- IMAGE UPLOAD FIELDS ---------- */
 // ระบุว่า field ไหนเป็น image field
 const CONTENT_IMAGE_FIELDS = ["img_head"];
@@ -66,9 +78,11 @@ export default function Dashboard() {
 
   const [contents, setContents] = useState<Content[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
 
   const [editingContent, setEditingContent] = useState<Content | null>(null);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [editingTeam, setEditingTeam] = useState<Team | null>(null);
 
   const [contentForm, setContentForm] = useState<
     Omit<Content, "id" | "created_at">
@@ -89,6 +103,16 @@ export default function Dashboard() {
     text_en: "",
     image: "",
     year: "",
+  });
+
+  const [teamForm, setTeamForm] = useState<Omit<Team, "id" | "created_at">>({
+    name_en: "",
+    name_th: "",
+    desc_en: "",
+    desc_th: "",
+    link: "",
+    category: "main",
+    order_num: 1,
   });
 
   /* ---------- AUTH ---------- */
@@ -123,6 +147,15 @@ export default function Dashboard() {
       .then(({ data }) => {
         if (data) setEvents(data);
       });
+
+    supabase
+      .from("teams")
+      .select("*")
+      .order("order_num", { ascending: true })
+      .then(({ data }) => {
+        if (data) setTeams(data);
+      });
+
   }, [user]);
 
   /* ---------- CONTENTS HANDLERS ---------- */
@@ -232,6 +265,62 @@ export default function Dashboard() {
 
   if (!user || loading) return <div>Loading...</div>;
 
+  /* ---------- TEAMS HANDLERS ---------- */
+
+  function startAddTeam() {
+    setEditingTeam(null);
+    setTeamForm({
+      name_en: "",
+      name_th: "",
+      desc_en: "",
+      desc_th: "",
+      link: "",
+      category: "main",
+      order_num: teams.length + 1, // Auto-suggest next order
+    });
+  }
+  function startEditTeam(item: Team) {
+    setEditingTeam(item);
+    const { id, created_at, ...rest } = item;
+    setTeamForm(rest);
+  }
+
+  async function saveTeam() {
+    if (!teamForm.name_en || !teamForm.name_th)
+      return alert("required fields missing");
+
+    if (editingTeam) {
+      await supabase
+        .from("teams")
+        .update(teamForm)
+        .eq("id", editingTeam.id);
+
+
+      setTeams((prev) =>
+        prev.map((i) =>
+          i.id === editingTeam.id ? { ...i, ...teamForm } : i,
+        ),
+      );
+    } else {
+      const { data } = await supabase
+        .from("teams")
+        .insert([teamForm]) // Supabase insert usually expects an array
+        .select()
+        .single();
+
+      if (data) setTeams((prev) => [...prev, data]);
+    }
+
+    startAddTeam();
+  }
+
+  async function deleteTeam(id: number) {
+    if (!confirm("ลบ team นี้?")) return;
+    await supabase.from("teams").delete().eq("id", id);
+    setTeams((prev) => prev.filter((i) => i.id !== id));
+  }
+
+  if (!user || loading) return <div>Loading...</div>;
   /* ---------- COLUMNS (DYNAMIC) ---------- */
 
   const contentCols = contents.length
@@ -240,6 +329,10 @@ export default function Dashboard() {
 
   const eventCols = events.length
     ? Object.keys(events[0]).filter((k) => k !== "created_at")
+    : [];
+
+  const teamCols = teams.length
+    ? Object.keys(teams[0]).filter((k) => k !== "created_at")
     : [];
 
   return (
@@ -372,6 +465,63 @@ export default function Dashboard() {
           onCancel={editingEvent ? startAddEvent : undefined}
           imageFields={EVENT_IMAGE_FIELDS}
           imageBucket="events-images" // ← ชื่อ bucket ใน Supabase Storage
+        />
+      </section>
+      {/* ================= TEAMS ================= */}
+      <section>
+        <h2 className="text-xl font-bold mb-3">Organization Teams</h2>
+
+        <table className="w-full border text-sm mb-4">
+          <thead className="bg-gray-100">
+            <tr>
+              {teamCols.map((c) => (
+                <th key={c} className="border p-2 capitalize">
+                  {c.replace("_", " ")}
+                </th>
+              ))}
+              <th className="border p-2 w-32">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map((row) => (
+              <tr key={row.id} className="hover:bg-gray-50">
+                {teamCols.map((c) => (
+                  <td key={c} className="border p-2">
+                    {/* Category Styling */}
+                    {c === "category" ? (
+                      <span className={`px-2 py-1 rounded-full text-[10px] ${row.category === 'main' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
+                        {row.category}
+                      </span>
+                    ) : (
+                      String((row as any)[c] ?? "")
+                    )}
+                  </td>
+                ))}
+                <td className="border p-2 text-center space-x-2">
+                  <button
+                    onClick={() => startEditTeam(row)}
+                    className="text-blue-600 hover:underline"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deleteTeam(row.id)}
+                    className="text-red-600 hover:underline"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <FormBlock
+          title={editingTeam ? "Edit Team" : "Add Team"}
+          form={teamForm}
+          setForm={setTeamForm}
+          onSave={saveTeam}
+          onCancel={editingTeam ? startAddTeam : undefined}
+          imageFields={[]} 
         />
       </section>
     </div>

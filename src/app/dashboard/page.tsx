@@ -1,9 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "motion/react";
+import {
+  Plus, Trash2, Edit, Save, X, Calendar, FileText,
+  LayoutDashboard, LogOut, ChevronRight, Users, Handshake,
+} from "lucide-react";
 import { supabase } from "@/src/lib/supabase";
 import LogoutButton from "./LogoutButton";
+import Link from "next/link";
+import Navbar from "../components/Navbar";
 
 /* ---------- TYPES ---------- */
 
@@ -42,694 +49,737 @@ type Team = {
   created_at: string;
 };
 
+type Partner = {
+  id: number;
+  name: string;
+  logo_url: string;
+  created_at?: string;
+};
+
+type ActiveTab = "events" | "articles" | "teams" | "partners";
+
 /* ---------- IMAGE UPLOAD FIELDS ---------- */
-// ระบุว่า field ไหนเป็น image field
 const CONTENT_IMAGE_FIELDS = ["img_head"];
 const EVENT_IMAGE_FIELDS = ["image"];
-const PARTNER_IMAGE_FIELDS = ["logo_url"]; // กำหนดว่าฟิลด์ไหนคือรูปภาพ
+const PARTNER_IMAGE_FIELDS = ["logo_url"];
 
 /* ---------- UPLOAD HELPER ---------- */
 
-async function uploadImageToSupabase(
-  file: File,
-  bucket: string,
-): Promise<string | null> {
+async function uploadImageToSupabase(file: File, bucket: string): Promise<string | null> {
   const fileExt = file.name.split(".").pop();
   const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${fileExt}`;
-
-  const { error } = await supabase.storage
-    .from(bucket)
-    .upload(fileName, file, { upsert: false });
-
-  if (error) {
-    alert(`Upload failed: ${error.message}`);
-    return null;
-  }
-
+  const { error } = await supabase.storage.from(bucket).upload(fileName, file, { upsert: false });
+  if (error) { alert(`Upload failed: ${error.message}`); return null; }
   const { data } = supabase.storage.from(bucket).getPublicUrl(fileName);
   return data.publicUrl;
 }
 
-/* ---------- DASHBOARD ---------- */
+/* ===================================================================
+   MAIN DASHBOARD
+   =================================================================== */
 
 export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<ActiveTab>("events");
 
+  /* --- Data State --- */
   const [contents, setContents] = useState<Content[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [teams, setTeams] = useState<Team[]>([]);
-  const [partners, setPartners] = useState<any[]>([]);
+  const [partners, setPartners] = useState<Partner[]>([]);
 
-  const [editingContent, setEditingContent] = useState<Content | null>(null);
-  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
-  const [editingTeam, setEditingTeam] = useState<Team | null>(null);
-  const [editingPartner, setEditingPartner] = useState<any>(null);
-
-  const [contentForm, setContentForm] = useState<
-    Omit<Content, "id" | "created_at">
-  >({
-    img_head: "",
-    head: "",
-    detail: "",
-    word: "",
-    author: "",
-  });
-
-  const [eventForm, setEventForm] = useState<Omit<Event, "id" | "created_at">>({
-    status: "",
-    name_th: "",
-    name_en: "",
-    link: "",
-    text_th: "",
-    text_en: "",
-    image: "",
-    year: "",
-  });
-
-  const [teamForm, setTeamForm] = useState<Omit<Team, "id" | "created_at">>({
-    name_en: "",
-    name_th: "",
-    desc_en: "",
-    desc_th: "",
-    link: "",
-    category: "main",
-    order_num: 1,
-  });
-  const [partnerForm, setPartnerForm] = useState({
-    name: "",
-    logo_url: "",
-  });
+  /* --- Modal / Editing State --- */
+  const [editingContent, setEditingContent] = useState<Partial<Content> | null>(null);
+  const [editingEvent, setEditingEvent] = useState<Partial<Event> | null>(null);
+  const [editingTeam, setEditingTeam] = useState<Partial<Team> | null>(null);
+  const [editingPartner, setEditingPartner] = useState<Partial<Partner> | null>(null);
 
   /* ---------- AUTH ---------- */
-
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
       if (!data.session) router.push("/login");
-      else {
-        setUser(data.session.user);
-        setLoading(false);
-      }
+      else { setUser(data.session.user); setLoading(false); }
     });
   }, [router]);
 
   /* ---------- FETCH DATA ---------- */
-
   useEffect(() => {
     if (!user) return;
-
-    supabase
-      .from("contents")
-      .select("*")
-      .order("id")
-      .then(({ data }) => {
-        if (data) setContents(data);
-      });
-
-    supabase
-      .from("events")
-      .select("*")
-      .order("id")
-      .then(({ data }) => {
-        if (data) setEvents(data);
-      });
-
-    supabase
-      .from("teams")
-      .select("*")
-      .order("order_num", { ascending: true })
-      .then(({ data }) => {
-        if (data) setTeams(data);
-      });
-
-    supabase
-      .from("partners") // ชื่อ table ในฐานข้อมูล
-      .select("*")
-      .order("id", { ascending: true })
-      .then(({ data }) => {
-        if (data) setPartners(data); // เก็บใส่ state partners
-      });
-
-
+    supabase.from("contents").select("*").order("id").then(({ data }) => { if (data) setContents(data); });
+    supabase.from("events").select("*").order("id").then(({ data }) => { if (data) setEvents(data); });
+    supabase.from("teams").select("*").order("order_num", { ascending: true }).then(({ data }) => { if (data) setTeams(data); });
+    supabase.from("partners").select("*").order("id", { ascending: true }).then(({ data }) => { if (data) setPartners(data); });
   }, [user]);
 
-  /* ---------- CONTENTS HANDLERS ---------- */
+  /* ---------- CONTENT HANDLERS ---------- */
 
-  function startAddContent() {
-    setEditingContent(null);
-    setContentForm({
-      img_head: "",
-      head: "",
-      detail: "",
-      word: "",
-      author: "",
-    });
-  }
-
-  function startEditContent(item: Content) {
-    setEditingContent(item);
-    const { id, created_at, ...rest } = item;
-    setContentForm(rest);
-  }
-
-  async function saveContent() {
-    if (!contentForm.head) return alert("head is required");
-
-    if (editingContent) {
-      await supabase
-        .from("contents")
-        .update(contentForm)
-        .eq("id", editingContent.id);
-
-      setContents((prev) =>
-        prev.map((i) =>
-          i.id === editingContent.id ? { ...i, ...contentForm } : i,
-        ),
-      );
+  const handleSaveContent = async (form: Omit<Content, "id" | "created_at">) => {
+    if (!form.head) return alert("Headline is required");
+    if (editingContent?.id) {
+      await supabase.from("contents").update(form).eq("id", editingContent.id);
+      setContents(prev => prev.map(i => i.id === editingContent.id ? { ...i, ...form } : i));
     } else {
-      const { data } = await supabase
-        .from("contents")
-        .insert(contentForm)
-        .select()
-        .single();
-
-      if (data) setContents((prev) => [...prev, data]);
+      const { data } = await supabase.from("contents").insert(form).select().single();
+      if (data) setContents(prev => [...prev, data]);
     }
+    setEditingContent(null);
+  };
 
-    startAddContent();
-  }
-
-  async function deleteContent(id: number) {
+  const deleteContent = async (id: number) => {
     if (!confirm("ลบ content นี้?")) return;
     await supabase.from("contents").delete().eq("id", id);
-    setContents((prev) => prev.filter((i) => i.id !== id));
-  }
+    setContents(prev => prev.filter(i => i.id !== id));
+  };
 
-  /* ---------- EVENTS HANDLERS ---------- */
+  /* ---------- EVENT HANDLERS ---------- */
 
-  function startAddEvent() {
-    setEditingEvent(null);
-    setEventForm({
-      status: "",
-      name_th: "",
-      name_en: "",
-      link: "",
-      text_th: "",
-      text_en: "",
-      image: "",
-      year: "",
-    });
-  }
-
-  function startEditEvent(item: Event) {
-    setEditingEvent(item);
-    const { id, created_at, ...rest } = item;
-    setEventForm(rest);
-  }
-
-  async function saveEvent() {
-    if (!eventForm.name_th || !eventForm.name_en || !eventForm.year)
-      return alert("required fields missing");
-
-    if (editingEvent) {
-      await supabase.from("events").update(eventForm).eq("id", editingEvent.id);
-
-      setEvents((prev) =>
-        prev.map((i) =>
-          i.id === editingEvent.id ? { ...i, ...eventForm } : i,
-        ),
-      );
+  const handleSaveEvent = async (form: Omit<Event, "id" | "created_at">) => {
+    if (!form.name_en || !form.year) return alert("Required fields missing");
+    if (editingEvent?.id) {
+      await supabase.from("events").update(form).eq("id", editingEvent.id);
+      setEvents(prev => prev.map(i => i.id === editingEvent.id ? { ...i, ...form } : i));
     } else {
-      const { data } = await supabase
-        .from("events")
-        .insert(eventForm)
-        .select()
-        .single();
-
-      if (data) setEvents((prev) => [...prev, data]);
+      const { data } = await supabase.from("events").insert(form).select().single();
+      if (data) setEvents(prev => [...prev, data]);
     }
+    setEditingEvent(null);
+  };
 
-    startAddEvent();
-  }
-
-  async function deleteEvent(id: number) {
+  const deleteEvent = async (id: number) => {
     if (!confirm("ลบ event นี้?")) return;
     await supabase.from("events").delete().eq("id", id);
-    setEvents((prev) => prev.filter((i) => i.id !== id));
-  }
+    setEvents(prev => prev.filter(i => i.id !== id));
+  };
 
-  if (!user || loading) return <div>Loading...</div>;
+  /* ---------- TEAM HANDLERS ---------- */
 
-  /* ---------- TEAMS HANDLERS ---------- */
-
-  function startAddTeam() {
-    setEditingTeam(null);
-    setTeamForm({
-      name_en: "",
-      name_th: "",
-      desc_en: "",
-      desc_th: "",
-      link: "",
-      category: "main",
-      order_num: teams.length + 1, // Auto-suggest next order
-    });
-  }
-  function startEditTeam(item: Team) {
-    setEditingTeam(item);
-    const { id, created_at, ...rest } = item;
-    setTeamForm(rest);
-  }
-
-  async function saveTeam() {
-    if (!teamForm.name_en || !teamForm.name_th)
-      return alert("required fields missing");
-
-    if (editingTeam) {
-      await supabase
-        .from("teams")
-        .update(teamForm)
-        .eq("id", editingTeam.id);
-
-
-      setTeams((prev) =>
-        prev.map((i) =>
-          i.id === editingTeam.id ? { ...i, ...teamForm } : i,
-        ),
-      );
+  const handleSaveTeam = async (form: Omit<Team, "id" | "created_at">) => {
+    if (!form.name_en || !form.name_th) return alert("Required fields missing");
+    if (editingTeam?.id) {
+      await supabase.from("teams").update(form).eq("id", editingTeam.id);
+      setTeams(prev => prev.map(i => i.id === editingTeam.id ? { ...i, ...form } : i));
     } else {
-      const { data } = await supabase
-        .from("teams")
-        .insert([teamForm]) // Supabase insert usually expects an array
-        .select()
-        .single();
-
-      if (data) setTeams((prev) => [...prev, data]);
+      const { data } = await supabase.from("teams").insert([form]).select().single();
+      if (data) setTeams(prev => [...prev, data]);
     }
+    setEditingTeam(null);
+  };
 
-    startAddTeam();
-  }
-
-  async function deleteTeam(id: number) {
+  const deleteTeam = async (id: number) => {
     if (!confirm("ลบ team นี้?")) return;
     await supabase.from("teams").delete().eq("id", id);
-    setTeams((prev) => prev.filter((i) => i.id !== id));
-  }
-
-  if (!user || loading) return <div>Loading...</div>;
+    setTeams(prev => prev.filter(i => i.id !== id));
+  };
 
   /* ---------- PARTNER HANDLERS ---------- */
-  function startAddPartner() {
-    setEditingPartner(null);
-    setPartnerForm({ name: "", logo_url: "" });
-  }
-  function startEditPartner(item: any) {
-    setEditingPartner(item);
-    const { id, created_at, ...rest } = item;
-    setPartnerForm(rest);
-  }
 
-  async function savePartner() {
-    if (!partnerForm.name || !partnerForm.logo_url)
-      return alert("กรุณาใส่ชื่อและอัปโหลดโลโก้");
-
-    if (editingPartner) {
-      await supabase.from("partners").update(partnerForm).eq("id", editingPartner.id);
-      setPartners((prev) =>
-        prev.map((p) => (p.id === editingPartner.id ? { ...p, ...partnerForm } : p))
-      );
+  const handleSavePartner = async (form: Omit<Partner, "id" | "created_at">) => {
+    if (!form.name || !form.logo_url) return alert("กรุณาใส่ชื่อและอัปโหลดโลโก้");
+    if (editingPartner?.id) {
+      await supabase.from("partners").update(form).eq("id", editingPartner.id);
+      setPartners(prev => prev.map(p => p.id === editingPartner.id ? { ...p, ...form } : p));
     } else {
-      const { data } = await supabase
-        .from("partners")
-        .insert(partnerForm)
-        .select()
-        .single();
-      if (data) setPartners((prev) => [...prev, data]);
+      const { data } = await supabase.from("partners").insert(form).select().single();
+      if (data) setPartners(prev => [...prev, data]);
     }
-    startAddPartner();
-  }
+    setEditingPartner(null);
+  };
 
-  async function deletePartner(id: number) {
+  const deletePartner = async (id: number) => {
     if (!confirm("ลบ Partner นี้?")) return;
     await supabase.from("partners").delete().eq("id", id);
-    setPartners((prev) => prev.filter((p) => p.id !== id));
-  }
-  /* ---------- COLUMNS (DYNAMIC) ---------- */
+    setPartners(prev => prev.filter(p => p.id !== id));
+  };
 
-  const contentCols = contents.length
-    ? Object.keys(contents[0]).filter((k) => k !== "created_at")
-    : [];
+  /* ---------- HELPERS ---------- */
 
-  const eventCols = events.length
-    ? Object.keys(events[0]).filter((k) => k !== "created_at")
-    : [];
+  const getAddLabel = () => {
+    if (activeTab === "events") return "Event";
+    if (activeTab === "articles") return "Article";
+    if (activeTab === "teams") return "Team";
+    return "Partner";
+  };
 
-  const teamCols = teams.length
-    ? Object.keys(teams[0]).filter((k) => k !== "created_at")
-    : [];
+  const handleAddNew = () => {
+    if (activeTab === "events") setEditingEvent({});
+    else if (activeTab === "articles") setEditingContent({});
+    else if (activeTab === "teams") setEditingTeam({});
+    else setEditingPartner({});
+  };
+
+  if (!user || loading) return (
+    <div className="min-h-screen flex items-center justify-center bg-slate-50">
+      <div className="w-10 h-10 border-4 border-amsa-blue border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+
+  /* ---------- SIDEBAR NAV ITEMS ---------- */
+  const navItems: { key: ActiveTab; label: string; icon: React.ReactNode }[] = [
+    { key: "events",   label: "Events",   icon: <Calendar size={20} /> },
+    { key: "articles", label: "Articles", icon: <FileText size={20} /> },
+    { key: "teams",    label: "Teams",    icon: <Users size={20} /> },
+    { key: "partners", label: "Partners", icon: <Handshake size={20} /> },
+  ];
+
+  /* ======================== RENDER ======================== */
 
   return (
-    <div className="p-6 space-y-10">
-      <div className="flex justify-between">
-        <h1>Welcome, {user.email}</h1>
-        <LogoutButton />
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-slate-50 pt-16 flex">
+
+        {/* ── Sidebar ── */}
+        <aside className="w-64 bg-slate-900 text-white flex flex-col fixed h-full pt-10 z-40">
+          <div className="px-6 mb-10">
+            <div className="flex items-center gap-3 mb-2">
+              <LayoutDashboard size={24} className="text-amsa-blue" />
+              <h1 className="font-serif font-bold text-xl text-white">Console</h1>
+            </div>
+            <p className="text-xs text-slate-400 uppercase tracking-widest">AMSA-Thailand Admin</p>
+          </div>
+
+          <nav className="flex-grow">
+            {navItems.map(({ key, label, icon }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`w-full flex items-center gap-4 px-6 py-4 transition-all ${
+                  activeTab === key
+                    ? "bg-amsa-blue text-white"
+                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {icon}
+                <span className="font-medium">{label}</span>
+                {activeTab === key && <ChevronRight size={16} className="ml-auto" />}
+              </button>
+            ))}
+          </nav>
+
+          <div className="p-6 border-t border-white/10 space-y-4">
+            <div className="text-xs text-slate-500 truncate">{user.email}</div>
+            <Link href="/" className="flex items-center gap-3 text-slate-400 hover:text-white transition-colors">
+              <LogOut size={20} className="rotate-180" />
+              <span className="font-medium">Back to Site</span>
+            </Link>
+            <LogoutButton />
+          </div>
+        </aside>
+
+        {/* ── Main Content ── */}
+        <main className="flex-grow ml-64 p-10">
+          <div className="max-w-5xl mx-auto">
+
+            {/* Header */}
+            <div className="flex justify-between items-end mb-10">
+              <div>
+                <h2 className="text-4xl font-serif font-bold text-slate-900 mb-2 capitalize">
+                  Manage {activeTab}
+                </h2>
+                <p className="text-slate-500">Update and manage organization content across the platform.</p>
+              </div>
+              <button
+                onClick={handleAddNew}
+                className="bg-amsa-blue text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg shadow-amsa-blue/20 hover:opacity-90 transition-all"
+              >
+                <Plus size={20} /> Add New {getAddLabel()}
+              </button>
+            </div>
+
+            {/* ── Events Tab ── */}
+            {activeTab === "events" && (
+              <div className="grid grid-cols-1 gap-6">
+                {events.map(event => (
+                  <ItemCard
+                    key={event.id}
+                    image={event.image}
+                    icon={<Calendar size={32} />}
+                    badge={event.status}
+                    badgeColor={event.status === "Active" ? "green" : "amber"}
+                    meta={event.year}
+                    title={event.name_en}
+                    subtitle={event.text_en ?? ""}
+                    onEdit={() => setEditingEvent(event)}
+                    onDelete={() => deleteEvent(event.id)}
+                  />
+                ))}
+                {events.length === 0 && <EmptyState label="events" />}
+              </div>
+            )}
+
+            {/* ── Articles Tab ── */}
+            {activeTab === "articles" && (
+              <div className="grid grid-cols-1 gap-6">
+                {contents.map(article => (
+                  <ItemCard
+                    key={article.id}
+                    image={article.img_head}
+                    icon={<FileText size={32} />}
+                    meta={article.author ?? ""}
+                    title={article.head}
+                    subtitle={article.detail ?? ""}
+                    onEdit={() => setEditingContent(article)}
+                    onDelete={() => deleteContent(article.id)}
+                  />
+                ))}
+                {contents.length === 0 && <EmptyState label="articles" />}
+              </div>
+            )}
+
+            {/* ── Teams Tab ── */}
+            {activeTab === "teams" && (
+              <div className="grid grid-cols-1 gap-6">
+                {teams.map(team => (
+                  <ItemCard
+                    key={team.id}
+                    icon={<Users size={32} />}
+                    badge={team.category}
+                    badgeColor={team.category === "main" ? "blue" : "gray"}
+                    meta={`Order: ${team.order_num}`}
+                    title={team.name_en}
+                    subtitle={team.name_th}
+                    onEdit={() => setEditingTeam(team)}
+                    onDelete={() => deleteTeam(team.id)}
+                  />
+                ))}
+                {teams.length === 0 && <EmptyState label="teams" />}
+              </div>
+            )}
+
+            {/* ── Partners Tab ── */}
+            {activeTab === "partners" && (
+              <div className="grid grid-cols-1 gap-6">
+                {partners.map(p => (
+                  <ItemCard
+                    key={p.id}
+                    image={p.logo_url}
+                    icon={<Handshake size={32} />}
+                    title={p.name}
+                    subtitle=""
+                    onEdit={() => setEditingPartner(p)}
+                    onDelete={() => deletePartner(p.id)}
+                  />
+                ))}
+                {partners.length === 0 && <EmptyState label="partners" />}
+              </div>
+            )}
+          </div>
+        </main>
+
+        {/* ── Event Modal ── */}
+        <AnimatePresence>
+          {editingEvent !== null && (
+            <Modal
+              title={editingEvent.id ? "Edit Event" : "Create New Event"}
+              onClose={() => setEditingEvent(null)}
+            >
+              <EventForm
+                initial={editingEvent}
+                onSave={handleSaveEvent}
+                onCancel={() => setEditingEvent(null)}
+              />
+            </Modal>
+          )}
+        </AnimatePresence>
+
+        {/* ── Article Modal ── */}
+        <AnimatePresence>
+          {editingContent !== null && (
+            <Modal
+              title={editingContent.id ? "Edit Article" : "Create New Article"}
+              onClose={() => setEditingContent(null)}
+            >
+              <ContentForm
+                initial={editingContent}
+                onSave={handleSaveContent}
+                onCancel={() => setEditingContent(null)}
+              />
+            </Modal>
+          )}
+        </AnimatePresence>
+
+        {/* ── Team Modal ── */}
+        <AnimatePresence>
+          {editingTeam !== null && (
+            <Modal
+              title={editingTeam.id ? "Edit Team" : "Create New Team"}
+              onClose={() => setEditingTeam(null)}
+            >
+              <TeamForm
+                initial={editingTeam}
+                onSave={handleSaveTeam}
+                onCancel={() => setEditingTeam(null)}
+              />
+            </Modal>
+          )}
+        </AnimatePresence>
+
+        {/* ── Partner Modal ── */}
+        <AnimatePresence>
+          {editingPartner !== null && (
+            <Modal
+              title={editingPartner.id ? "Edit Partner" : "Add New Partner"}
+              onClose={() => setEditingPartner(null)}
+            >
+              <PartnerForm
+                initial={editingPartner}
+                onSave={handleSavePartner}
+                onCancel={() => setEditingPartner(null)}
+              />
+            </Modal>
+          )}
+        </AnimatePresence>
+
       </div>
+    </>
+  );
+}
 
-      {/* ================= CONTENTS ================= */}
-      <section>
-        <h2 className="text-xl font-bold mb-3">Contents</h2>
+/* ===================================================================
+   SHARED UI COMPONENTS
+   =================================================================== */
 
-        <table className="w-full border text-sm mb-4">
-          <thead className="bg-gray-100">
-            <tr>
-              {contentCols.map((c) => (
-                <th key={c} className="border p-2 capitalize">
-                  {c}
-                </th>
-              ))}
-              <th className="border p-2 w-32">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contents.map((row) => (
-              <tr key={row.id}>
-                {contentCols.map((c) => (
-                  <td key={c} className="border p-2">
-                    {/* แสดงรูปภาพถ้าเป็น image field และมี URL */}
-                    {CONTENT_IMAGE_FIELDS.includes(c) && (row as any)[c] ? (
-                      <img
-                        src={(row as any)[c]}
-                        alt={c}
-                        className="h-12 w-auto object-cover rounded"
-                      />
-                    ) : (
-                      String((row as any)[c] ?? "")
-                    )}
-                  </td>
-                ))}
-                <td className="border p-2 text-center space-x-2">
-                  <button
-                    onClick={() => startEditContent(row)}
-                    className="text-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteContent(row.id)}
-                    className="text-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+/** Reusable item card */
+function ItemCard({
+  image, icon, badge, badgeColor = "gray", meta, title, subtitle, onEdit, onDelete,
+}: {
+  image?: string | null;
+  icon: React.ReactNode;
+  badge?: string | null;
+  badgeColor?: "green" | "amber" | "blue" | "gray";
+  meta?: string;
+  title: string;
+  subtitle: string;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const badgeClasses: Record<string, string> = {
+    green: "bg-green-100 text-green-700",
+    amber: "bg-amber-100 text-amber-700",
+    blue: "bg-blue-100 text-blue-700",
+    gray: "bg-slate-100 text-slate-600",
+  };
 
-        {/* Content Form */}
-        <FormBlock
-          title={editingContent ? "Edit Content" : "Add Content"}
-          form={contentForm}
-          setForm={setContentForm}
-          onSave={saveContent}
-          onCancel={editingContent ? startAddContent : undefined}
-          imageFields={CONTENT_IMAGE_FIELDS}
-          imageBucket="contents-images" // ← ชื่อ bucket ใน Supabase Storage
-        />
-      </section>
-
-      {/* ================= EVENTS ================= */}
-      <section>
-        <h2 className="text-xl font-bold mb-3">Events</h2>
-
-        <table className="w-full border text-sm mb-4">
-          <thead className="bg-gray-100">
-            <tr>
-              {eventCols.map((c) => (
-                <th key={c} className="border p-2 capitalize">
-                  {c}
-                </th>
-              ))}
-              <th className="border p-2 w-32">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.map((row) => (
-              <tr key={row.id}>
-                {eventCols.map((c) => (
-                  <td key={c} className="border p-2">
-                    {/* แสดงรูปภาพถ้าเป็น image field และมี URL */}
-                    {EVENT_IMAGE_FIELDS.includes(c) && (row as any)[c] ? (
-                      <img
-                        src={(row as any)[c]}
-                        alt={c}
-                        className="h-12 w-auto object-cover rounded"
-                      />
-                    ) : (
-                      String((row as any)[c] ?? "")
-                    )}
-                  </td>
-                ))}
-                <td className="border p-2 text-center space-x-2">
-                  <button
-                    onClick={() => startEditEvent(row)}
-                    className="text-blue-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteEvent(row.id)}
-                    className="text-red-600"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* Event Form */}
-        <FormBlock
-          title={editingEvent ? "Edit Event" : "Add Event"}
-          form={eventForm}
-          setForm={setEventForm}
-          onSave={saveEvent}
-          onCancel={editingEvent ? startAddEvent : undefined}
-          imageFields={EVENT_IMAGE_FIELDS}
-          imageBucket="events-images" // ← ชื่อ bucket ใน Supabase Storage
-        />
-      </section>
-      {/* ================= TEAMS ================= */}
-      <section>
-        <h2 className="text-xl font-bold mb-3">Organization Teams</h2>
-
-        <table className="w-full border text-sm mb-4">
-          <thead className="bg-gray-100">
-            <tr>
-              {teamCols.map((c) => (
-                <th key={c} className="border p-2 capitalize">
-                  {c.replace("_", " ")}
-                </th>
-              ))}
-              <th className="border p-2 w-32">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teams.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
-                {teamCols.map((c) => (
-                  <td key={c} className="border p-2">
-                    {/* Category Styling */}
-                    {c === "category" ? (
-                      <span className={`px-2 py-1 rounded-full text-[10px] ${row.category === 'main' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>
-                        {row.category}
-                      </span>
-                    ) : (
-                      String((row as any)[c] ?? "")
-                    )}
-                  </td>
-                ))}
-                <td className="border p-2 text-center space-x-2">
-                  <button
-                    onClick={() => startEditTeam(row)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteTeam(row.id)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <FormBlock
-          title={editingTeam ? "Edit Team" : "Add Team"}
-          form={teamForm}
-          setForm={setTeamForm}
-          onSave={saveTeam}
-          onCancel={editingTeam ? startAddTeam : undefined}
-          imageFields={[]}
-        />
-      </section>
-      <section className="mt-10 border-t pt-10">
-        <h2 className="text-xl font-bold mb-3 italic text-blue-600">🤝 Partnerships & MOU</h2>
-
-        {/* ตารางโชว์รายชื่อ Partner ที่มีอยู่ */}
-        <table className="w-full border text-sm mb-4">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-2">Logo</th>
-              <th className="border p-2">Name</th>
-              <th className="border p-2 w-32">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {partners.map((p) => (
-              <tr key={p.id} className="hover:bg-gray-50 text-center">
-                <td className="border p-2">
-                  <img src={p.logo_url} alt={p.name} className="h-10 mx-auto object-contain " />
-                </td>
-                <td className="border p-2 font-medium">{p.name}</td>
-                <td className="border p-2 space-x-2">
-                  <button onClick={() => startEditPartner(p)} className="text-blue-600">Edit</button>
-                  <button onClick={() => deletePartner(p.id)} className="text-red-600">Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* ส่วนฟอร์มสำหรับเพิ่ม/แก้ไข (จะดึงปุ่มอัปโหลดมาให้อัตโนมัติ) */}
-        <FormBlock
-          title={editingPartner ? "Edit Partner" : "Add Partner"}
-          form={partnerForm}
-          setForm={setPartnerForm}
-          onSave={savePartner}
-          onCancel={editingPartner ? startAddPartner : undefined}
-          imageFields={PARTNER_IMAGE_FIELDS} // ส่งชื่อฟิลด์ ["logo_url"] ไป
-          imageBucket="partner-logos"      // ← ชื่อ bucket ที่เราสร้างไว้ใน Supabase
-        />
-      </section>
+  return (
+    <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-6 hover:border-amsa-blue transition-all">
+      <div className="w-24 h-24 bg-slate-100 rounded-xl overflow-hidden shrink-0 flex items-center justify-center text-slate-300">
+        {image ? <img src={image} alt="" className="w-full h-full object-cover" /> : icon}
+      </div>
+      <div className="flex-grow min-w-0">
+        <div className="flex items-center gap-3 mb-1 flex-wrap">
+          {badge && (
+            <span className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded ${badgeClasses[badgeColor]}`}>
+              {badge}
+            </span>
+          )}
+          {meta && <span className="text-xs text-slate-400">{meta}</span>}
+        </div>
+        <h3 className="text-xl font-bold text-slate-900 truncate">{title}</h3>
+        <p className="text-sm text-slate-500 truncate">{subtitle}</p>
+      </div>
+      <div className="flex gap-2 shrink-0">
+        <button onClick={onEdit} className="p-3 text-slate-400 hover:text-amsa-blue hover:bg-amsa-blue/5 rounded-xl transition-all">
+          <Edit size={20} />
+        </button>
+        <button onClick={onDelete} className="p-3 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all">
+          <Trash2 size={20} />
+        </button>
+      </div>
     </div>
   );
 }
 
-/* ---------- GENERIC FORM BLOCK ---------- */
+function EmptyState({ label }: { label: string }) {
+  return (
+    <div className="text-center py-20 text-slate-400">
+      <p className="text-lg">No {label} yet.</p>
+      <p className="text-sm mt-1">Click "Add New" to get started.</p>
+    </div>
+  );
+}
 
-function FormBlock({
-  title,
-  form,
-  setForm,
-  onSave,
-  onCancel,
-  imageFields = [],
-  imageBucket = "images",
+/** Reusable modal wrapper */
+function Modal({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 backdrop-blur-sm bg-slate-900/50">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.95 }}
+        transition={{ duration: 0.18 }}
+        className="bg-white rounded-[2rem] w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col"
+      >
+        <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+          <h3 className="text-2xl font-serif font-bold text-slate-900">{title}</h3>
+          <button onClick={onClose} className="p-2 hover:bg-slate-200 rounded-full transition-colors">
+            <X size={24} />
+          </button>
+        </div>
+        <div className="overflow-y-auto flex-grow">
+          {children}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/** Shared styled field components */
+const inputCls = "w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-amsa-blue transition-colors";
+const labelCls = "text-xs font-bold uppercase tracking-widest text-slate-400";
+
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-2">
+      <label className={labelCls}>{label}</label>
+      {children}
+    </div>
+  );
+}
+
+function FormFooter({ onCancel, saveLabel = "Save" }: { onCancel: () => void; saveLabel?: string }) {
+  return (
+    <div className="flex gap-4 pt-4 sticky bottom-0 bg-white pb-2 border-t border-slate-100 px-8">
+      <button type="submit" className="flex-grow bg-amsa-blue text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+        <Save size={20} /> {saveLabel}
+      </button>
+      <button type="button" onClick={onCancel} className="px-8 py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all">
+        Cancel
+      </button>
+    </div>
+  );
+}
+
+/** Image upload field with preview */
+function ImageUploadField({
+  label, value, onChange, bucket,
 }: {
-  title: string;
-  form: Record<string, any>;
-  setForm: (f: any) => void;
-  onSave: () => void;
-  onCancel?: () => void;
-  imageFields?: string[];
-  imageBucket?: string;
+  label: string;
+  value: string;
+  onChange: (url: string) => void;
+  bucket: string;
 }) {
-  const [uploadingField, setUploadingField] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
-  async function handleImageUpload(key: string, file: File | undefined) {
+  const handleFile = async (file: File | undefined) => {
     if (!file) return;
-    setUploadingField(key);
-    const url = await uploadImageToSupabase(file, imageBucket);
-    if (url) {
-      setForm((f: any) => ({ ...f, [key]: url }));
-    }
-    setUploadingField(null);
-  }
+    setUploading(true);
+    const url = await uploadImageToSupabase(file, bucket);
+    if (url) onChange(url);
+    setUploading(false);
+  };
 
   return (
-    <div className="border p-4 rounded">
-      <h3 className="font-bold mb-3">{title}</h3>
-
-      {Object.keys(form).map((key) => (
-        <div key={key} className="mb-2">
-          {/* Image upload field */}
-          {imageFields.includes(key) ? (
-            <div>
-              <label className="block text-sm text-gray-600 mb-1 capitalize">
-                {key}
-              </label>
-
-              {/* Preview รูปปัจจุบัน */}
-              {form[key] && (
-                <div className="mb-2 flex items-center gap-2">
-                  <img
-                    src={form[key]}
-                    alt="preview"
-                    className="h-20 w-auto object-cover rounded border "
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setForm((f: any) => ({ ...f, [key]: "" }))}
-                    className="text-red-500 text-xs"
-                  >
-                    ลบรูป
-                  </button>
-                </div>
-              )}
-
-              {/* Input อัปโหลดไฟล์ */}
-              <input
-                type="file"
-                accept="image/*"
-                className="border p-2 w-full"
-                disabled={uploadingField === key}
-                onChange={(e) => handleImageUpload(key, e.target.files?.[0])}
-              />
-              {uploadingField === key && (
-                <p className="text-xs text-gray-500 mt-1">กำลังอัปโหลด...</p>
-              )}
-            </div>
-          ) : key.startsWith("text") ? (
-            <textarea
-              className="border p-2 w-full"
-              placeholder={key}
-              value={form[key] ?? ""}
-              onChange={(e) =>
-                setForm((f: any) => ({ ...f, [key]: e.target.value }))
-              }
-            />
-          ) : (
-            <input
-              className="border p-2 w-full"
-              placeholder={key}
-              value={form[key] ?? ""}
-              onChange={(e) =>
-                setForm((f: any) => ({ ...f, [key]: e.target.value }))
-              }
-            />
-          )}
-        </div>
-      ))}
-
-      <div className="flex gap-2 mt-3">
-        <button
-          onClick={onSave}
-          disabled={!!uploadingField}
-          className="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50"
-        >
-          Save
-        </button>
-        {onCancel && (
-          <button onClick={onCancel} className="border px-4 py-2 rounded">
-            Cancel
+    <Field label={label}>
+      {value && (
+        <div className="flex items-center gap-3 mb-2">
+          <img src={value} alt="preview" className="h-20 w-auto object-cover rounded-xl border border-slate-200" />
+          <button type="button" onClick={() => onChange("")} className="text-red-500 text-xs font-medium hover:underline">
+            Remove
           </button>
-        )}
+        </div>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        disabled={uploading}
+        className={`${inputCls} file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-amsa-blue/10 file:text-amsa-blue cursor-pointer`}
+        onChange={e => handleFile(e.target.files?.[0])}
+      />
+      {uploading && <p className="text-xs text-slate-400 mt-1">กำลังอัปโหลด...</p>}
+    </Field>
+  );
+}
+
+/* ===================================================================
+   FORM COMPONENTS
+   =================================================================== */
+
+function EventForm({
+  initial, onSave, onCancel,
+}: {
+  initial: Partial<Event>;
+  onSave: (form: Omit<Event, "id" | "created_at">) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [form, setForm] = useState<Omit<Event, "id" | "created_at">>({
+    status: initial.status ?? "",
+    name_th: initial.name_th ?? "",
+    name_en: initial.name_en ?? "",
+    link: initial.link ?? "",
+    text_th: initial.text_th ?? "",
+    text_en: initial.text_en ?? "",
+    image: initial.image ?? "",
+    year: initial.year ?? "",
+  });
+  const set = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }));
+
+  return (
+    <form onSubmit={e => { e.preventDefault(); onSave(form); }} className="p-8 space-y-6">
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Status">
+          <select value={form.status ?? ""} onChange={e => set("status", e.target.value)} className={inputCls}>
+            <option value="Active">Active</option>
+            <option value="Upcoming">Upcoming</option>
+            <option value="Past">Past</option>
+          </select>
+        </Field>
+        <Field label="Year">
+          <input type="text" value={form.year} onChange={e => set("year", e.target.value)} className={inputCls} placeholder="2025" required />
+        </Field>
       </div>
-    </div>
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Name (EN)">
+          <input type="text" value={form.name_en} onChange={e => set("name_en", e.target.value)} className={inputCls} required />
+        </Field>
+        <Field label="Name (TH)">
+          <input type="text" value={form.name_th} onChange={e => set("name_th", e.target.value)} className={inputCls} required />
+        </Field>
+      </div>
+      <ImageUploadField
+        label="Event Image"
+        value={form.image ?? ""}
+        onChange={url => set("image", url)}
+        bucket="events-images"
+      />
+      <Field label="Registration Link">
+        <input type="text" value={form.link ?? ""} onChange={e => set("link", e.target.value)} className={inputCls} />
+      </Field>
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Text (EN)">
+          <textarea value={form.text_en ?? ""} onChange={e => set("text_en", e.target.value)} className={`${inputCls} h-32`} />
+        </Field>
+        <Field label="Text (TH)">
+          <textarea value={form.text_th ?? ""} onChange={e => set("text_th", e.target.value)} className={`${inputCls} h-32`} />
+        </Field>
+      </div>
+      <FormFooter onCancel={onCancel} saveLabel="Save Event" />
+    </form>
+  );
+}
+
+function ContentForm({
+  initial, onSave, onCancel,
+}: {
+  initial: Partial<Content>;
+  onSave: (form: Omit<Content, "id" | "created_at">) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [form, setForm] = useState<Omit<Content, "id" | "created_at">>({
+    img_head: initial.img_head ?? "",
+    head: initial.head ?? "",
+    detail: initial.detail ?? "",
+    word: initial.word ?? "",
+    author: initial.author ?? "",
+  });
+  const set = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }));
+
+  return (
+    <form onSubmit={e => { e.preventDefault(); onSave(form); }} className="p-8 space-y-6">
+      <Field label="Headline">
+        <input type="text" value={form.head} onChange={e => set("head", e.target.value)} className={inputCls} required />
+      </Field>
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Author">
+          <input type="text" value={form.author ?? ""} onChange={e => set("author", e.target.value)} className={inputCls} />
+        </Field>
+      </div>
+      <ImageUploadField
+        label="Main Image"
+        value={form.img_head ?? ""}
+        onChange={url => set("img_head", url)}
+        bucket="contents-images"
+      />
+      <Field label="Short Detail (Teaser)">
+        <textarea value={form.detail ?? ""} onChange={e => set("detail", e.target.value)} className={`${inputCls} h-20`} />
+      </Field>
+      <Field label="Full Content (Markdown or Text)">
+        <textarea value={form.word ?? ""} onChange={e => set("word", e.target.value)} className={`${inputCls} h-64`} />
+      </Field>
+      <FormFooter onCancel={onCancel} saveLabel="Save Article" />
+    </form>
+  );
+}
+
+function TeamForm({
+  initial, onSave, onCancel,
+}: {
+  initial: Partial<Team>;
+  onSave: (form: Omit<Team, "id" | "created_at">) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [form, setForm] = useState<Omit<Team, "id" | "created_at">>({
+    name_en: initial.name_en ?? "",
+    name_th: initial.name_th ?? "",
+    desc_en: initial.desc_en ?? "",
+    desc_th: initial.desc_th ?? "",
+    link: initial.link ?? "",
+    category: initial.category ?? "main",
+    order_num: initial.order_num ?? 1,
+  });
+  const set = (k: keyof typeof form, v: any) => setForm(f => ({ ...f, [k]: v }));
+
+  return (
+    <form onSubmit={e => { e.preventDefault(); onSave(form); }} className="p-8 space-y-6">
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Name (EN)">
+          <input type="text" value={form.name_en} onChange={e => set("name_en", e.target.value)} className={inputCls} required />
+        </Field>
+        <Field label="Name (TH)">
+          <input type="text" value={form.name_th} onChange={e => set("name_th", e.target.value)} className={inputCls} required />
+        </Field>
+      </div>
+      <div className="grid grid-cols-2 gap-6">
+        <Field label="Category">
+          <select value={form.category} onChange={e => set("category", e.target.value as "main" | "sub")} className={inputCls}>
+            <option value="main">Main</option>
+            <option value="sub">Sub</option>
+          </select>
+        </Field>
+        <Field label="Order">
+          <input type="number" value={form.order_num} onChange={e => set("order_num", Number(e.target.value))} className={inputCls} min={1} />
+        </Field>
+      </div>
+      <Field label="Description (EN)">
+        <textarea value={form.desc_en} onChange={e => set("desc_en", e.target.value)} className={`${inputCls} h-24`} />
+      </Field>
+      <Field label="Description (TH)">
+        <textarea value={form.desc_th} onChange={e => set("desc_th", e.target.value)} className={`${inputCls} h-24`} />
+      </Field>
+      <Field label="Link">
+        <input type="text" value={form.link} onChange={e => set("link", e.target.value)} className={inputCls} />
+      </Field>
+      <FormFooter onCancel={onCancel} saveLabel="Save Team" />
+    </form>
+  );
+}
+
+function PartnerForm({
+  initial, onSave, onCancel,
+}: {
+  initial: Partial<Partner>;
+  onSave: (form: Omit<Partner, "id" | "created_at">) => Promise<void>;
+  onCancel: () => void;
+}) {
+  const [form, setForm] = useState<Omit<Partner, "id" | "created_at">>({
+    name: initial.name ?? "",
+    logo_url: initial.logo_url ?? "",
+  });
+  const set = (k: keyof typeof form, v: string) => setForm(f => ({ ...f, [k]: v }));
+
+  return (
+    <form onSubmit={e => { e.preventDefault(); onSave(form); }} className="p-8 space-y-6">
+      <Field label="Partner Name">
+        <input type="text" value={form.name} onChange={e => set("name", e.target.value)} className={inputCls} required />
+      </Field>
+      <ImageUploadField
+        label="Partner Logo"
+        value={form.logo_url}
+        onChange={url => set("logo_url", url)}
+        bucket="partner-logos"
+      />
+      <FormFooter onCancel={onCancel} saveLabel="Save Partner" />
+    </form>
   );
 }
